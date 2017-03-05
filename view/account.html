@@ -1,0 +1,57 @@
+<section class="content">
+    <div class="box box-default" ng-class="{'loading': page.isLoading}">
+        <div class="box-header">
+            <h3 class="box-title">修改密码</h3>
+        </div>
+        <div class="box-body">
+            <form name="form">
+                <div class="box-data margin-bottom addon-right padding">
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="input-group require">
+                                <span class="input-group-addon">原密码</span>
+                                <input type="password" name="oldPassword" class="form-control col-xs-9" ng-model="data.oldPassword" placeholder="请输入原密码" required>
+                            </div>
+                        </div>
+                        <!-- <div class="col-sm-6" ng-show="form.oldPassword.$dirty && !data.oldPassword">
+                            <div class="input-group require">
+                                <span class="input-group-error">请输入原密码</span>
+                            </div>
+                        </div> -->
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="input-group require">
+                                <span class="input-group-addon vt">新密码</span>
+                                <input type="password" name="newPassword" class="form-control col-xs-9" ng-model="data.newPassword" placeholder="请输入新密码" ng-pattern="/^[^\s]{6,16}$/" required>
+                                <em>密码由6-16位字母（区分大小写）、数字或除空格外的符号组成。</em>
+                            </div>
+                        </div>
+                        <div class="col-sm-6" ng-show="!empty('newPassword') && form.newPassword.$invalid">
+                            <div class="input-group require">
+                                <span class="input-group-error">请输入正确格式密码</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="input-group require">
+                                <span class="input-group-addon">确认新密码</span>
+                                <input type="password" name="newPasswordConfirm" class="form-control col-xs-9" ng-model="data.newPasswordConfirm" placeholder="请确认新密码" ng-pattern="/^[^\s]{6,16}$/" required>
+                            </div>
+                        </div>
+                        <div class="col-sm-6" ng-show="!empty('newPasswordConfirm') && ( data.newPasswordConfirm != data.newPassword)">
+                            <div class="input-group require">
+                                <span class="input-group-error">两次输入的密码不一致</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="box-footer">
+                    <button class="btn btn-normal" ng-click="save()" ng-disabled="form.$invalid || data.newPasswordConfirm != data.newPassword">保存</button>
+                    <a class="btn btn-op" ng-back>返回</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</section>

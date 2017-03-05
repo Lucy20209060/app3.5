@@ -1,0 +1,288 @@
+<style type="text/css">
+    .date-select .date-picker {
+        width: 100%;
+    }
+    .add-span {
+        display: inline-block;
+        width: 21px;
+        height: 21px;
+        border: 1px solid #fff;
+        background: #419acd;
+        color: #fff;
+        cursor: pointer;
+        border-radius: 50%;
+    }
+    .add-span i {
+        margin-left: 5px;
+        margin-top: 4px;
+    }
+    .input-div {
+        padding: 6px 12px;
+        font-size: 14px;
+    }
+    /*.overflow-modal {
+        max-height: 800px;
+        overflow-y: scroll;
+    }*/
+    .border-top-botttom {
+        border-top: 1px solid #d2d6de;
+        border-bottom: 1px solid #d2d6de;
+    }
+    .box-tab {
+        margin: 20px 0;
+    }
+    .replace-input {
+        padding: 6px 12px;
+        font-size: 14px;
+    }
+</style>
+<section class="content">
+    <div class="box box-default" ng-class="{'loading': isLoading}" st-table="data" st-pipe="list">
+        <div class="box-header">
+            <h3 class="box-title">航班设置</h3>
+            <nr-breadcrumb></nr-breadcrumb>  
+        </div>
+        <!-- /.box-header -->
+        <div class="box-body">
+            <div class="box-operation box-tab">
+                <a class="btn btn-normal" href="/cross_border/flight_setting/logistic_list">快递交接单</a>
+                <a class="btn btn-op" href="/cross_border/flight_setting/order_list">订单</a>
+            </div>
+            <div class="box-filter margin-bottom">
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="input-group">
+                            <span class="input-group-addon">仓库</span>
+                            <select class="form-control col-xs-9" ng-model="paras.search.warehouseCode" ng-options="v.key as v.value for v in config.wareHouse"></select>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="input-group">
+                            <span class="input-group-addon">快递交接单号</span>
+                            <input type="text" class="form-control col-xs-9" ng-model="paras.search.handoverNo" placeholder="请输入快递交接单号">
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="input-group">
+                            <span class="input-group-addon">快递公司</span>
+                            <select class="form-control col-xs-9" ng-model="paras.search.logisticsCode" ng-options="v.key as v.value for v in config.logisticsCom"></select>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="input-group">
+                            <span class="input-group-addon">创建时间</span>
+                            <div class="box-select">
+                                <label>
+                                    <input type="radio" ng-model="paras.searchQuickDate" name="date" value="" ng-change="setDateRange()" />
+                                    <span>全部</span>
+                                </label>
+                                <label>
+                                    <input type="radio" ng-model="paras.searchQuickDate" value='0' ng-change="setDateRange()" />
+                                    <span>今天</span>
+                                </label>
+                                <label>
+                                    <input type="radio" ng-model="paras.searchQuickDate" value='1' ng-change="setDateRange()" />
+                                    <span>昨天</span>
+                                </label>
+                                <label>
+                                    <input type="radio" ng-model="paras.searchQuickDate" value='7' ng-change="setDateRange()" />
+                                    <span>最近7天</span>
+                                </label>
+                                <label>
+                                    <input type="radio" ng-model="paras.searchQuickDate" value='30' ng-change="setDateRange()" />
+                                    <span>最近30天</span>
+                                </label>
+                                <label>
+                                    <i class="fa fa-calendar date-icon"></i>
+                                    <input date-range-picker class="form-control date-picker" type="text" ng-model="paras.searchDate" options="config.date_range_options" />
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="input-group">
+                            <span class="input-group-addon">状　态</span>
+                            <div class="box-select">
+                                <label ng-repeat="v in config.status">
+                                    <input type="radio" value={{v.key}} ng-model="paras.search.state" />
+                                    <span>{{v.value}}</span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>      
+
+                <div>
+                    <button class="btn btn-normal" st-action>查询</button>
+                    <button class="btn btn-op" ng-click="reset()">重置</button>
+                </div>
+            </div>
+            <!-- 功能操作区 -->
+            <div class="box-operation">
+                <div class="operation-wrap">
+                    <button class="btn btn-normal" batch-op="{'data':data , 'title':'注意', filter: {state:0}, 'select': 'handoverNo', 'content':'确定将选中快递交接单进行航班设置','callback':openAdd}">航班设置</button>
+                </div>
+                <div class="operation-quick">
+                    <button class="btn btn-op"><i class="fa fa-download fa-only"></i></button>
+                    <button class="btn btn-op" custom-fields="config.fields"><i class="fa fa-gear fa-only"></i></button>
+                </div>
+            </div>
+
+            <div class="box-data">
+                <table class="table table-bordered table-striped" ng-table-check>
+                    <thead>
+                        <tr>
+                            <th>
+                                <label>
+                                    <input type="checkbox" ng-model="paras.checkall"> 
+                                    <i></i> 
+                                </label> 
+                            </th>
+                            <th ng-repeat="row in config.fields | filter: {display:true}" st-sort="{{row.key | snake}}" st-sort-enable="{{row.sort}}">{{row.value}}</th>
+                        </tr>
+                    </thead>
+                    <tbody ng-if="!data.length">
+                        <tr>
+                            <td class="nodata" colspan="{{config.fields | count: {display:true} }}">
+                                <span>暂无数据</span>
+                            </td>
+                        </tr>
+                    </tbody>
+                    <tbody ng-if="data.length">
+                        <tr ng-repeat="row in data">
+                            <td>
+                                <label>
+                                    <input type="checkbox" ng-model="row.checked"> 
+                                    <i></i> 
+                                </label> 
+                            </td>
+                            <td ng-repeat="field in config.fields | filter:{display:true}">
+                                <a ng-if="field.key=='handoverNo'" href="/cross_border/flight_setting_{{row['state']}}/logistics/{{row.handoverNo}}/{{row.logisticsCode}}/{{row.warehouseCode}}/0">{{row[field.key]}}</a>
+                                <span ng-if="field.key!='handoverNo' && field.key!='state'">{{row[field.key]}}</span>
+                                <span ng-if="field.key=='state'">{{config.set_status[row[field.key]]}}</span>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div class="box-page row" ng-show="data.length">
+                    <div class="col-sm-5 page-info">
+                        <label>共 <span ng-bind="paras.pageCount"></span> 条 每页显示
+                            <select class="input-sm" ng-model="paras.pageSize" ng-options="id for id in config.page_size_options"></select>
+                        </label>
+                    </div>
+                    <div class="col-sm-7">
+                        <div class="table-page" st-pagination="" st-items-by-page="paras.pageSize"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- /.box-body -->
+    </div>
+</section>
+
+<!-- 航班设置弹框 -->
+<script type="text/ng-template" id="example.html">
+    <div class="modal fade in" style="display:block;">
+        <div class="modal-dialog">
+            <div class="modal-content overflow-modal">
+                <div class="modal-header">
+                    <button type="button" class="close" ng-click="close(false)"><span aria-hidden="true">×</span></button>
+                    <h4 class="modal-title">航班设置</h4>
+                </div>
+                <form name="form">
+                    <div class="modal-body box-default select-box">
+                        <div class="row box-data no-margin">
+                            <div class="col-sm-12 no-padding margin-bottom">
+                                <div class="input-group">
+                                    <span class="input-group-addon">选择的装车单号</span>
+                                    <div class="col-xs-9 replace-input" ng-bind="data.param.handoverNos"></div>
+                                    <input type="hidden" ng-model="data.param.handoverNos">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="border-top-botttom">
+                            <div class="row box-data no-margin">
+                                <div class="col-sm-6">
+                                    <div class="input-group require">
+                                        <span class="input-group-addon">运输方式</span>
+                                        <select class="form-control" ng-model="data.param.carrierWay" required ng-options="v.key as v.value for v in data.carrierWay"></select>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="input-group require">
+                                        <span class="input-group-addon">航班号/车牌号</span>
+                                        <input type="text" class="form-control col-xs-9" ng-model="data.param.flightNumber" required placeholder="请输入航班号/车牌号" ng-maxlength="50">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row box-data no-margin">
+                                <div class="col-sm-6">
+                                    <div class="input-group require">
+                                        <span class="input-group-addon">主运单号</span>
+                                        <input type="text" class="form-control col-xs-9" ng-model="data.param.mainNumber" required placeholder="请输入主运单号">
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="input-group require">
+                                        <span class="input-group-addon">目的港</span>
+                                        <select class="form-control" ng-model="data.param.destinationPort" required ng-options="v.key as v.value for v in data.destinationPort"></select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row box-data no-margin">
+                                <div class="col-sm-12">
+                                    <div class="input-group require">
+                                        <span class="input-group-addon">航班号起飞时间/汽车出发时间</span>
+                                        <!-- <input type="text" class="form-control col-xs-9" required ng-model="data.param.flightTime"> -->
+                                        <input type="text" class="form-control col-xs-9" datetime-picker="yyyy-MM-dd HH:mm:ss" ng-model="data.param.flightTime" is-open="data.isStart" ng-focus="data.openCalendar($event, data, 0)" required">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row box-data no-margin">
+                                <div class="col-sm-12">
+                                    <div class="input-group require">
+                                        <span class="input-group-addon">航班号落地时间/汽车到达时间</span>
+                                        <!-- <input type="text" class="form-control col-xs-9" required ng-model="data.param.landingTime"> -->
+                                        <input type="text" class="form-control col-xs-9" datetime-picker="yyyy-MM-dd HH:mm:ss" ng-model="data.param.landingTime" is-open="data.isEnd" ng-focus="data.openCalendar($event, data, 1)" required">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row box-data no-margin">
+                            <div class="col-sm-6">
+                                <div class="input-group require">
+                                    <span class="input-group-addon">托盘编码</span>
+                                    <input type="text" class="form-control col-xs-9" required ng-model="data.param.saucerCode" placeholder="请输入托盘编码" ng-maxlength="50">
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="input-group require">
+                                    <span class="input-group-addon">托盘重量（KG）</span>
+                                    <input type="text" class="form-control col-xs-9" name="saucerWeight" required ng-model="data.param.saucerWeight" placeholder="请输入托盘重量（KG）" ng-maxlength="18" ng-pattern="/^\d+(?:.\d{1,3})?$/">
+                                    <span style="color:red" ng-show="form.saucerWeight.$dirty && form.saucerWeight.$invalid ">
+                                        <span ng-show="form.saucerWeight.$error">不超过18位数字，最多3位小数</span>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- <div class="row box-data no-margin">
+                            <div class="input-group text-left no-padding">
+                                <span class="input-group-addon" ng-click="addSaucer()"><span class="add-span"><i class="fa fa-plus"></i></span></span>
+                            </div>
+                        </div> -->
+                    </div>
+                    <div class="modal-footer text-center">
+                        <button class="btn btn-primary pull-center" ng-click="close(true)" ng-disabled="form.$invalid">确定</button>
+                        <button class="btn btn-default pull-center" ng-click="close(false)">取消</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</script>

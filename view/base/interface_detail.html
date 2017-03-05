@@ -1,0 +1,341 @@
+<style type="text/css">
+    .select-box .dropdown {
+        margin-left: 0;
+        width: 100%;
+    }
+
+    .select-box .btn-default {
+        background-color: #fff;
+    }
+
+    .select-box .ui-select-container .dropdown-menu {
+        border: 1px solid #428bca;
+        border-top: none;
+        border-radius: 0;
+        padding: 0;
+    }
+
+    .select-box .box-default .btn {
+        font-size: 12px;
+        padding: 6px 12px;
+    }
+
+    .modal-body.select-box .box-data .input-group-addon {
+        min-width: 96px;
+    }
+
+    /*树*/
+    .tree-box {
+        border: 1px solid #eee;
+        height: 480px;
+        padding: 0;
+    }
+
+    .tree-box .left {
+        border-right: 1px solid #eee;
+        height: 100%; padding:0;
+    }
+
+    .tree-box .right {
+        height: 100%;
+        overflow-y: auto;
+    }
+    .add-span {
+        display: inline-block;
+        width: 21px;
+        height: 21px;
+        border: 1px solid #fff;
+        background: #419acd;
+        color: #fff;
+        cursor: pointer;
+        border-radius: 50%;
+    }
+    .add-span i {
+        margin-left: 5px;
+        margin-top: 4px;
+    }
+    .input-margin-bottom {
+        margin-bottom: 10px!important;
+    }
+</style>
+<section class="content">
+    <div class="box box-default" ng-class="{'loading': isLoading}" st-table="data" st-pipe="list">
+        <div class="box-header">
+            <h3 class="box-title" ng-bind="page.title"></h3>
+            <nr-breadcrumb></nr-breadcrumb>
+        </div>
+        <!-- /.box-header -->
+        <div class="box-body">
+            <form name="form" class="form">
+                <div class="box-data addon-right">
+                    <div class="row margin-bottom">
+                        <div class="col-sm-4 no-padding-left">
+                            <div class="input-group require">
+                                <span class="input-group-addon">接口名称</span>
+                                <div class="select-box">
+                                    <input type="text" class="form-control col-xs-9" ng-model="data.interfaceConfig.interfaceName" ng-maxlength="100" name="interfaceName" required placeholder="请输入接口名称" >
+                                    <span style="color:red"  ng-show="form.interfaceName.$dirty && form.interfaceName.$invalid ">
+                                        <span ng-show="form.interfaceName.$error">不超过100位</span>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-4 no-padding-left">
+                            <div class="input-group require">
+                                <span class="input-group-addon">接口类型</span>
+                                <div class="suggest-box">
+                                    <select class="form-control" ng-model="data.interfaceConfig.interfaceType" required ng-options="v.key as v.value for v in config.interfaceType"></select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row margin-bottom">
+                        <div class="col-sm-4 no-padding-left">
+                            <div class="input-group require">
+                                <span class="input-group-addon">有效</span>
+                                <div class="suggest-box radio-combo">
+                                    <label>
+                                        <input type="radio" class="nr-radio" name="enabled" ng-model="data.interfaceConfig.enabled" value="1" required>是
+                                    </label>
+                                    <label>
+                                        <input type="radio" class="nr-radio" name="enabled" ng-model="data.interfaceConfig.enabled" value="2" required>否
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row margin-bottom">
+                        <div class="col-sm-4 no-padding-left">
+                            <div class="input-group require">
+                                <span class="input-group-addon">接口方向</span>
+                                <div class="select-box">
+                                    <select class="form-control" ng-model="data.interfaceConfig.direction" required ng-options="v.key as v.value for v in config.direction"></select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-4 no-padding-left">
+                            <div class="input-group require">
+                                <span class="input-group-addon">业务名称</span>
+                                <div class="select-box">
+                                    <input type="text" class="form-control col-xs-9" ng-model="data.interfaceConfig.businessType" required placeholder="请输入业务名称" ng-maxlength="30" name="businessType">
+                                    <span style="color:red"  ng-show="form.businessType.$dirty && form.businessType.$invalid ">
+                                        <span ng-show="form.businessType.$error">不超过30位</span>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row margin-bottom">
+                        <div class="col-sm-4 no-padding-left">
+                            <div class="input-group require">
+                                <span class="input-group-addon">目标系统</span>
+                                <div class="suggest-box">
+                                    <input type="text" class="form-control col-xs-9" ng-model="data.interfaceConfig.toSystem" required placeholder="请输入目标系统" ng-maxlength="30" name="toSystem">
+                                    <span style="color:red"  ng-show="form.toSystem.$dirty && form.toSystem.$invalid ">
+                                        <span ng-show="form.toSystem.$error">不超过30位</span>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-4 no-padding-left">
+                            <div class="input-group require">
+                                <span class="input-group-addon">来源系统</span>
+                                <div class="suggest-box">
+                                    <input type="text" class="form-control col-xs-9" ng-model="data.interfaceConfig.fromSystem" required placeholder="请输入来源系统" ng-maxlength="30" name="fromSystem">
+                                    <span style="color:red"  ng-show="form.fromSystem.$dirty && form.fromSystem.$invalid ">
+                                        <span ng-show="form.fromSystem.$error">不超过30位</span>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row margin-bottom">
+                        <div class="col-sm-4 no-padding-left">
+                            <div class="input-group require">
+                                <span class="input-group-addon">最大处理次数</span>
+                                <div class="suggest-box">
+                                    <input type="number" name="maxTime" class="form-control col-xs-9" ng-model="data.interfaceConfig.handleMaxNum" required ng-pattern="/^[0-9]+$/">
+                                </div>
+                                <span style="color:red"  ng-show="form.maxTime.$dirty && form.maxTime.$invalid ">
+                                    <span ng-show="form.maxTime.$error">只能输入数字</span>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="col-sm-4 no-padding-left">
+                            <div class="input-group require">
+                                <span class="input-group-addon">优先级</span>
+                                <div class="suggest-box">
+                                    <select class="form-control" ng-model="data.interfaceConfig.priority" required ng-options="v.key as v.value for v in config.priority"></select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row margin-bottom">
+                        <div class="col-sm-4 no-padding-left">
+                            <div class="input-group">
+                                <span class="input-group-addon">目标地址</span>
+                                <div class="suggest-box">
+                                    <input type="text" class="form-control col-xs-9" ng-model="data.interfaceConfig.targetUrl" placeholder="请输入目标地址" ng-maxlength="200" name="targetUrl">
+                                    <span style="color:red"  ng-show="form.targetUrl.$dirty && form.targetUrl.$invalid ">
+                                        <span ng-show="form.targetUrl.$error">不超过200位</span>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-4 no-padding-left">
+                            <div class="input-group">
+                                <span class="input-group-addon">通知地址</span>
+                                <div class="suggest-box">
+                                    <input type="text" class="form-control col-xs-9" ng-model="data.interfaceConfig.notifyUrl" placeholder="请输入通知地址" ng-maxlength="200" name="notifyUrl">
+                                    <span style="color:red"  ng-show="form.notifyUrl.$dirty && form.notifyUrl.$invalid ">
+                                        <span ng-show="form.notifyUrl.$error">不超过200位</span>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- 接口属性以及树 -->
+                <section class="content interface">
+                    <div class="box box-default" ng-class="{'loading': isLoading}">
+                        <div class="box-header">
+                            <h3 class="box-title">接口属性</h3>
+                        </div>
+                        <div class="box-body">
+                            <div class="box-filter">
+                                <button class="btn btn-normal" ng-click='create($event, 0)'>新增同级节点</button>
+                                <button class="btn btn-success" ng-disabled="data.level>=2" ng-click='create($event, 1)'>新增下级节点</button>
+                                <button class="btn btn-op" ng-click='remove($event)'>&nbsp;&nbsp;删除节点&nbsp;&nbsp;</button>
+                            </div>
+
+                            <div class="box-data addon-right">
+                                <div class="tree-box">
+                                    <div class="col-md-4 left tree">
+                                        <div class="form-group header">
+                                            <div class="box-data-title">
+                                                <span>报文列表</span>
+                                            </div>
+                                        </div>
+                                        <!-- <tree-radio tree-model="interface" node-id='ids' node-label="dataField" tree-parms="parms"/> -->
+                                        <ul>
+                                            <li class="parent_li" ng-repeat="cat in interface">
+                                                <span>
+                                                    <i ng-if="cat.children && cat.children.length" class="fa fa-lg" ng-class="{'fa-plus-circle': cat.collapsed,'fa-minus-circle': !cat.collapsed}" ng-show="cat.children.length" ng-click="cat.collapsed = !cat.collapsed"></i>
+                                                    <label>
+                                                        <input type="radio" ng-click="select(cat.ids)" ng-checked="cat.ids == parms.ids" name="interface" /> {{cat.dataField}}
+                                                    </label>
+                                                </span>
+                                                <ul ng-if="cat.children" ng-hide="cat.collapsed">
+                                                    <li class="parent_li" ng-repeat="subcat in cat.children">
+                                                        <span>
+                                                            <label>
+                                                                <input type="radio" name="interface" ng-click="select(subcat.ids)" ng-checked="subcat.ids == parms.ids" /> {{subcat.dataField}}
+                                                            </label>
+                                                        </span>
+                                                        <ul ng-if="subcat.children" ng-hide="subcat.collapsed">
+                                                            <li class="parent_li" ng-repeat="trdcat in subcat.children">
+                                                                <span>
+                                                                    <label>
+                                                                        <input type="radio" name="interface" ng-click="select(trdcat.ids)" ng-checked="trdcat.ids == parms.ids" /> {{trdcat.dataField}}
+                                                                    </label>
+                                                                </span>
+                                                                <ul ng-if="trdcat.children" ng-hide="trdcat.collapsed">
+                                                                    <li class="parent_li" ng-repeat="forth in trdcat.children">
+                                                                        <span>
+                                                                            <label>
+                                                                                <input type="radio" name="interface" ng-click="select(forth.ids)" ng-checked="forth.ids == parms.ids" /> {{forth.dataField}}
+                                                                            </label>
+                                                                        </span>
+                                                                        <ul ng-if="forth.children" ng-hide="forth.collapsed">
+                                                                            <li class="parent_li" ng-repeat="fifth in forth.children">
+                                                                                <span>
+                                                                                    <label>
+                                                                                        <input type="radio" name="interface" ng-click="select(fifth.ids)" ng-checked="fifth.ids == parms.ids" /> {{fifth.dataField}}
+                                                                                    </label>
+                                                                                </span>
+                                                                            </li>
+                                                                        </ul>
+                                                                    </li>
+                                                                </ul>
+                                                            </li>
+                                                        </ul>
+                                                    </li>
+                                                </ul>
+                                            </li>
+                                        </ul>
+                                        <!-- <div class="form-group header">
+                                            <div class="box-data-title">
+                                                <span>回执报文</span>
+                                            </div>
+                                        </div> -->
+                                    </div>
+
+                                    <div class="col-md-8 right">
+                                        <div class="box-data-title">
+                                            <span>节点详情</span>
+                                        </div>
+                                        <div class="row margin-bottom">
+                                            <div class="input-group col-sm-8">
+                                                <span class="input-group-addon">属性名称</span>
+                                                <input type="text" name="dataName" class="form-control col-xs-6" ng-model="parms.dataName" placeholder="请输入属性名称" ng-maxlength="30">
+                                            </div>
+                                        </div>
+                                        <div class="row margin-bottom">
+                                            <div class="input-group col-sm-8">
+                                                <span class="input-group-addon">属性字段</span>
+                                                <input type="text" class="form-control col-xs-6" ng-model="parms.dataField" placeholder="请输入属性字段" ng-pattern="/^[a-zA-Z0-9_]{1,}$/" ng-maxlength="30" name="dataField">
+                                                <span style="color:red"  ng-show="form.dataField.$dirty && form.dataField.$invalid ">
+                                                    <span ng-show="form.dataField.$error">请输入30位以内的英文或数字</span>
+                                                </span>
+                                            </div>
+                                        </div>
+                                        <div class="row margin-bottom">
+                                            <div class="input-group col-sm-8">
+                                                <span class="input-group-addon">数据类型</span>
+                                                <select class="form-control col-xs-9" ng-model="parms.dataType" ng-options="v.code as v.code for v in config.dataTypes"></select>
+                                            </div>
+                                        </div>
+                                        <div class="row margin-bottom">
+                                            <div class="input-group col-sm-8">
+                                                <span class="input-group-addon">是否允许映射</span>
+                                                <div class="checkbox-combo col-xs-6">
+                                                    <label>
+                                                        <input type="radio" name="map" class="nr-radio" name="parms.allowMapping" ng-model="parms.allowMapping" value="1">是
+                                                    </label>
+                                                    <label>
+                                                        <input type="radio" name="map" class="nr-radio" name="parms.allowMapping" ng-model="parms.allowMapping" value="0">否
+                                                    </label>
+                                                </div>
+                                                <span class="input-group-addon">是否允许内容配置</span>
+                                                <div class="checkbox-combo col-xs-6">
+                                                    <label>
+                                                        <input type="radio" name="content" class="nr-radio" name="parms.isContentSetting" ng-model="parms.isContentSetting" value="1">是
+                                                    </label>
+                                                    <label>
+                                                        <input type="radio" name="content" class="nr-radio" name="parms.isContentSetting" ng-model="parms.isContentSetting" value="0">否
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row margin-bottom" ng-if="parms.isContentSetting">
+                                            <div class="input-group col-sm-8">
+                                                <span class="input-group-addon">系统值</span>
+                                                <input type="text" class="form-control col-xs-6 input-margin-bottom" ng-model="v.contentVal" placeholder="系统值" ng-repeat="v in parms.contentVos">
+                                                <div><span class="add-span" ng-click="addItem($event)"><i class="fa fa-plus"></i></span></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <div class="box-footer">
+                    <button class="btn btn-normal" ng-click="update('0')" ng-disabled="form.$invalid">保存</button>
+                    <a class="btn btn-op" ng-back>取消</a>
+                </div>
+            </form>
+        </div>
+        <!-- /.box-body -->
+    </div>
+</section>

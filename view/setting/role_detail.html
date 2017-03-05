@@ -1,0 +1,71 @@
+<!--
+    reruin@gmail.com
+    08/08/2016
+    角色管理视图
+-->
+<section class="content">
+    <div class="box box-default" ng-class="{'loading': page.isLoading}" st-table="data" st-pipe="sort">
+        <div class="box-header">
+            <h3 class="box-title" ng-bind="page.title"></h3>
+            <nr-breadcrumb></nr-breadcrumb>    
+        </div>
+        <div class="box-body">
+            <form name='form'>
+            <div class="box-data addon-sm padding">
+                <div class="row">
+                    <div class="col-sm-4">
+                        <div class="input-group require">
+                            <span class="input-group-addon">角色名称</span>
+                            <input type="text" class="form-control col-xs-9" ng-model="data.name" required placeholder="请输入角色名称">
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="input-group require">
+                            <span class="input-group-addon">状  态</span>
+                            <div class="radio-combo col-xs-9">
+                                <label>
+                                    <input type="radio" class="nr-radio" ng-model="data.isValid" value='1' required>有效</label>
+                                <label>
+                                    <input type="radio" class="nr-radio" ng-model="data.isValid" value="0" required>无效</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row split">
+                    <div class="col-sm-8">
+                        <div class="input-group">
+                            <span class="input-group-addon">备注信息</span>
+                            <textarea class="form-control col-xs-9" placeholder="请输入角色描述" ng-model="data.remark">
+                            </textarea>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-8">
+                        <div class="input-group">
+                            <span class="input-group-addon">当前权限</span>
+                            <div class="tree-box">
+                                <div class="col-md-6 left tree">
+                                    <nr-tree tree-model="data.rolePersissionsVOs" node-id='id' node-label="name" />
+                                </div>
+
+                                <div class="col-md-6 right">
+                                    <ul>
+                                        <li ng-repeat="row in data.rolePersissionsVOs | flat | filter:{checked:true}">
+                                        <span>{{ row.tail.join(' > ') }}</span><a ng-click="row.checked=!row.checked;"><i class="fa fa-fw fa-close"></i></a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="box-footer">
+                <button class="btn btn-normal" ng-click="save()" ng-disabled="form.$invalid">保存</button>
+                <a class="btn btn-op" ng-back>取消</a>
+            </div>
+            </form>
+        </div>
+    </div>
+    <!--  | flat | filter:{checked:true} -->
+</section>

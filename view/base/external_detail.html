@@ -1,0 +1,58 @@
+<!--warehouse_detail-->
+<section class="content">
+    <div class="box box-default" st-table="data" st-pipe="list">
+        <div class="box-header">
+            <h3 class="box-title" ng-show="isEdit">编辑</h3>
+            <h3 class="box-title" ng-show="!isEdit">新增</h3>
+            <nr-breadcrumb></nr-breadcrumb>
+        </div>
+        <!-- /.box-header -->
+        <div class="box-body box-data  addon-right">
+            <form name='form'>
+                <div class="highlight row">
+                    <div class="col-md-4">
+                        <div class="input-group margin-bottom require">
+                            <span class="input-group-addon">系统编码</span>
+                            <input ng-model="data.systemCode" type="text" ng-maxlength="30" class="form-control" required/>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="input-group require">
+                            <span class="input-group-addon">系统名称</i></span>
+                            <input ng-model="data.systemName" class="form-control" required/>
+                        </div>
+                    </div>
+                </div>
+                <div class="highlight row">
+                    <div class="col-md-4">
+                        <div class="input-group margin-bottom require">
+                            <span class="input-group-addon">系统类型</span>
+                            <select class="form-control" ng-model="data.systemType" ng-options="v.code as v.name for v in config.system"></select>
+                            <span style="color:red" ng-show="form.systemType.$dirty && form.systemType.$invalid ">
+                                <span ng-show="form.systemType.$error">请选择系统类型，不可为空</span>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="col-md-4" ng-show="isEdit">
+                        <div class="input-group">
+                            <span class="input-group-addon">APP_KEY</span>
+                            <input type="text" class="form-control col-xs-5" ng-model="data.appKey" placeholder="" disabled>
+                        </div>
+                    </div>
+                </div>
+                <div class="highlight row">
+                    <div class="col-md-8">
+                        <div class="input-group margin-bottom">
+                            <span class="input-group-addon">备注</span>
+                            <textarea ng-model="data.memo" class="form-control" />
+                        </div>
+                    </div>
+                </div>
+                <div class="box-footer">
+                    <button class="btn btn-normal" ng-disabled="form.$invalid || " ng-click="updateExternal()">保存</button>
+                    <a class="btn btn-default" href="/base/external">返回</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</section>

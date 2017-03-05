@@ -1,0 +1,370 @@
+"shopCompanyWarehouseInfo": [
+{
+"shopName": "东莞小店铺a",
+"shopCode": "DGXA",
+"warehouseCode": "DG",
+"warehouseName": "沙田仓",
+"companyName": "测试-002",
+"companyCode": "aa001"
+},
+{
+"shopName": "ddd",
+"shopCode": "11111",
+"warehouseCode": "NB",
+"warehouseName": "宁波仓",
+"companyName": "测试-002",
+"companyCode": "aa001"
+},
+{
+"shopName": "test1",
+"shopCode": "code001",
+"warehouseCode": "NB",
+"warehouseName": "宁波仓",
+"companyName": "test9",
+"companyCode": "liu009"
+},
+{
+"shopName": "test2",
+"shopCode": "code002",
+"warehouseCode": "NB",
+"warehouseName": "宁波仓",
+"companyName": "test9",
+"companyCode": "liu009"
+},
+{
+"shopName": "testrtysfgdfg",
+"shopCode": "code008",
+"warehouseCode": "NB",
+"warehouseName": "宁波仓",
+"companyName": "test7",
+"companyCode": "liu007"
+},
+{
+"shopName": "test",
+"shopCode": "code",
+"warehouseCode": "NB",
+"warehouseName": "宁波仓",
+"companyName": "test7",
+"companyCode": "liu007"
+},
+{
+"shopName": "aasss1",
+"shopCode": "saaasss",
+"warehouseCode": "NB",
+"warehouseName": "宁波仓",
+"companyName": "aaa",
+"companyCode": "aaa"
+},
+{
+"shopName": "ghjgh",
+"shopCode": "fdgh",
+"warehouseCode": "NB",
+"warehouseName": "宁波仓",
+"companyName": "fgj",
+"companyCode": "hjkhjk"
+},
+{
+"shopName": "ghj",
+"shopCode": "gvjh",
+"warehouseCode": "NB",
+"warehouseName": "宁波仓",
+"companyName": "fgj",
+"companyCode": "hjkhjk"
+},
+{
+"shopName": "ghjk",
+"shopCode": "ghjk",
+"warehouseCode": "NB",
+"warehouseName": "宁波仓",
+"companyName": "北京新世纪",
+"companyCode": "NEW-AGE"
+},
+{
+"shopName": "美迪惠尔",
+"shopCode": "19721",
+"warehouseCode": "NB",
+"warehouseName": "宁波仓",
+"companyName": "海豚村fgh",
+"companyCode": "haituncun"
+},
+{
+"shopName": "ghj",
+"shopCode": "fghj",
+"warehouseCode": "NB",
+"warehouseName": "宁波仓",
+"companyName": "海豚村fgh",
+"companyCode": "haituncun"
+},
+{
+"shopName": "www",
+"shopCode": "www",
+"warehouseCode": "NB",
+"warehouseName": "宁波仓",
+"companyName": "wwww",
+"companyCode": "wwww"
+},
+{
+"shopName": "环球宝贝海外专营店",
+"shopCode": "19988",
+"warehouseCode": "NB",
+"warehouseName": "宁波仓",
+"companyName": "环球宝贝海外专营店",
+"companyCode": "hqbb"
+},
+{
+"shopName": "dfsgdf",
+"shopCode": "sefgtds",
+"warehouseCode": "NB",
+"warehouseName": "宁波仓",
+"companyName": "qwewq",
+"companyCode": "wetre"
+},
+{
+"shopName": "sdfgs",
+"shopCode": "gsdfg",
+"warehouseCode": "NB",
+"warehouseName": "宁波仓",
+"companyName": "asdfsad",
+"companyCode": "sdgdfg"
+},
+{
+"shopName": "sdfg",
+"shopCode": "sdfg",
+"warehouseCode": "NB",
+"warehouseName": "宁波仓",
+"companyName": "asdfsad",
+"companyCode": "sdgdfg"
+},
+{
+"shopName": "供销盛汇",
+"shopCode": "17827",
+"warehouseCode": "NB",
+"warehouseName": "宁波仓",
+"companyName": "供销盛汇",
+"companyCode": "SHG"
+},
+{
+"shopName": "测试店铺",
+"shopCode": "18998",
+"warehouseCode": "NB",
+"warehouseName": "宁波仓",
+"companyName": "测试",
+"companyCode": "test001"
+},
+{
+"shopName": "CQCS",
+"shopCode": "CQCS",
+"warehouseCode": "CQ",
+"warehouseName": "重庆仓",
+"companyName": "测试-002",
+"companyCode": "aa001"
+},
+{
+"shopName": "杭州旗舰店",
+"shopCode": "ylw00001",
+"warehouseCode": "CQ",
+"warehouseName": "重庆仓",
+"companyName": "ylwtest01",
+"companyCode": "ylw00001"
+},
+{
+"shopName": "重庆旗舰店",
+"shopCode": "重庆旗舰店",
+"warehouseCode": "CQ",
+"warehouseName": "重庆仓",
+"companyName": "ylwtest01",
+"companyCode": "ylw00001"
+},
+{
+"shopName": "12",
+"shopCode": "是的",
+"warehouseCode": "CQ",
+"warehouseName": "重庆仓",
+"companyName": "ylwtest04",
+"companyCode": "ylw00004"
+},
+{
+"shopName": "12",
+"shopCode": "12",
+"warehouseCode": "CQ",
+"warehouseName": "重庆仓",
+"companyName": "ylwtest04",
+"companyCode": "ylw00004"
+},
+{
+"shopName": "心动1店",
+"shopCode": "ylw10002",
+"warehouseCode": "CQ",
+"warehouseName": "重庆仓",
+"companyName": "ylwtest02",
+"companyCode": "ylw00002"
+},
+{
+"shopName": "心动2店",
+"shopCode": "ylw10003",
+"warehouseCode": "CQ",
+"warehouseName": "重庆仓",
+"companyName": "ylwtest02",
+"companyCode": "ylw00002"
+},
+{
+"shopName": "心动3店",
+"shopCode": "ylw10004",
+"warehouseCode": "CQ",
+"warehouseName": "重庆仓",
+"companyName": "ylwtest02",
+"companyCode": "ylw00002"
+},
+{
+"shopName": "心动4店",
+"shopCode": "ylw10005",
+"warehouseCode": "CQ",
+"warehouseName": "重庆仓",
+"companyName": "ylwtest02",
+"companyCode": "ylw00002"
+},
+{
+"shopName": "重庆小店铺a",
+"shopCode": "CQXA",
+"warehouseCode": "CQ",
+"warehouseName": "重庆仓",
+"companyName": "重庆大店铺A",
+"companyCode": "CQDA"
+},
+{
+"shopName": "重庆小店铺c",
+"shopCode": "CQXC",
+"warehouseCode": "CQ",
+"warehouseName": "重庆仓",
+"companyName": "重庆大店铺A",
+"companyCode": "CQDA"
+},
+{
+"shopName": "asd",
+"shopCode": "sad",
+"warehouseCode": "NB",
+"warehouseName": "宁波仓",
+"companyName": "rwer34",
+"companyCode": "gdsfg456"
+},
+{
+"shopName": "asd",
+"shopCode": "asd",
+"warehouseCode": "NB",
+"warehouseName": "宁波仓",
+"companyName": "rwer34",
+"companyCode": "gdsfg456"
+},
+{
+"shopName": "asd",
+"shopCode": "sad",
+"warehouseCode": "NB",
+"warehouseName": "宁波仓",
+"companyName": "rwer34",
+"companyCode": "gdsfg456"
+},
+{
+"shopName": "zxc",
+"shopCode": "zxc",
+"warehouseCode": "NB",
+"warehouseName": "宁波仓",
+"companyName": "rwer34",
+"companyCode": "gdsfg456"
+},
+{
+"shopName": "sdf",
+"shopCode": "sdf",
+"warehouseCode": "DG",
+"warehouseName": "沙田仓",
+"companyName": "rwer34",
+"companyCode": "gdsfg456"
+},
+{
+"shopName": "sdf",
+"shopCode": "sdf",
+"warehouseCode": "NB",
+"warehouseName": "宁波仓",
+"companyName": "rwer34",
+"companyCode": "gdsfg456"
+},
+{
+"shopName": "34534534",
+"shopCode": "fsdfd",
+"warehouseCode": "NB",
+"warehouseName": "宁波仓",
+"companyName": "rwer34",
+"companyCode": "gdsfg456"
+},
+{
+"shopName": "45rfgt",
+"shopCode": "asdfsdf",
+"warehouseCode": "NB",
+"warehouseName": "宁波仓",
+"companyName": "rwer34",
+"companyCode": "gdsfg456"
+},
+{
+"shopName": "wertew",
+"shopCode": "2345235",
+"warehouseCode": "NB",
+"warehouseName": "宁波仓",
+"companyName": "rwer34",
+"companyCode": "gdsfg456"
+},
+{
+"shopName": "sdf",
+"shopCode": "df",
+"warehouseCode": "NB",
+"warehouseName": "宁波仓",
+"companyName": "rwer34",
+"companyCode": "gdsfg456"
+},
+{
+"shopName": "sd",
+"shopCode": "sdf",
+"warehouseCode": "NB",
+"warehouseName": "宁波仓",
+"companyName": "rwer34",
+"companyCode": "gdsfg456"
+},
+{
+"shopName": "东莞香港",
+"shopCode": "00852",
+"warehouseCode": "DG",
+"warehouseName": "沙田仓",
+"companyName": "东莞香港",
+"companyCode": "00852"
+},
+{
+"shopName": "sdaf",
+"shopCode": "asd",
+"warehouseCode": "NB",
+"warehouseName": "宁波仓",
+"companyName": "wwww",
+"companyCode": "wwww"
+},
+{
+"shopName": "retre",
+"shopCode": "23rt",
+"warehouseCode": "NB",
+"warehouseName": "宁波仓",
+"companyName": "测试-002",
+"companyCode": "aa001"
+},
+{
+"shopName": "纽凌",
+"shopCode": "NL1",
+"warehouseCode": "DG",
+"warehouseName": "沙田仓",
+"companyName": "纽凌",
+"companyCode": "niuling"
+},
+{
+"shopName": "能容鑫通",
+"shopCode": "NRXT",
+"warehouseCode": "CQ",
+"warehouseName": "重庆仓",
+"companyName": "能容鑫通",
+"companyCode": "NRXT"
+}
+]

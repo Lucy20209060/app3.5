@@ -1,0 +1,223 @@
+<!--warehouse_detail-->
+<section class="content">
+    <div class="box box-default" st-table="data" st-pipe="list">
+        <div class="box-header">
+            <!--<h3 class="box-title" ng-bind="title"></h3>-->
+            <h3 class="box-title" ng-show="isEdit">编辑仓库</h3>
+            <h3 class="box-title" ng-show="!isEdit">新增仓库</h3>
+            <nr-breadcrumb></nr-breadcrumb>
+        </div>
+        <!-- /.box-header -->
+        <div class="box-body box-data  addon-right">
+            <form name='form'>
+                <div class="highlight row">
+                    <div class="col-md-4">
+                        <div class="input-group margin-bottom require">
+                            <span class="input-group-addon">仓库名称</span>
+                            <input ng-model="data.name" type="text" class="form-control" required/>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="input-group require">
+                            <span class="input-group-addon">仓库编码</i></span>
+                            <input ng-model="data.code" class="form-control" required/>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="input-group require">
+                            <span class="input-group-addon">类型</i></span>
+                            <select class="form-control" ng-model="data.warehouseType" ng-options="v.value as v.name for v in config.warehouseTypes" required></select>
+                        </div>
+                    </div>
+                </div>
+                <div class="highlight row">
+                    <div class="col-md-4">
+                        <div class="input-group margin-bottom require">
+                            <span class="input-group-addon">仓库所属公司</span>
+                            <input ng-model="data.wcCode" name="wcCode" type="text" class="form-control" required ng-maxlength="50"/>
+                            <span style="color:red"  ng-show="form.wcCode.$dirty && form.wcCode.$invalid ">
+                                <span ng-show="form.wcCode.$error">字符长度限制为50位</span>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="input-group require">
+                            <span class="input-group-addon">WMS编码</i></span>
+                            <input ng-model="data.wmsCode" type="text" class="form-control" required/>
+                        </div>
+                    </div>
+                    <div class="col-sm-4 no-padding-left">
+                        <div class="input-group require radio-combo require">
+                            <span class="input-group-addon">仓库状态</span>
+                            <label>
+                                <input type="radio" name="isValid" class="nr-radio" ng-model="data.isValid" value="1" required>激活
+                            </label>
+                            <label class="radio-combo">
+                                <input type="radio" name="isValid" class="nr-radio" ng-model="data.isValid" value="0" required>禁用
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <div class="highlight row">
+                    <div class="col-md-4">
+                        <div class="input-group margin-bottom require">
+                            <span class="input-group-addon">海关关区</span>
+                            <select class="form-control" ng-model="data.ccaCode" ng-options="v.key as v.value for v in config.area" required></select>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="input-group margin-bottom">
+                            <span class="input-group-addon">补货规则</span>
+                            <input ng-model="data.replenishRule" type="text" class="form-control"/>
+                        </div>
+                    </div>
+                </div>
+                <div class="highlight row">
+                     <div class="col-md-8">
+                         <div class="input-group margin-bottom">
+                            <span class="input-group-addon">仓库说明</span>
+                             <textarea ng-model="data.remark" class="form-control" />
+                         </div>
+                     </div>
+                 </div>
+                 <div class="row margin-bottom">
+                    <div class="col-sm-3">
+                        <div class="input-group">
+                            <span class="input-group-addon">邮编</span>
+                            <input ng-model="data.zipCode" name="zipCode" type="text" class="form-control" ng-pattern="/^[1-9][0-9]{5}$/">
+                            <span style="color:red"  ng-show="form.zipCode.$dirty && form.zipCode.$invalid ">
+                                <span ng-show="form.zipCode.$error">请输入合法的6位邮编</span>
+                            </span>
+                        </div>
+                        
+                    </div>
+                    <div class="col-sm-3">
+                        <div class="input-group">
+                            <span class="input-group-addon">国家</span>
+                            <input ng-model="data.country" type="text" class="form-control"/>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 no-padding-left">
+                        <div class="input-group">
+                            <span class="input-group-addon">所在地区</span>
+                            <div class="col-sm-4 no-padding">
+                                <select class="form-control" ng-model="data.province" ng-options="v.areaname as v.areaname for v in config.province" ng-change="getCities(0)"></select>
+                            </div>
+                            <div class="col-sm-4 no-padding">
+                                <select class="form-control" ng-model="data.city" ng-options="v.areaname as v.areaname for v in config.city" ng-change="getCities(1)"></select>
+                            </div>
+                            <div class="col-sm-4 no-padding">
+                                <select class="form-control" ng-model="data.district" ng-options="v.areaname as v.areaname for v in config.dist"></select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row margin-bottom">
+                    <div class="col-sm-12">
+                        <div class="input-group">
+                            <span class="input-group-addon">详细地址</span>
+                            <div class="select-box">
+                                <input type="text" class="form-control col-xs-9" name="address" ng-model="data.address" placeholder="请输入详细地址"  ng-maxlength="200"/>
+                                <span style="color:red"  ng-show="form.address.$dirty && form.address.$invalid ">
+                                    <span ng-show="form.address.$error">字符长度限制为200位</span>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="box-data addon-right">
+                    <div class="box-data-title">
+                        <span>联系人信息</span>
+                        <span ng-click="addContact($event)"><i class="fa fa-plus"></i>添加联系人</span>
+                    </div>
+                    <div ng-repeat="row in data.contactsInfoListVO">
+                        <div class="row margin-bottom">
+                            <div class="col-sm-3 no-padding-left">
+                                <div class="input-group">
+                                    <span class="input-group-addon">联系人类型</span>
+                                    <div class="select-box">
+                                        <input type="text" name="conType{{$index}}" class="form-control col-xs-9" ng-model="row.conType" placeholder="请输入联系人类型" ng-maxlength="20">
+                                    </div>
+                                    <span style="color:red"  ng-show="form.conType{{$index}}.$dirty && form.conType{{$index}}.$invalid ">
+                                        <span ng-show="form.conType{{$index}}.$error">只能输入20位</span>
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="col-sm-3 no-padding-left">
+                                <div class="input-group">
+                                    <span class="input-group-addon">联系人</span>
+                                    <div class="select-box">
+                                        <input type="text" name="name{{$index}}" class="form-control col-xs-9" ng-model="row.name" placeholder="请输入联系人" ng-maxlength="20">
+                                    </div>
+                                    <span style="color:red" ng-show="form.name{{$index}}.$dirty && form.name{{$index}}.$invalid ">
+                                        <span ng-show="form.name{{$index}}.$error">只能输入20位</span>
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="col-sm-3 no-padding-left">
+                                <div class="input-group">
+                                    <span class="input-group-addon">手机号码</span>
+                                    <div class="select-box">
+                                        <input type="tel" name="telephone{{$index}}" class="form-control col-xs-9" ng-model="row.telephone" placeholder="请输入手机号码" ng-maxlength="11" ng-pattern="/^(0|86|17951)?(13[0-9]|15[012356789]|17[678]|18[0-9]|14[57])[0-9]{8}$/">
+                                    </div>
+                                    <span style="color:red" ng-show="form.telephone{{$index}}.$dirty && form.telephone{{$index}}.$invalid ">
+                                        <span ng-show="form.telephone{{$index}}.$error">请输入合法的11位手机号码</span>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row margin-bottom">
+                            <div class="col-sm-3 no-padding-left">
+                                <div class="input-group">
+                                    <span class="input-group-addon">固定电话</span>
+                                    <div class="suggest-box">
+                                        <input type="text" name="mobilePhone{{$index}}" class="form-control col-xs-9" ng-model="row.mobilePhone" placeholder="请输入固定电话" ng-maxlength="20" ng-pattern="/^[0-9]{1,20}$/">
+                                    </div>
+                                    <span style="color:red" ng-show="form.mobilePhone{{$index}}.$dirty && form.mobilePhone{{$index}}.$invalid ">
+                                        <span ng-show="form.mobilePhone{{$index}}.$error">最多只能输入20位数字</span>
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="col-sm-3 no-padding-left">
+                                <div class="input-group">
+                                    <span class="input-group-addon">传真</span>
+                                    <div class="select-box">
+                                        <input type="text" name="fax{{$index}}" class="form-control col-xs-9" ng-model="row.fax" placeholder="请输入传真" ng-maxlength="20" ng-pattern="/^[0-9]{1,20}$/">
+                                    </div>
+                                    <span style="color:red"  ng-show="form.fax{{$index}}.$dirty && form.fax{{$index}}.$invalid ">
+                                        <span ng-show="form.fax{{$index}}.$error">最多只能输入20位数字</span>
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="col-sm-3 no-padding-left">
+                                <div class="input-group">
+                                    <span class="input-group-addon">邮箱地址</span>
+                                    <div class="select-box">
+                                        <input type="email" name="email{{$index}}" class="form-control col-xs-9" ng-model="row.email" placeholder="请输入邮箱地址" ng-pattern="/^([a-zA-Z0-9_\.\-])+\@([a-zA-Z0-9\-])+\.([a-zA-Z0-9]{0,8})$/">
+                                    </div>
+                                    <span style="color:red"  ng-show="form.email{{$index}}.$dirty && form.email{{$index}}.$invalid ">
+                                        <span ng-show="form.email{{$index}}.$error">请输入合法的邮箱地址</span>
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="col-sm-3 no-padding-left">
+                                <div class="input-group">
+                                    <span class="input-group-addon"></span>
+                                    <div class="select-box">
+                                        <button class="btn btn-normal" ng-click="removeContact($event, $index)"><i class="fa fa-close"></i>删除</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="box-footer">
+                    <button class="btn btn-normal" ng-disabled="form.$invalid" ng-click="updateWarehouse()">保存</button>
+                    <a class="btn btn-default" href="/base/warehouse">返回</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</section>

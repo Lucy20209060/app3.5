@@ -1,0 +1,110 @@
+<section class="content">
+    <div class="box box-default" ng-class="{'loading': page.isLoading}" st-table="data" st-pipe="list">
+        <div class="box-header">
+            <h3 class="box-title">备案商品查询</h3>
+            <div class="dropdown" uib-dropdown ng-show="page.customs">
+                <a class="dropdown-toggle" data-toggle="dropdown" uib-dropdown-toggle>
+                    <!--<span >选择海关</span><span class="caret"></span>-->
+                    <span ng-bind="page.hgName"></span><span class="caret"></span>
+                </a>
+                <ul class="dropdown-menu" uib-dropdown-menu="" role="menu" aria-labelledby="btn-append-to-single-button">
+                    <li ng-repeat='row in page.customs'><a ng-click="changeCustom(row.key)" st-action>{{row.value}}</a></li>
+                </ul>
+            </div>
+            <nr-breadcrumb></nr-breadcrumb>
+        </div>
+        <!-- /.box-header -->
+        <div class="box-body">
+            <div class="box-filter margin-bottom">
+                <div class="row">
+                    <div class="col-sm-4">
+                        <div class="input-group">
+                            <span class="input-group-addon">货号</span>
+                            <input type="text" class="form-control col-xs-9" ng-model="page.search.productId" placeholder="请输入货号">
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="input-group">
+                            <span class="input-group-addon">商品名</span>
+                            <input type="text" class="form-control col-xs-9" ng-model="page.search.name" placeholder="请输入商品中文名">
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="input-group">
+                            <span class="input-group-addon">商品条码</span>
+                            <input type="text" class="form-control col-xs-9" ng-model="page.search.barCode" placeholder="请输入商品条码">
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="input-group">
+                            <span class="input-group-addon">状态</span>
+                            <div class="box-select">
+                                <label ng-repeat="v in page.status">
+                                    <input type="radio" name="status" value={{v.key}} ng-model="page.search.status" />
+                                    <span>{{v.value}}</span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <button class="btn btn-normal" st-action>查询</button>
+                    <button class="btn btn-op" ng-click="reset()">重置</button>
+                </div>
+            </div>
+            <!-- 功能操作区 -->
+            <div class="box-operation">
+                <div class="operation-wrap">
+                    <a href="/cross_border/goods_record/{{page.search.hgCode | lowercase}}/create" class="btn btn-normal"><i class="fa fa-plus"></i>新增</a>
+                    <button ng-if="page.hgName == '重庆海关'" class="btn btn-op" batch-op="{'data':data ,'title':'注意','content':'确定将选中数据推送至海关？', 'callback':toCustom}"><i class="fa fa-send-o"></i>推送海关</button>
+                    <button ng-if="page.hgName == '宁波海关'" class="btn btn-op" batch-op="{'data':data ,'select':'productId','title':'注意','content':'此操作将更新备案商品，是否继续？', 'callback':updateGoods}">更新备案商品</button>
+                    <!-- 16/11/15 评估到风险，暂时关闭推送国际物流按钮 -->
+                    <!-- <button ng-if="page.hgName == '宁波海关'" class="btn btn-op" batch-op="{'data':data ,'title':'注意','content':'确定将选中数据推送至国际物流？', 'callback':toInternational}">推送国际物流</button> -->
+                </div>
+                <div class="operation-quick">
+                    <button class="btn btn-op " custom-fields="page.fields"><i class="fa fa-gear fa-only"></i></button>
+                </div>
+            </div>
+            <div class="box-data">
+                <table class="table table-bordered table-striped" ng-table-check>
+                    <thead>
+                        <tr>
+                            <th><label><input type="checkbox" ng-model="paras.checkall" class="minimal-green hide"/><i class="fa"></i></label></th>
+                            <th ng-repeat="row in page.fields | filter: {display:true}" st-sort="{{row.key | snake}}" st-sort-enable="{{row.sort}}">{{row.value}}</th>
+                        </tr>
+                    </thead>
+                    <tbody ng-if="!data.length">
+                        <tr>
+                            <td class="nodata" colspan="{{page.fields + 1 | count: {display:true} }}">
+                                <span>暂无数据</span>
+                            </td>
+                        </tr>
+                    </tbody>
+                    <tbody ng-if="data.length">
+                        <tr ng-repeat="row in data">
+                            <td><label><input type="checkbox" ng-model="row.checked" class="minimal-green hide"/><i class="fa"></i></label></td>
+
+                            <td ng-repeat="field in page.fields | filter:{display:true}">
+                                <a ng-if="field.key=='productId'" href="/cross_border/goods_record/{{page.search.hgCode | lowercase}}/{{row.id}}">{{row[field.key]}}</a>
+                                <span ng-if="field.key!='productId'">{{row[field.key]}}</span>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div class="box-page row" ng-show="data.length">
+                    <div class="col-sm-5 page-info">
+                        <label>共 <span ng-bind="page.pageCount"></span> 条 每页显示
+                            <select class="input-sm" ng-model="page.search.pageSize" ng-options="id for id in page.page_size_options"></select>
+                        </label>
+                    </div>
+                    <div class="col-sm-7">
+                        <div class="table-page" st-pagination="" st-items-by-page="page.search.pageSize" st-display-page='page.search.pageNum'></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- /.box-body -->
+    </div>
+</section>

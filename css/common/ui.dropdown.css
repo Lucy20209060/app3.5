@@ -1,0 +1,82 @@
+.ui-dropdown {
+  display: inline-block;
+  position: relative;
+}
+.ui-dropdown .dd-toggle {
+  height: 32px;
+  line-height: 30px;
+  padding: 0 30px 0 10px;
+  min-width: 80px;
+  outline: none;
+  color: #555;
+  word-wrap: normal;
+  cursor: pointer;
+  border: 1px solid #d2d6de;
+  // border-radius: 3px 0 0 3px;
+  display: inline-block;
+  vertical-align: middle;
+  // background: #f1f5fd;
+}
+.ui-dropdown .dd-toggle:after {
+  content: "\f107";
+  display: inline-block;
+  font: normal normal normal 14px/1 FontAwesome;
+  font-size: inherit;
+  text-rendering: auto;
+  -webkit-font-smoothing: antialiased;
+  position: absolute;
+  right: 10px;
+  top: 0;
+  height: 32px;
+  line-height: 32px;
+}
+.ui-dropdown .dd-menu {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  z-index: 1000;
+  display: none;
+  width: 100%;
+  margin: 0;
+  font-size: 12px;
+  text-align: left;
+  list-style: none;
+  background-color: #fff;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  border-radius: 0 0 3px 3px;
+  border-top: 0;
+  box-shadow: 0 0 3px rgba(0, 0, 0, 0.2);
+}
+.ui-dropdown.open .dd-menu {
+  display: block;
+}
+.ui-dropdown.open .dd-menu li {
+  cursor: pointer;
+  line-height: 32px;
+}
+.ui-dropdown.open .dd-menu li a {
+  display: block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  word-wrap: normal;
+  color: #333;
+  padding: 0 10px;
+}
+.ui-dropdown.open .dd-menu li a:hover,
+.ui-dropdown.open .dd-menu li.active a {
+  color: #3c8dbc;
+  background: #eee;
+}
+.ui-dropdown.light .dd-toggle {
+  border: none;
+  background: none;
+  color: inherit;
+  height: auto;
+  line-height: inherit;
+  padding: inherit;
+}
+.ui-dropdown.light ul li {
+  font-weight: normal;
+}
+

@@ -1,0 +1,363 @@
+<style type="text/css">
+.permission .box-filter{ padding:10px 0 15px 0; }
+.tree-box {
+    border: 1px solid #eee;
+    height: 548px;
+    padding:0;
+}
+
+.tree-box .header{
+    height:48px; margin-bottom: 0;
+}
+
+.tree-box .left {
+    border-right: 1px solid #eee;
+    height: 100%; padding:0;
+}
+
+.tree-box .left .header{
+    background: #f5f5f5;
+    padding:5px;
+    position: relative;
+}
+.tree-box .left .header .fa{
+    position: absolute;display: block;
+    top: 0;
+    right: 0;
+    height:48px;width:48px;line-height: 48px;color:#555;
+    text-align: center;
+}
+
+.tree-box .left>ul
+{
+    overflow-y: auto;
+    height: 500px;
+    padding:0 10px ;
+}
+.tree-box .right {
+    height: 100%;
+    overflow-y: auto;
+}
+.tree-box .right .header{
+    padding:0 5px;
+    border-bottom: 1px solid #ddd;
+}
+
+.tree-box .right ul {
+    padding-left: 0;
+}
+
+.tree-box .right li {
+    list-style: none;
+    padding: 0 1em;
+    border: 1px solid #ddd;
+    margin: 10px 0;
+    color: #666;
+    position: relative;
+    height: 32px;
+    line-height: 30px;
+}
+
+.tree-box .right li a {
+    position: absolute;
+    right: 0px;
+    top: 0;
+    width: 30px;
+    height: 30px;
+    display: block;
+    text-align: center;
+    cursor: pointer;
+}
+
+.tree-box .right li:hover {
+    border-color: #138ed4;
+    color: #138ed4;
+}
+
+.tree-box .right li:hover a {
+    color: #fff;
+    background-color: #138ed4;
+}
+
+.tree-box .right .header{ font-size:15px; line-height: 48px; }
+.tree {
+    min-height: 20px;
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    border-radius: 4px
+}
+
+.tree input[type=checkbox] {
+    appearance: none;
+    -moz-appearance: none;
+    /* Firefox */
+    -webkit-appearance: none;
+    /* Safari 和 Chrome */
+    /*display: inline-block;*/
+    outline: none;
+}
+
+.tree input[type=checkbox]:after {
+    /*position: absolute;*/
+    font-family: 'FontAwesome';
+    content: "\f096";
+    color: #ddd;
+    font-size: 1.3em;
+}
+
+.tree input[type=checkbox]:checked:after {
+    color: #138ed4;
+    content: "\f046";
+}
+
+.tree label {
+    margin-bottom: 0;
+    margin-left: 5px;
+}
+
+.tree .fa-lg {
+    font-size: 1.5em;
+    vertical-align: 0;
+}
+
+.tree li {
+    list-style-type: none;
+    margin: 0;
+    padding: 5px;
+    position: relative
+}
+
+.tree ul ul li:hover {
+    background: rgba(0, 0, 0, .015)
+}
+
+.tree li:after,
+.tree li:before {
+    content: '';
+    left: -20px;
+    position: absolute;
+    right: auto
+}
+
+.tree li:before {
+    border-left: 1px solid #999;
+    bottom: 50px;
+    height: 100%;
+    top: -11px;
+    width: 1px;
+    -webkit-transition: "border-color 0.1s ease 0.1s";
+    -moz-transition: "border-color 0.1s ease 0.1s";
+    -o-transition: "border-color 0.1s ease 0.1s";
+    transition: "border-color 0.1s ease 0.1s"
+}
+
+.tree li:after {
+    border-top: 1px solid #999;
+    height: 20px;
+    top: 18px;
+    width: 25px
+}
+
+
+/*最外层不需线条*/
+
+.tree>ul>li::after,
+.tree>ul>li:before {
+    border: 0;
+}
+
+.tree li span {
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    border: 1px dotted #999;
+    border-radius: 5px;
+    display: inline-block;
+    padding: 3px 8px;
+    text-decoration: none;
+    -webkit-transition: color .2s ease .1s, background-color .2s ease .1s, border-color .3s ease .2s;
+    -moz-transition: color .2s ease .1s, background-color .2s ease .1s, border-color .3s ease .2s;
+    -o-transition: color .2s ease .1s, background-color .2s ease .1s, border-color .3s ease .2s;
+    transition: color .2s ease .1s, background-color .2s ease .1s, border-color .3s ease .2s
+}
+
+.tree li.parent_li>span {
+    cursor: pointer;
+    padding: 7px
+}
+
+.tree>ul>li::after,
+.tree>ul>li:before {
+    border: 0
+}
+
+.tree li:last-child::before {
+    height: 30px
+}
+
+.tree li.parent_li>span:hover,
+
+/*.tree li.parent_li.select>span,*/
+
+.tree li.parent_li>span:hover+ul li span
+/*.tree li.parent_li.select>span+ul li span*/
+
+{
+    background: #eee;
+    border: 1px solid #94a0b4;
+    color: #fff;
+}
+
+.tree li.parent_li>span:hover label
+/*.tree li.parent_li.select>span label*/
+
+{
+    color: #fff;
+}
+
+.tree>ul {
+    padding-left: 0
+}
+
+.tree ul ul {
+    padding-left: 34px;
+    padding-top: 10px
+}
+
+.tree li.parent_li>span:hover {
+    background-color: #DF8505;
+    border: 1px solid #C67605;
+    color: #fff
+}
+
+.tree li.parent_li>span:hover+ul li::before {
+    border-left-color: #F89406
+}
+
+.tree li.parent_li>span:hover+ul li::after {
+    border-top-color: #F89406
+}
+
+.tree li.parent_li>span:hover+ul li span {
+    background: #FDDFB3!important;
+    border: 1px solid #FAA937;
+    color: #000
+}
+
+.tree .fa.icon-minus-sign:before {
+    content: "\f056"!important
+}
+
+.tree .fa.icon-plus-sign:before {
+    content: "\f055"!important
+}
+
+.permission .right .row {
+    margin: 20px 0;
+    font-size: 14px;
+}
+
+.permission .input-group-addon {
+    font-size: 13px;
+}
+</style>
+<section class="content permission">
+    <div class="box box-default" ng-class="{'loading': isLoading}" st-table="data" st-pipe="sort">
+        <div class="box-header">
+            <h3 class="box-title">权限管理</h3>
+            <nr-breadcrumb></nr-breadcrumb>
+        </div>
+        <div class="box-body">
+            <div class="box-filter">
+                <button class="btn btn-normal" ng-click='create(0)'>新增同级权限</button>
+                <button class="btn btn-success" ng-disabled="data.level>=2" ng-click='create(1)'>新增下级权限</button>
+                <button class="btn btn-op" ng-confirm="{title:'提示',content:'确定删除权限吗？',callback:remove}">&nbsp;&nbsp;删除权限&nbsp;&nbsp;</button>
+            </div>
+            <div class="box-data addon-right">
+                <form name="form">
+                <div class="tree-box">
+                    <div class="col-md-4 left tree">
+                        <div class="form-group header">
+                          <input type="text" class="form-control " placeholder="输入权限名称" ng-model="page.query" tree-change="{src:page.permission , dist:permission}">
+                          <span class="fa fa-search"></span>
+                        </div>
+                        <ul>
+                            <li class="parent_li" ng-repeat="cat in permission">
+                                <span>
+                                    <i ng-if="cat.children && cat.children.length" class="fa fa-lg" ng-class="{'fa-plus-circle': cat.collapsed,'fa-minus-circle': !cat.collapsed}" ng-show="cat.children.length" ng-click="cat.collapsed = !cat.collapsed"></i>
+                                    <label>
+                                        <input type="radio" ng-click="select(cat.id)" ng-checked="cat.id == data.id" name="permission" /> {{cat.name}}
+                                    </label>
+                                </span>
+                                <ul ng-if="cat.children" ng-hide="cat.collapsed">
+                                    <li class="parent_li" ng-repeat="subcat in cat.children |  filter:{'name':page.query}">
+                                        <span>
+                                        <label>
+                                            <input type="radio" name="permission" ng-click="select(subcat.id)" ng-checked="subcat.id == data.id" /> {{subcat.name}}
+                                        </label>
+                                    </span>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="col-md-8 right">
+                        <div class="form-group header">
+                          <span ng-bind="page.title"></span>
+                        </div>
+                        <div class="row">
+                            <div class="input-group col-sm-8 require">
+                                <span class="input-group-addon">权限名称</span>
+                                <input type="text" class="form-control col-xs-6" required ng-model="data.name" placeholder="请输入权限名称">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="input-group col-sm-8">
+                                <span class="input-group-addon">权限类型</span>
+                                <select disabled class="form-control" ng-model="page.defaultPerType" ng-options="v.id as v.label for v in page.perType">
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row" ng-if="data.parentId">
+                            <div class="input-group col-sm-8 require">
+                                <span class="input-group-addon">URL</span>
+                                <input type="text" class="form-control col-xs-6" required ng-model="data.url" placeholder="请输入URL">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="input-group col-sm-8 require">
+                                <span class="input-group-addon">数据有效</span>
+                                <div class="radio-combo col-xs-9">
+                                    <label>
+                                        <input type="radio" name="r3" class="nr-radio" ng-model="data.isValid" value='1' required>是
+                                    </label>
+                                    <label>
+                                        <input type="radio" name="r3" class="nr-radio" ng-model="data.isValid" value="0" required>否
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="input-group col-sm-8">
+                                <span class="input-group-addon">权限值</span>
+                                <div class="checkbox-combo col-xs-9">
+                                    <label ng-repeat="item in page.atom"><input type="checkbox" ng-model="item.hit"><i></i>{{item.name}}</label>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="row">
+                            <div class="input-group col-sm-8">
+                                <span class="input-group-addon">权限描述</span>
+                                <textarea class="form-control col-xs-9" placeholder="请输入权限描述" ng-model="data.remark"></textarea>
+                            </div>
+                        </div>
+                        <div class="box-footer">
+                            <button class="btn btn-normal" ng-disabled="form.$invalid" ng-click="update()">保存</button>
+                            <!-- <a class="btn btn-op">取消</a> -->
+                        </div>
+                    </div>
+                </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>

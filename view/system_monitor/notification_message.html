@@ -1,0 +1,143 @@
+<section class="content">
+    <div class="box box-default" ng-class="{'loading': isLoading}" st-table="data" st-pipe="list">
+        <div class="box-header">
+            <h3 class="box-title">通知消息</h3>
+            <nr-breadcrumb></nr-breadcrumb>  
+        </div>
+        <!-- /.box-header -->
+        <div class="box-body">
+            <div class="box-filter margin-bottom">
+                <div class="row">
+                    <!-- <div class="col-sm-6">
+                        <div class="input-group">
+                            <span class="input-group-addon">接口流水号</span>
+                            <input type="text" class="form-control col-xs-9" ng-model="paras.search.handoverNo" placeholder="请输入接口流水号">
+                        </div>
+                    </div> -->
+                    <div class="col-sm-4">
+                        <div class="input-group">
+                            <span class="input-group-addon">业务类型</span>
+                            <select class="form-control col-xs-9" ng-model="paras.search.businessType" ng-options="v.key as v.value for v in config.firmWay"></select>
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="input-group">
+                            <span class="input-group-addon">商家名称</span>
+                            <input type="text" class="form-control col-xs-9" ng-model="paras.search.customerName" placeholder="请输入商家名称">
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="input-group">
+                            <span class="input-group-addon">业务单号</span>
+                            <input type="text" class="form-control col-xs-9" ng-model="paras.search.businessNo" placeholder="请输入业务单号">
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="input-group">
+                            <span class="input-group-addon">推送时间</span>
+                            <div class="box-select">
+                                <label>
+                                    <input type="radio" ng-model="paras.searchQuickDate" name="date" value="" ng-change="setDateRange()" />
+                                    <span>全部</span>
+                                </label>
+                                <label>
+                                    <input type="radio" ng-model="paras.searchQuickDate" value='0' ng-change="setDateRange()" />
+                                    <span>今天</span>
+                                </label>
+                                <label>
+                                    <input type="radio" ng-model="paras.searchQuickDate" value='1' ng-change="setDateRange()" />
+                                    <span>昨天</span>
+                                </label>
+                                <label>
+                                    <input type="radio" ng-model="paras.searchQuickDate" value='7' ng-change="setDateRange()" />
+                                    <span>最近7天</span>
+                                </label>
+                                <label>
+                                    <input type="radio" ng-model="paras.searchQuickDate" value='30' ng-change="setDateRange()" />
+                                    <span>最近30天</span>
+                                </label>
+                                <label>
+                                    <i class="fa fa-calendar date-icon"></i>
+                                    <input date-range-picker class="form-control date-picker" type="text" ng-model="paras.searchDate" options="config.date_range_options" />
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="input-group">
+                            <span class="input-group-addon">状　态</span>
+                            <div class="box-select">
+                                <label ng-repeat="v in config.status">
+                                    <input type="radio" value={{v.key}} ng-model="paras.search.pushStatus" />
+                                    <span>{{v.value}}</span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>      
+
+                <div>
+                    <button class="btn btn-normal" st-action>查询</button>
+                    <button class="btn btn-op" ng-click="reset()">重置</button>
+                </div>
+            </div>
+            <!-- 功能操作区 -->
+            <div class="box-operation">
+                <div class="operation-wrap">
+                    <button class="btn btn-normal" batch-op="{'data':data , 'title':'注意', 'select': 'id', 'content':'确定重新推送选中单号吗？','callback':rePost}">重新推送</button>
+                </div>
+            </div>
+
+            <div class="box-data">
+                <table class="table table-bordered table-striped" ng-table-check>
+                    <thead>
+                        <tr>
+                            <th>
+                                <label>
+                                    <input type="checkbox" ng-model="paras.checkall"> 
+                                    <i></i> 
+                                </label> 
+                            </th>
+                            <th ng-repeat="row in config.fields | filter: {display:true}" st-sort="{{row.key | snake}}" st-sort-enable="{{row.sort}}">{{row.value}}</th>
+                        </tr>
+                    </thead>
+                    <tbody ng-if="!data.length">
+                        <tr>
+                            <td class="nodata" colspan="{{config.fields | count: {display:true} }}">
+                                <span>暂无数据</span>
+                            </td>
+                        </tr>
+                    </tbody>
+                    <tbody ng-if="data.length">
+                        <tr ng-repeat="row in data">
+                            <td>
+                                <label>
+                                    <input type="checkbox" ng-model="row.checked"> 
+                                    <i></i> 
+                                </label> 
+                            </td>
+                            <td ng-repeat="field in config.fields | filter:{display:true}">
+                                <span>{{row[field.key]}}</span>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div class="box-page row" ng-show="data.length">
+                    <div class="col-sm-5 page-info">
+                        <label>共 <span ng-bind="paras.pageCount"></span> 条 每页显示
+                            <select class="input-sm" ng-model="paras.pageSize" ng-options="id for id in config.page_size_options"></select>
+                        </label>
+                    </div>
+                    <div class="col-sm-7">
+                        <div class="table-page" st-pagination="" st-items-by-page="paras.pageSize"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- /.box-body -->
+    </div>
+</section>

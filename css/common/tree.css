@@ -1,0 +1,199 @@
+.tree-box {
+    border: 1px solid #eee;
+    height: 300px;
+}
+
+.tree-box .left {
+    border-right: 1px solid #eee;
+    height: 300px;
+    overflow-y: auto;
+}
+
+.tree-box .right {
+    height: 300px;
+    overflow-y: auto;
+}
+.tree-box .right ul{
+    padding-left: 0;
+}
+.tree-box .right li{
+    list-style: none;
+    padding:0 1em;
+    border:1px solid #ddd;
+    margin:10px 0;
+    color:#666;
+    position: relative;
+    height:32px;
+    line-height: 30px;
+}
+
+.tree-box .right li a{
+    position: absolute;right:0px;top:0;width:30px;height:30px;
+    display: block;text-align: center;cursor: pointer;
+}
+.tree-box .right li:hover{
+    border-color:#138ed4 ;
+    color:#138ed4;
+}
+.tree-box .right li:hover a{
+    color:#fff ;
+    background-color:#138ed4;
+}
+
+.tree {
+    min-height: 20px;
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    border-radius: 4px
+}
+
+.tree input[type=checkbox] {
+    appearance: none;
+    -moz-appearance: none;
+    /* Firefox */
+    -webkit-appearance: none;
+    /* Safari 和 Chrome */
+    /*display: inline-block;*/
+    outline: none;
+}
+
+.tree input[type=checkbox]:after {
+    /*position: absolute;*/
+    font-family: 'FontAwesome';
+    content: "\f096";
+    color: #ddd;
+    font-size: 1.3em;
+}
+
+.tree input[type=checkbox]:checked:after {
+    color: #138ed4;
+    content: "\f046";
+}
+
+.tree label {
+    margin-bottom: 0;
+    margin-left: 5px;
+}
+
+.tree .fa-lg {
+    font-size: 1.5em;
+    vertical-align: 0;
+}
+
+.tree li {
+    list-style-type: none;
+    margin: 0;
+    padding: 5px;
+    position: relative
+}
+
+.tree ul ul li:hover {
+    background: rgba(0, 0, 0, .015)
+}
+
+.tree li:after,
+.tree li:before {
+    content: '';
+    left: -20px;
+    position: absolute;
+    right: auto
+}
+
+.tree li:before {
+    border-left: 1px solid #999;
+    bottom: 50px;
+    height: 100%;
+    top: -11px;
+    width: 1px;
+    -webkit-transition: "border-color 0.1s ease 0.1s";
+    -moz-transition: "border-color 0.1s ease 0.1s";
+    -o-transition: "border-color 0.1s ease 0.1s";
+    transition: "border-color 0.1s ease 0.1s"
+}
+
+.tree li:after {
+    border-top: 1px solid #999;
+    height: 20px;
+    top: 18px;
+    width: 25px
+}
+
+
+/*最外层不需线条*/
+
+.tree>ul>li::after,
+.tree>ul>li:before {
+    border: 0;
+}
+
+.tree li span {
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    border: 1px dotted #999;
+    border-radius: 5px;
+    display: inline-block;
+    padding: 3px 8px;
+    text-decoration: none;
+    -webkit-transition: color .2s ease .1s, background-color .2s ease .1s, border-color .3s ease .2s;
+    -moz-transition: color .2s ease .1s, background-color .2s ease .1s, border-color .3s ease .2s;
+    -o-transition: color .2s ease .1s, background-color .2s ease .1s, border-color .3s ease .2s;
+    transition: color .2s ease .1s, background-color .2s ease .1s, border-color .3s ease .2s
+}
+
+.tree li.parent_li>span {
+    cursor: pointer;
+    padding: 7px
+}
+
+.tree>ul>li::after,
+.tree>ul>li:before {
+    border: 0
+}
+
+.tree li:last-child::before {
+    height: 30px
+}
+
+.tree li.parent_li>span:hover,
+.tree li.parent_li>span:hover+ul li span {
+    background: #eee;
+    border: 1px solid #94a0b4;
+    color: #000
+}
+
+.tree>ul {
+    padding-left: 0
+}
+
+.tree ul ul {
+    padding-left: 34px;
+    padding-top: 10px
+}
+
+.tree li.parent_li>span:hover {
+    background-color: #DF8505;
+    border: 1px solid #C67605;
+    color: #fff
+}
+
+.tree li.parent_li>span:hover+ul li::before {
+    border-left-color: #F89406
+}
+
+.tree li.parent_li>span:hover+ul li::after {
+    border-top-color: #F89406
+}
+
+.tree li.parent_li>span:hover+ul li span {
+    background: #FDDFB3!important;
+    border: 1px solid #FAA937;
+    color: #000
+}
+
+.tree .fa.icon-minus-sign:before {
+    content: "\f056"!important
+}
+
+.tree .fa.icon-plus-sign:before {
+    content: "\f055"!important
+}

@@ -1,0 +1,51 @@
+{
+"returnCode": 0,
+"returnMsg": "success.",
+"pageSize": 10,
+"pageNum": 1,
+"total": 13,
+"pages": 2,
+"startRow": 1,
+"endRow": 10,
+"list": [
+	{
+	"handoverNo": "19884772812",
+	"businessWay": "取消通知",
+	"customName": "海豚村",
+	"businessCode": "19884772812",
+	"messageAddr": "http:/139.929.82.113",
+	"messageInfo": "<xml>",
+	"lastMessage": "2016-10-15 20:43:31",
+	"state": "成功"
+	},
+	{
+	"handoverNo": "hand-tset-4",
+	"businessWay": "物流节点通知",
+	"customName": "海豚村",
+	"businessCode": "2016-10-14 15:21:26",
+	"messageAddr": "http:/139.929.8.123",
+	"messageInfo": "<xml>",
+	"lastMessage": "沙田",
+	"state": "重庆"
+	},
+	{
+	"handoverNo": "19884772812",
+	"businessWay": "取消通知",
+	"customName": "海豚村",
+	"businessCode": "19884772812",
+	"messageAddr": "http:/139.929.82.113",
+	"messageInfo": "<xml>",
+	"lastMessage": "2016-10-15 20:43:31",
+	"state": "成功"
+	},
+	{
+	"handoverNo": "hand-tset-4",
+	"businessWay": "物流节点通知",
+	"customName": "海豚村",
+	"businessCode": "2016-10-14 15:21:26",
+	"messageAddr": "http:/139.929.8.123",
+	"messageInfo": "<xml>",
+	"lastMessage": "沙田",
+	"state": "重庆"
+	}]
+}

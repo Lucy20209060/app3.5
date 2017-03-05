@@ -1,0 +1,115 @@
+<section class="content">
+    <div class="box box-default" ng-class="{'loading': page.isLoading}" st-table="data" st-pipe="list">
+        <div class="box-header">
+            <h3 class="box-title" ng-bind="page.title"></h3>
+            <nr-breadcrumb></nr-breadcrumb>
+        </div>
+        <div class="box-body">
+            <form name="form">
+                <div class="box-data margin-bottom addon-right padding">
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <div class="input-group require">
+                                <span class="input-group-addon">用户名</span>
+                                <input type="text" class="form-control col-xs-9" ng-model="data.account" placeholder="请输入用户名" ng-disabled="!page.isCreate">
+                            </div>
+                        </div>
+                        <div class="col-sm-4" ng-if="page.isCreate">
+                            <div class="input-group require">
+                                <span class="input-group-addon">密码</span>
+                                <input type="text" class="form-control col-xs-9" ng-model="data.password" required placeholder="请输入密码">
+                            </div>
+                        </div>
+                    </div>
+                    <div class=" row">
+                        <div class="col-sm-4">
+                            <div class="input-group require">
+                                <span class="input-group-addon">真实姓名</span>
+                                <input type="text" class="form-control col-xs-9" ng-model="data.name" placeholder="真实姓名" required>
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="input-group">
+                                <span class="input-group-addon">手机号</span>
+                                <input type="text" class="form-control col-xs-9" ng-model="data.phone" placeholder="请输入手机号">
+                            </div>
+                        </div>
+                    </div>
+                    <div class=" row">
+                        <!-- <div class="col-sm-4">
+                            <div class="input-group">
+                                <span class="input-group-addon">用户类型</span>
+                                <select class="form-control" ng-model="data.userType" ng-options="v.id as v.label for v in page.userTypeOptions">
+                                </select>
+                            </div>
+                        </div> -->
+                        <div class="col-sm-4">
+                            <div class="input-group">
+                                <span class="input-group-addon">状态</span>
+                                <div class="radio-combo col-xs-9">
+                                    <label>
+                                        <input type="radio" name="r3" class="nr-radio" ng-model="data.isValid" value='1' required>是</label>
+                                    <label>
+                                        <input type="radio" name="r3" class="nr-radio" ng-model="data.isValid" value="0" required>否</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class=" row split">
+                        <div class="col-sm-12">
+                            <div class="input-group">
+                                <span class="input-group-addon">所属角色</span>
+                                <div class="checkbox-combo col-xs-12">
+                                    <label ng-repeat="item in data.roles">
+                                        <input type="checkbox" ng-model="item.checked"><i></i>{{item.name}}
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-10">
+                            <div class="input-group">
+                                <span class="input-group-addon">组织管理</span>
+                                <div class="tree-box">
+                                    <div class="col-md-5 left tree">
+                                        <nr-tree tree-model="data.userHierarchys" node-id='id' node-label="name" />
+                                    </div>
+                                    <div class="col-md-7 right">
+                                        <ul>
+                                            <li ng-repeat="row in data.userHierarchys | flat | filter:{checked:true}">
+                                                <span>{{ row.tail.join(' > ') }}</span><a ng-click="row.checked=!row.checked;"><i class="fa fa-fw fa-close"></i></a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-sm-10">
+                            <div class="input-group">
+                                <span class="input-group-addon">用户权限</span>
+                                <div class="tree-box">
+                                    <div class="col-md-5 left tree">
+                                        <nr-tree tree-model="data.userPermissions" node-id='id' node-label="name" />
+                                    </div>
+                                    <div class="col-md-7 right">
+                                        <ul>
+                                            <li ng-repeat="row in data.userPermissions | flat | filter:{checked:true}">
+                                                <span>{{ row.tail.join(' > ') }}</span><a ng-click="row.checked=!row.checked;"><i class="fa fa-fw fa-close"></i></a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="box-footer">
+                    <button class="btn btn-normal" ng-click="save()" ng-disabled="form.$invalid">保存</button>
+                    <button class="btn btn-op" ng-click="reset()">取消</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</section>

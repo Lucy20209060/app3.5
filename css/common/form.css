@@ -1,0 +1,140 @@
+.radio-combo,
+.checkbox-combo
+{ padding-left: 0;padding-right:0; }
+.radio-combo label{
+    margin: 0;
+    vertical-align: middle;
+    padding: 0 12px;
+}
+input.nr-radio{
+    position: relative;font-size: 15px;
+    width:14px;height:14px;top:1px; margin-right: 3px;
+}
+.nr-radio:before{
+    content: " ";
+    position: absolute;
+    border: 1px solid #aaa;
+    width: 100%;
+    height: 100%;
+    border-radius: 100%;
+    background: #fff;
+
+}
+.nr-radio:checked:before{
+    border-color: #419acd;
+}
+.nr-radio:checked:after{
+    content:" ";
+    position: absolute;width:4px;height:4px;left:50%;top:50%;
+    margin-left: -2px;margin-top:-2px;
+    background: #419acd;
+    border-radius:6px;
+}
+
+.checkbox-combo label{ margin-right:8px; }
+
+
+/* checkbox */
+
+.checkbox-combo input[type=checkbox] ,
+.nr-style input[type=checkbox] 
+{
+    /*appearance: none;
+    -moz-appearance: none;*/
+    /* Firefox */
+/*    -webkit-appearance: none;*/
+    /* Safari 和 Chrome */
+    /*display: inline-block;*/
+    /*outline: none;*/
+    display: none;
+}
+
+
+.checkbox-combo input[type=checkbox]+i,
+.nr-style input[type=checkbox]+i
+ {
+    display: inline-block;
+    font: normal normal normal 14px/1 FontAwesome;
+    color: #ddd;
+    font-size: 1.3em;
+    width:18px;
+    vertical-align: bottom;
+}
+
+.checkbox-combo input[type=checkbox] + i:before,
+.nr-style input[type=checkbox] + i:before
+ {
+    content: "\f096";
+    color: #aaa;
+}
+
+
+.checkbox-combo input[type=checkbox]:checked+i:before,
+.nr-style input[type=checkbox]:checked+i:before
+ {
+    color: #138ed4;
+    content: "\f046";
+}
+
+/* override buttons*/
+
+.btn-edit,
+.btn-remove {
+    font-size: 12px;
+    padding: 4px 8px;
+    color: #fff;
+}
+
+.btn-save,
+.btn-save:focus,
+.btn-normal,
+.btn-normal:focus,
+.btn-edit,
+.btn-edit:focus {
+    background-color: #138ed4;
+    /*#3c8dbc; */
+    color: #fff;
+    /*border-radius: 0;*/
+    -webkit-box-shadow: none;
+    -moz-box-shadow: none;
+    box-shadow: none;
+    border-width: 1px;
+}
+
+.btn-save:hover,
+.btn-normal:hover,
+.btn-edit:hover {
+    background-color: #419acd;
+    color: #fff;
+}
+
+.btn-remove {
+    background-color: #999;
+}
+
+.btn-op {
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 0;
+    box-shadow: none;
+    color: #666;
+}
+
+a.btn-normal {
+    font-size: 12px;
+}
+
+a.btn-edit:hover {
+    color: #eee;
+}
+
+a.btn-remove:hover {
+    color: #eee;
+}
+
+select{
+    padding: 5px;
+}
+select option{
+    padding: 5px;
+}

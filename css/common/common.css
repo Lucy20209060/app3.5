@@ -1,0 +1,45 @@
+
+/*公共样式 common*/
+
+ul{list-style: none;padding: 0;}
+.right{float: right;}
+.left{float: left;}
+.txtR{text-align: right!important;}
+.boder-solid {border-top: 1px solid #e9e9e9;}
+.boder-dashed {border-top: 1px dashed #e9e9e9;}
+
+/*表格复选框样式更改*/
+table input[type=checkbox] + i.fa:before {
+    content: "\f096";
+    font-size: 15px;
+}
+table input[type=checkbox]:checked + i.fa:before {
+    content: "\f046";
+    color: #138ed4;
+}
+
+.table label{ margin-bottom: 0; }
+.pagination>li>span,
+.pagination>li>span:hover
+{
+
+    background: none;
+    border: none;
+    color:#666;
+}
+
+.ngn{
+    padding: 15px 80px;
+}
+
+a[disabled]{
+    pointer-events: none;
+}
+
+.input-group-addon.vt{
+    vertical-align: top;
+}
+
+.padding-top-none {
+    padding-top: 0!important;
+}

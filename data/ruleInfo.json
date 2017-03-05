@@ -1,0 +1,428 @@
+{
+	"returnCode": 0,
+	"returnMsg": "success.",
+	"returnVal": {
+		"id": 101,
+		"ruleName": "test5",
+		"ruleDesc": "asfdAEF",
+		"ruleSence": [
+			{
+				"senceName": "订单推送",
+				"display": true
+			},
+			{
+				"senceName": "订单导入",
+				"display": false
+			}
+		],
+		"ruleRange": [
+			{
+				"id": 1,
+				"name": "系统管理",
+				"code": "",
+				"url": "",
+				"level": 1,
+				"parentId": 0,
+				"orderIndex": 1,
+				"permissions": "query",
+				"isValid": 1,
+				"createTime": 1470107692000,
+				"updateTime": 1470107692000,
+				"remark": "跨境业务菜单",
+				"appSystem": "NROMS"
+			},
+			{
+				"id": 2,
+				"name": "跨境业务",
+				"code": "",
+				"url": "",
+				"level": 1,
+				"parentId": 0,
+				"orderIndex": 2,
+				"permissions": "query",
+				"isValid": 1,
+				"createTime": 1470107692000,
+				"updateTime": 1470107692000,
+				"remark": "跨境业务菜单",
+				"appSystem": "NROMS"
+			},
+			{
+				"id": 3,
+				"name": "权限管理",
+				"code": "",
+				"url": "/permission",
+				"level": 2,
+				"parentId": 1,
+				"orderIndex": 1,
+				"permissions": "query,create,delete,update",
+				"isValid": 1,
+				"createTime": 1470107692000,
+				"updateTime": 1470107692000,
+				"remark": "权限",
+				"appSystem": "NROMS"
+			},
+			{
+				"id": 5,
+				"name": "角色管理",
+				"code": "",
+				"url": "/setting/role",
+				"level": 2,
+				"parentId": 1,
+				"orderIndex": 3,
+				"permissions": "query,create,delete,update",
+				"isValid": 1,
+				"createTime": 1470107692000,
+				"updateTime": 1470107692000,
+				"remark": "null",
+				"appSystem": "NROMS"
+			},
+			{
+				"id": 6,
+				"name": "用户管理",
+				"code": "",
+				"url": "/user",
+				"level": 2,
+				"parentId": 1,
+				"orderIndex": 4,
+				"permissions": "query,create,update,delete",
+				"isValid": 1,
+				"createTime": 1470107692000,
+				"updateTime": 1470107692000,
+				"remark": null,
+				"appSystem": "NROMS"
+			},
+			{
+				"id": 7,
+				"name": "仓库管理",
+				"code": "",
+				"url": "/base/warehouse",
+				"level": 2,
+				"parentId": 1,
+				"orderIndex": 5,
+				"permissions": "query,create,update,delete",
+				"isValid": 1,
+				"createTime": 1470107692000,
+				"updateTime": 1470107692000,
+				"remark": null,
+				"appSystem": "NROMS"
+			},
+			{
+				"id": 9,
+				"name": "订单导入",
+				"code": "",
+				"url": "/cross_border/order_import",
+				"level": 2,
+				"parentId": 2,
+				"orderIndex": 1,
+				"permissions": "query,create,update,delete",
+				"isValid": 1,
+				"createTime": 1470107692000,
+				"updateTime": 1470107692000,
+				"remark": null,
+				"appSystem": "NROMS"
+			},
+			{
+				"id": 10,
+				"name": "申报单管理",
+				"code": "",
+				"url": "/cross_border/goods_declare",
+				"level": 2,
+				"parentId": 2,
+				"orderIndex": 2,
+				"permissions": "query,create,delete,update,cancel",
+				"isValid": 1,
+				"createTime": 1470107692000,
+				"updateTime": 1470107692000,
+				"remark": "null",
+				"appSystem": "NROMS"
+			},
+			{
+				"id": 11,
+				"name": "入库单导入",
+				"code": "",
+				"url": "/cross_border/orderWarehouseInImport",
+				"level": 2,
+				"parentId": 2,
+				"orderIndex": 3,
+				"permissions": "query,create,update,delete",
+				"isValid": 1,
+				"createTime": 1470107692000,
+				"updateTime": 1470107692000,
+				"remark": null,
+				"appSystem": "NROMS"
+			},
+			{
+				"id": 12,
+				"name": "入库单管理",
+				"code": "",
+				"url": "/cross_border/orderWarehouseIn",
+				"level": 2,
+				"parentId": 2,
+				"orderIndex": 4,
+				"permissions": "query,create,update,delete",
+				"isValid": 1,
+				"createTime": 1470107692000,
+				"updateTime": 1470107692000,
+				"remark": null,
+				"appSystem": "NROMS"
+			},
+			{
+				"id": 13,
+				"name": "备案商品",
+				"code": "null",
+				"url": "/cross_border/goods_record",
+				"level": 2,
+				"parentId": 2,
+				"orderIndex": 5,
+				"permissions": "query,create,delete,update",
+				"isValid": 1,
+				"createTime": 1471401726000,
+				"updateTime": 1471401726000,
+				"remark": "null",
+				"appSystem": "NROMS"
+			},
+			{
+				"id": 14,
+				"name": "商家管理",
+				"code": null,
+				"url": "/base/customer",
+				"level": 2,
+				"parentId": 1,
+				"orderIndex": 1,
+				"permissions": "query,create,update,delete",
+				"isValid": 1,
+				"createTime": 1474269531000,
+				"updateTime": 1474269531000,
+				"remark": null,
+				"appSystem": "NROMS"
+			},
+			{
+				"id": 18,
+				"name": "号段管理",
+				"code": null,
+				"url": "",
+				"level": 1,
+				"parentId": 0,
+				"orderIndex": 1,
+				"permissions": "query",
+				"isValid": 1,
+				"createTime": 1472541315000,
+				"updateTime": 1472541315000,
+				"remark": "",
+				"appSystem": "NROMS"
+			},
+			{
+				"id": 19,
+				"name": "号段查询",
+				"code": null,
+				"url": "/number_manage/section_number",
+				"level": 2,
+				"parentId": 18,
+				"orderIndex": 1,
+				"permissions": "query",
+				"isValid": 1,
+				"createTime": 1472541396000,
+				"updateTime": 1472541396000,
+				"remark": "号段查询",
+				"appSystem": "NROMS"
+			},
+			{
+				"id": 52,
+				"name": "测试001",
+				"code": "",
+				"url": "/number_manage/section_number",
+				"level": 2,
+				"parentId": 51,
+				"orderIndex": 1,
+				"permissions": "query,create,delete,update,import",
+				"isValid": 1,
+				"createTime": 1473744411000,
+				"updateTime": 1473744411000,
+				"remark": "",
+				"appSystem": "NROMS"
+			},
+			{
+				"id": 53,
+				"name": "测试2",
+				"code": "",
+				"url": "/",
+				"level": 2,
+				"parentId": 51,
+				"orderIndex": 1,
+				"permissions": "query,create,delete,update,import",
+				"isValid": 1,
+				"createTime": 1473751557000,
+				"updateTime": 1473751557000,
+				"remark": "",
+				"appSystem": "NROMS"
+			},
+			{
+				"id": 56,
+				"name": "test",
+				"code": "",
+				"url": "permision",
+				"level": 2,
+				"parentId": 55,
+				"orderIndex": 1,
+				"permissions": "query,create,delete,update,import",
+				"isValid": 1,
+				"createTime": 1474438158000,
+				"updateTime": 1474438158000,
+				"remark": "",
+				"appSystem": "NROMS"
+			},
+			{
+				"id": 60,
+				"name": "test02",
+				"code": "",
+				"url": "permission",
+				"level": 2,
+				"parentId": 58,
+				"orderIndex": 1,
+				"permissions": "query,create,delete,update,import",
+				"isValid": 1,
+				"createTime": 1474509178000,
+				"updateTime": 1474509178000,
+				"remark": "",
+				"appSystem": "NROMS"
+			},
+			{
+				"id": 63,
+				"name": "test02",
+				"code": "",
+				"url": "permisson",
+				"level": 2,
+				"parentId": 61,
+				"orderIndex": 1,
+				"permissions": "query,create,delete,update,import",
+				"isValid": 1,
+				"createTime": 1474509533000,
+				"updateTime": 1474509533000,
+				"remark": "",
+				"appSystem": "NROMS"
+			},
+			{
+				"id": 64,
+				"name": "规则管理",
+				"code": "",
+				"url": "",
+				"level": 1,
+				"parentId": 0,
+				"orderIndex": 1,
+				"permissions": "query,create,delete,update,import",
+				"isValid": 1,
+				"createTime": 1476167291000,
+				"updateTime": 1476167291000,
+				"remark": "",
+				"appSystem": "NROMS"
+			},
+			{
+				"id": 65,
+				"name": "跨境审单规则",
+				"code": "",
+				"url": "/rule_manage/abroad_check_order",
+				"level": 2,
+				"parentId": 64,
+				"orderIndex": 1,
+				"permissions": "query,create,delete,update,import",
+				"isValid": 1,
+				"createTime": 1476167352000,
+				"updateTime": 1476167352000,
+				"remark": "",
+				"appSystem": "NROMS"
+			},
+			{
+				"id": 66,
+				"name": "航班设置",
+				"code": "",
+				"url": "/cross_border/flight_setting/logistic_list",
+				"level": 2,
+				"parentId": 2,
+				"orderIndex": 1,
+				"permissions": "query,create,delete,update,import,cancel",
+				"isValid": 1,
+				"createTime": 1476327950000,
+				"updateTime": 1476327950000,
+				"remark": "",
+				"appSystem": "NRTMS"
+			},
+			{
+				"id": 67,
+				"name": "系统监控",
+				"code": null,
+				"url": null,
+				"level": 1,
+				"parentId": 0,
+				"orderIndex": 4,
+				"permissions": "query",
+				"isValid": 1,
+				"createTime": 1477034553000,
+				"updateTime": 1477034553000,
+				"remark": "系统监控",
+				"appSystem": "NROMS"
+			},
+			{
+				"id": 68,
+				"name": "通知消息管理",
+				"code": null,
+				"url": "/system_monitor/notification_message_list",
+				"level": 2,
+				"parentId": 67,
+				"orderIndex": 1,
+				"permissions": "query",
+				"isValid": 1,
+				"createTime": 1477034616000,
+				"updateTime": 1477034616000,
+				"remark": "消息通知管理",
+				"appSystem": "NROMS"
+			}
+		],
+		"ruleInfo": {
+			"specialLogistic": [
+				{
+					"logisticName": "天天快递",
+					"province": "浙江省",
+					"city": "杭州市",
+					"dist": "江干区"
+				},
+				{
+					"logisticName": "申通快递",
+					"province": "浙江省",
+					"city": "杭州市",
+					"dist": "西湖区"
+				}
+			],
+			"moneyLimit": {
+				"isValid": 1,
+				"money": 234
+			},
+			"profile": {
+				"isValid": 1
+			},
+			"someCities": [
+				{
+					"cityName": "杭州"
+				},
+				{
+					"cityName": "北京"
+				}
+			],
+			"someGoods": [
+				{
+					"goodsName": "SD2342342"
+				},
+				{
+					"goodsName": "FG3245234"
+				}
+			],
+			"someHSCodes": [
+				{
+					"hsCodes": "DFGRw2423423"
+				},
+				{
+					"hsCodes": "FGTE24234234"
+				}
+			]
+		}
+	}
+}

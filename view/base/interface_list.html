@@ -1,0 +1,133 @@
+<section class="content">
+    <div class="box box-default" ng-class="{'loading': isLoading}" st-table="data" st-pipe="list">
+        <div class="box-header">
+            <h3 class="box-title">接口管理</h3>
+            <nr-breadcrumb></nr-breadcrumb>
+        </div>
+        <!-- /.box-header -->
+        <div class="box-body">
+            <div class="box-filter margin-bottom">
+                <div class="border-none row">
+                    <div class="col-sm-4">
+                        <div class="input-group">
+                            <span class="input-group-addon">接口名称</span>
+                            <input type="text" class="form-control col-xs-9" ng-model="paras.search.interfaceName" placeholder="请输入接口名称">
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="input-group">
+                            <span class="input-group-addon">接口方向</span>
+                            <select class="form-control col-xs-9" ng-model="paras.search.direction" ng-options="v.key as v.value for v in config.direction"></select>
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="input-group">
+                            <span class="input-group-addon">业务名称</span>
+                            <input type="text" class="form-control col-xs-9" ng-model="paras.search.businessType" placeholder="请输入业务名称">
+                        </div>
+                    </div>
+                </div>
+                <div class="border-none row">
+                    <div class="col-sm-4">
+                        <div class="input-group">
+                            <span class="input-group-addon">来源系统</span>
+                            <input type="text" class="form-control col-xs-9" ng-model="paras.search.fromSystem" placeholder="请输入来源系统">
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="input-group">
+                            <span class="input-group-addon">目标系统</span>
+                            <input type="text" class="form-control col-xs-9" ng-model="paras.search.toSystem" placeholder="请输入目标系统">
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="input-group">
+                            <span class="input-group-addon">接口类型</span>
+                            <select class="form-control col-xs-9" ng-model="paras.search.interfaceType" ng-options="v.key as v.value for v in config.interfaceType"></select>
+                        </div>
+                    </div>
+                </div>
+                <div class="border-none row">
+                    <div class="col-sm-4">
+                        <div class="col-sm-6 no-padding">
+                            <div class="input-group">
+                                <span class="input-group-addon">是否有效</span>
+                                <div class="radio-combo">
+                                    <label>
+                                        <input type="radio" class="nr-radio" ng-model="paras.search.enabled" value="1">是
+                                    </label>
+                                    <label>
+                                        <input type="radio" class="nr-radio" ng-model="paras.search.enabled" value="0">否
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6 no-padding text-right">
+                            <button class="btn btn-normal" st-action>搜索</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 功能操作区 -->
+            <div class="box-operation">
+                <div class="operation-wrap">
+                    <a href="/base/interface/create" class="btn btn-normal"><i class="fa fa-plus"></i>新增</a>
+                    <button class="btn btn-op" batch-op="{'data':data , 'title':'注意', 'select': 'id', 'content':'确定删除选中接口吗？','callback':remove}"><i class="fa fa-close"></i>删除</button>
+                </div>
+                <div class="operation-quick">
+                    <button class="btn btn-op " custom-fields="config.fields"><i class="fa fa-gear fa-only"></i></button>
+                </div>
+            </div>
+
+            <div class="box-data checkbox-combo">
+                <table class="table table-bordered table-striped" ng-table-check>
+                    <thead>
+                        <tr>
+                            <th>
+                                <label>
+                                    <input type="checkbox" ng-model="paras.checkall"> 
+                                    <i></i> 
+                                </label> 
+                            </th>
+                            <th>操作</th>
+                            <th ng-repeat="row in config.fields | filter: {display:true}" st-sort="{{row.key | snake}}" st-sort-enable="{{row.sort}}">{{row.value}}</th>
+                        </tr>
+                    </thead>
+                    <tbody ng-if="!data.length">
+                        <tr>
+                            <td class="nodata" colspan="{{config.fields | count: {display:true} }}">
+                                <span>暂无数据</span>
+                            </td>
+                        </tr>
+                    </tbody>
+                    <tbody ng-if="data.length">
+                        <tr ng-repeat="row in data">
+                            <td>
+                                <label>
+                                    <input type="checkbox" ng-model="row.checked"> 
+                                    <i></i> 
+                                </label> 
+                            </td>
+                            <td> <a href="/base/interface/{{row.id}}">编辑</a> </td> 
+                            <td ng-repeat="field in config.fields | filter:{display:true}">
+                                <span>{{row[field.key]}}</span>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div class="box-page row" ng-show="data.length">
+                    <div class="col-sm-5 page-info">
+                        <label>共 <span ng-bind="paras.pageCount"></span> 条 每页显示
+                            <select class="input-sm" ng-model="paras.pageSize" ng-options="id for id in config.page_size_options"></select>
+                        </label>
+                    </div>
+                    <div class="col-sm-7">
+                        <div class="table-page" st-pagination="" st-items-by-page="paras.pageSize"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- /.box-body -->
+    </div>
+</section>

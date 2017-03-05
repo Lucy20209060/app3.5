@@ -1,0 +1,107 @@
+<link rel="stylesheet" href="../css/crossBorder/crossBorder.css">
+<style type="text/css">
+.uploading [nr-upload-file] {
+    display: none;
+}
+
+.progress {
+    display: none;
+}
+
+.uploading .progress {
+    display: block;
+    margin-bottom: 0;
+    margin-top: 8px;
+}
+.uploading .box-filter button{
+
+}
+.download{
+    display: inline-block; padding:5px 0; cursor: pointer;
+}
+
+</style>
+<!--header start-->
+<section class="content ">
+    <div class="box box-default" ng-class="{'loading': isLoading , 'uploading':status.uploading}" st-table="data" st-pipe="sort">
+        <div class="box-header">
+            <h3 class="box-title">备案商品导入</h3>
+            <nr-breadcrumb></nr-breadcrumb>  
+        </div>
+        <div class="box-body">
+            <div class="box-filter margin-bottom">
+                <div class="border-none row">
+                    <div class="col-sm-4">
+                        <div class="input-group">
+                            <span class="input-group-addon">海关选择</span>
+                            <select class="form-control" ng-model="paras.condition.customCode" ng-options="v.key as v.value for v in config.customs">
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-sm-2" ng-show="paras.condition.customCode">
+                        <div class="input-group">
+                            <a class="download" ng-click = "downloadFile()">模板下载</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="border-none row">
+                    <div class="col-sm-4 uploader">
+                        <div class="input-group">
+                            <span class="input-group-addon">文件上传</span>
+                            <span nr-upload-file="paras.file"></span>
+                            <div class="progress progress-sm active">
+                                <div class="progress-bar progress-bar-success progress-bar-striped" role="progressbar" ng-style="{ 'width': status.progress + '%'}" style="width: 0%"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="input-group">
+                            <button class="btn btn-success btn-flat" ng-disabled="status.verify()" ng-click='verify()'>数据校验</button>
+                            <button class="btn btn-primary btn-flat" ng-disabled="status.import()" ng-click='import()'>确定导入</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="box-operation">
+                <div class="operation-wrap">
+                    <button class="btn btn-op disabled"><i class="fa fa-download fa-only"></i></button>
+                    <button class="btn btn-op" custom-fields="config.fields"><i class="fa fa-gear"></i>自定义表单</button>
+                </div>
+            </div>
+            <div class="box-data">
+                <p class="tip" ng-show="message" ng-bind="message"></p>
+                <table class="table table-bordered table-striped">
+                    <thead>
+                        <tr>
+                            <th ng-repeat="row in config.fields | filter: {display:true}" st-sort="{{row.key | snake}}" st-sort-enable="{{row.sort}}">{{row.value}}</th>
+                        </tr>
+                    </thead>
+                    <tbody ng-if="!data.length">
+                        <tr>
+                            <td colspan="{{config.fields | count: {display:true} }}">
+                                <span>暂无数据</span>
+                            </td>
+                        </tr>
+                    </tbody>
+                    <tbody ng-if="data.length">
+                        <tr ng-repeat="row in data">
+                            <td ng-repeat="field in config.fields | filter:{display:true}">
+                                <span ng-bind-html="row[field.key]"></span>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <!-- <div class="box-page row" ng-if="data">
+                    <div class="col-sm-5 page-info">
+                        <label>共 <span ng-bind="paras.pageCount"></span> 条 每页显示
+                            <select class="input-sm" ng-model="paras.pageSize" ng-options="id for id in config.page_size_options"></select>
+                        </label>
+                    </div>
+                    <div class="col-sm-7">
+                        <div class="table-page" st-pagination="" st-items-by-page="paras.pageSize"></div>
+                    </div>
+                </div> -->
+            </div>
+        </div>
+    </div>
+</section>

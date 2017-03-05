@@ -1,0 +1,330 @@
+<section class="content">
+    <div class="box box-default" ng-class="{'loading': isLoading}" st-table="data" st-pipe="list">
+        <div class="box-header">
+            <h3 class="box-title" ng-bind="page.title"></h3>
+            <nr-breadcrumb></nr-breadcrumb>
+        </div>
+        <!-- /.box-header -->
+        <div class="box-body">
+            <form name="form" class="form">
+                <div class="box-data addon-right">
+                    <div class="row margin-bottom">
+                        <div class="col-sm-3 no-padding-left">
+                            <div class="input-group require">
+                                <span class="input-group-addon">所属仓库</span>
+                                <div class="select-box">
+                                    <select class="form-control" ng-model="data.warehouseName" required ng-options="v.value as v.value for v in config.warehouses"></select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-3 no-padding-left">
+                            <div class="input-group require">
+                                <span class="input-group-addon">快递公司</span>
+                                <div class="select-box">
+                                    <select class="form-control" ng-model="data.logisticsCode" required ng-options="v.key as v.value for v in config.logistic"></select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-3 no-padding-left">
+                            <div class="input-group">
+                                <span class="input-group-addon">运单类型</span>
+                                <div class="select-box">
+                                    <select class="form-control" ng-model="data.mailType" ng-options="v.key as v.value for v in config.mailType"></select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row margin-bottom">
+                        <div class="col-sm-3 no-padding-left">
+                            <div class="input-group require">
+                                <span class="input-group-addon">网点名称</span>
+                                <div class="select-box">
+                                    <input type="text" class="form-control col-xs-9" ng-model="data.siteName" required placeholder="请输入网点名称">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-3 no-padding-left">
+                            <div class="input-group">
+                                <span class="input-group-addon">网点代码</span>
+                                <div class="select-box">
+                                    <input type="text" class="form-control col-xs-9" ng-model="data.siteCode" placeholder="请输入网点代码">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-3 no-padding-left">
+                            <div class="input-group">
+                                <span class="input-group-addon">快递代码</span>
+                                <div class="select-box">
+                                    <input type="text" class="form-control col-xs-9" ng-model="data.logisticsCode" placeholder="请输入快递代码" disabled>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row margin-bottom">
+                        <div class="col-sm-3 no-padding-left">
+                            <div class="input-group">
+                                <span class="input-group-addon">客户账号</span>
+                                <div class="select-box">
+                                    <input type="text" class="form-control col-xs-9" ng-model="data.account" placeholder="请输入客户账号">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-3 no-padding-left">
+                            <div class="input-group">
+                                <span class="input-group-addon">AppKey</span>
+                                <div class="select-box">
+                                    <input type="text" class="form-control col-xs-9" ng-model="data.appKey" placeholder="请输入AppKey">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-3 no-padding-left">
+                            <div class="input-group">
+                                <span class="input-group-addon">AppSecret</span>
+                                <div class="select-box">
+                                    <input type="text" class="form-control col-xs-9" ng-model="data.appSecret" placeholder="请输入AppSecret">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row margin-bottom">
+                        <div class="col-sm-3 no-padding-left">
+                            <div class="input-group">
+                                <span class="input-group-addon">Password</span>
+                                <div class="select-box">
+                                    <input type="text" class="form-control col-xs-9" ng-model="data.password" placeholder="请输入Password">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-3 no-padding-left">
+                            <div class="input-group">
+                                <span class="input-group-addon">签名密码</span>
+                                <div class="select-box">
+                                    <input type="text" class="form-control col-xs-9" ng-model="data.digistSecret" placeholder="请输入签名密码">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row margin-bottom">
+                        <div class="col-sm-2 no-padding-left">
+                            <div class="input-group require radio-combo">
+                                <span class="input-group-addon">是否含税</span>
+                                <label>
+                                    <input type="radio" name="r3" class="nr-radio" ng-model="data.hasTax" value="1" required>是
+                                </label>
+                                <label class="radio-combo">
+                                    <input type="radio" name="r3" class="nr-radio" ng-model="data.hasTax" value="0" required>否
+                                </label>
+                            </div>
+                        </div>
+                        <div class="col-sm-5 no-padding-left">
+                            <div class="input-group">
+                                <span class="input-group-addon">税率</span>
+                                <div class="select-box">
+                                    <input type="text" class="form-control col-xs-9" ng-model="data.taxPercent" placeholder="请输入快递代码">
+                                </div>
+                                <span class="input-group-addon">% 已含税表示价格为开票价，未含税需填写开票税率计算含税价</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row margin-bottom">
+                        <div class="col-sm-3 no-padding-left">
+                            <div class="input-group">
+                                <span class="input-group-addon">海关备案名称</span>
+                                <div class="select-box">
+                                    <input type="text" class="form-control col-xs-9" ng-model="data.customsRecordName" placeholder="请输入海关备案名称">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-3 no-padding-left">
+                            <div class="input-group">
+                                <span class="input-group-addon">海关备案号</span>
+                                <div class="select-box">
+                                    <input type="text" class="form-control col-xs-9" ng-model="data.customsRecordNo" placeholder="请输入海关备案号">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row margin-bottom">
+                        <div class="col-sm-6 no-padding-left">
+                            <div class="input-group">
+                                <span class="input-group-addon">账单邮寄地址</span>
+                                <div class="select-box">
+                                    <input type="text" class="form-control col-xs-9" ng-model="data.billSendAddr" placeholder="请输入账单邮寄地址">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="box-data">
+                    <div class="box-data-title">
+                        <span>联系人资料</span>
+                    </div>
+                    <div class="row margin-bottom">
+                        <div class="col-sm-3 no-padding-left">
+                            <div class="input-group">
+                                <span class="input-group-addon">运营联系人</span>
+                                <div class="select-box">
+                                    <input type="text" class="form-control col-xs-9" ng-model="data.operator" placeholder="请输入运营联系人">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-3 no-padding-left">
+                            <div class="input-group">
+                                <span class="input-group-addon">运营电话</span>
+                                <div class="select-box">
+                                    <input type="tel" class="form-control col-xs-9" ng-model="data.operatorPhone" placeholder="请输入运营电话">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row margin-bottom">
+                        <div class="col-sm-3 no-padding-left">
+                            <div class="input-group">
+                                <span class="input-group-addon">技术联系人</span>
+                                <div class="select-box">
+                                    <input type="text" class="form-control col-xs-9" ng-model="data.techniqueMan" placeholder="请输入技术联系人">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-3 no-padding-left">
+                            <div class="input-group">
+                                <span class="input-group-addon">技术电话</span>
+                                <div class="select-box">
+                                    <input type="tel" class="form-control col-xs-9" ng-model="data.techniquePhone" placeholder="请输入技术电话">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row margin-bottom">
+                        <div class="col-sm-3 no-padding-left">
+                            <div class="input-group">
+                                <span class="input-group-addon">商务联系人</span>
+                                <div class="select-box">
+                                    <input type="text" class="form-control col-xs-9" ng-model="data.businessMan" placeholder="请输入商务联系人">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-3 no-padding-left">
+                            <div class="input-group">
+                                <span class="input-group-addon">商务电话</span>
+                                <div class="select-box">
+                                    <input type="tel" class="form-control col-xs-9" ng-model="data.businessPhone" placeholder="请输入商务电话">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row margin-bottom">
+                        <div class="col-sm-3 no-padding-left">
+                            <div class="input-group">
+                                <span class="input-group-addon">操作联系人</span>
+                                <div class="select-box">
+                                    <input type="text" class="form-control col-xs-9" ng-model="data.handleMan" placeholder="请输入操作联系人">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-3 no-padding-left">
+                            <div class="input-group">
+                                <span class="input-group-addon">操作电话</span>
+                                <div class="select-box">
+                                    <input type="tel" class="form-control col-xs-9" ng-model="data.handlePhone" placeholder="请输入操作电话">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row margin-bottom">
+                        <div class="col-sm-3 no-padding-left">
+                            <div class="input-group">
+                                <span class="input-group-addon">财务联系人</span>
+                                <div class="select-box">
+                                    <input type="text" class="form-control col-xs-9" ng-model="data.financeMan" placeholder="请输入财务联系人">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-3 no-padding-left">
+                            <div class="input-group">
+                                <span class="input-group-addon">财务电话</span>
+                                <div class="select-box">
+                                    <input type="tel" class="form-control col-xs-9" ng-model="data.financePhone" placeholder="请输入财务电话">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="box-data">
+                    <div class="box-data-title">
+                        <span>开票资料</span>
+                    </div>
+                    <div class="row margin-bottom">
+                        <div class="col-sm-3 no-padding-left">
+                            <div class="input-group">
+                                <span class="input-group-addon">公司名称</span>
+                                <div class="select-box">
+                                    <input type="text" class="form-control col-xs-9" ng-model="data.companyName" placeholder="请输入公司名称">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-3 no-padding-left">
+                            <div class="input-group">
+                                <span class="input-group-addon">联系电话</span>
+                                <div class="select-box">
+                                    <input type="tel" class="form-control col-xs-9" ng-model="data.ticketPhone" placeholder="请输入联系电话">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row margin-bottom">
+                        <div class="col-sm-3 no-padding-left">
+                            <div class="input-group">
+                                <span class="input-group-addon">公司地址</span>
+                                <div class="select-box">
+                                    <input type="text" class="form-control col-xs-9" ng-model="data.ticketAddress" placeholder="请输入公司地址">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row margin-bottom">
+                        <div class="col-sm-3 no-padding-left">
+                            <div class="input-group">
+                                <span class="input-group-addon">开户银行</span>
+                                <div class="select-box">
+                                    <input type="text" class="form-control col-xs-9" ng-model="data.ticketBank" placeholder="请输入开户银行">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-3 no-padding-left">
+                            <div class="input-group">
+                                <span class="input-group-addon">银行账号</span>
+                                <div class="select-box">
+                                    <input type="text" class="form-control col-xs-9" ng-model="data.ticketBankNo" placeholder="请输入银行账号">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row margin-bottom">
+                        <div class="col-sm-3 no-padding-left">
+                            <div class="input-group">
+                                <span class="input-group-addon">邮政编码</span>
+                                <div class="select-box">
+                                    <input type="text" class="form-control col-xs-9" ng-model="data.ticketZipCode" placeholder="请输入邮政编码">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-3 no-padding-left">
+                            <div class="input-group">
+                                <span class="input-group-addon">税号</span>
+                                <div class="select-box">
+                                    <input type="text" class="form-control col-xs-9" ng-model="data.ticketTaxNo" placeholder="请输入税号">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="box-footer">
+                    <button class="btn btn-normal" ng-click="save()" ng-disabled="form.$invalid">保存</button>
+                    <a class="btn btn-op" ng-back>取消</a>
+                </div>
+            </form>
+        </div>
+        <!-- /.box-body -->
+    </div>
+</section>

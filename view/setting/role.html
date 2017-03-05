@@ -1,0 +1,80 @@
+<style type="text/css">
+</style>
+<section class="content">
+    <div class="box box-default" ng-class="{'loading': isLoading}" st-table="data" st-pipe="list">
+        <div class="box-header">
+            <h3 class="box-title">角色列表</h3>
+            <nr-breadcrumb></nr-breadcrumb>
+        </div>
+        <div class="box-body">
+            <div class="box-filter margin-bottom">
+                <div class="border-none row">
+                    <div class="col-sm-3">
+                        <input class="form-control col-sm-3" type="text" name="" placeholder="请输入角色名称" ng-model="paras.search.name">
+                    </div>
+                    <div class="col-sm-1">
+                        <button class="btn btn-normal" st-action>搜索</button>
+                    </div>
+                </div>
+            </div>
+            <div class="box-operation">
+                <div class="operation-wrap">
+                    <a class="btn btn-normal" href="/setting/role/create"><i class="fa fa-plus"></i>新增</a>
+                    <button class="btn btn-op" batch-op="{'data':data ,'title':'注意','content':'确定删除角色？', 'callback':remove}"><i class="fa fa-remove"></i>删除</button>
+                </div>
+                <div class="operation-quick">
+                    <!--                     <button class="btn btn-op disabled"><i class="fa fa-download fa-only"></i></button> -->
+                    <button class="btn btn-op " custom-fields="page.fields"><i class="fa fa-gear fa-only"></i></button>
+                </div>
+            </div>
+            <div class="box-data">
+                <table class="table table-bordered table-striped" ng-table-check>
+                    <thead>
+                    <tr>
+                        <th>
+                            <label>
+                                <input type="checkbox" name="" ng-model="paras.checkall" />
+                                <i></i>
+                            </label>
+                        </th>
+                        <th>操作</th>
+                        <th ng-repeat="row in config.fields | filter: {display:true}" st-sort="{{row.key | snake}}" st-sort-enable="{{row.sort}}">{{row.value}}</th>
+                    </tr>
+                    </thead>
+                    <tbody ng-if="!data.length">
+                    <tr class="nodata">
+                        <td colspan="{{config.fields | count: {display:true} | add :2}}">
+                            <span>暂无数据</span>
+                        </td>
+                    </tr>
+                    </tbody>
+                    <tbody ng-if="data.length">
+                    <tr ng-repeat="row in data">
+                        <td>
+                            <label>
+                                <input type="checkbox" name="" ng-model="row.checked" />
+                                <i></i>
+                            </label>
+
+                        </td>
+                        <td><a href="/setting/role/{{row.id}}">编辑</a></td>
+                        <td ng-repeat="field in config.fields | filter:{display:true}">
+                            <span ng-bind-html="row[field.key]"></span>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+                <div class="box-page row" ng-show="data.length">
+                    <div class="col-sm-5 page-info">
+                        <label>共 <span ng-bind="paras.pageCount"></span> 条 每页显示
+                            <select class="input-sm" ng-model="paras.pageSize" ng-options="id for id in config.page_size_options"></select>
+                        </label>
+                    </div>
+                    <div class="col-sm-7">
+                        <div class="table-page" st-pagination="" st-items-by-page="paras.pageSize"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

@@ -1,0 +1,115 @@
+{
+"returnCode": 0,
+"returnMsg": "success.",
+"returnVal": null,
+"pageSize": 10,
+"pageNum": 1,
+"total": 408,
+"pages": 41,
+"startRow": 1,
+"endRow": 10,
+"orders": null,
+"search": null,
+"searchMap": null,
+"list": [
+{
+"id": 1084,
+"orderNo": "EO147039410006411",
+"busOrderNo": "cca090811110002",
+"customerName": "测试-002",
+"mftNo": "31052016I007000261",
+"dealDate": 1469674778000,
+"payment": 1500,
+"taxAmount": 500,
+"buyerAccount": "风清扬"
+},
+{
+"id": 1085,
+"orderNo": "EO147039418348611",
+"busOrderNo": "cca090811110003",
+"customerName": "测试-002",
+"mftNo": "31052016I007000262",
+"dealDate": 1469674778000,
+"payment": 1500,
+"taxAmount": 500,
+"buyerAccount": "风清扬"
+},
+{
+"id": 1093,
+"orderNo": "EO147064566639511",
+"busOrderNo": "cca2011117023251",
+"customerName": "测试-002",
+"mftNo": "31052016I010000076",
+"dealDate": 1469674778000,
+"payment": 1500,
+"taxAmount": 500,
+"buyerAccount": "风清扬"
+},
+{
+"id": 1096,
+"orderNo": "EO147070787156711",
+"busOrderNo": "cca2011117023252",
+"customerName": "测试-002",
+"mftNo": "31052016I010000077",
+"dealDate": 1469674778000,
+"payment": 1500,
+"taxAmount": 500,
+"buyerAccount": "风清扬"
+},
+{
+"id": 1105,
+"orderNo": "EO147073958538711",
+"busOrderNo": "cca20111170721",
+"customerName": "测试-002",
+"mftNo": null,
+"dealDate": 1466045978000,
+"payment": 101.1,
+"taxAmount": 0,
+"buyerAccount": "风清扬"
+},
+{
+"id": 1106,
+"orderNo": "EO147073976920411",
+"busOrderNo": "cca201111710721",
+"customerName": "测试-002",
+"mftNo": null,
+"dealDate": 1466045978000,
+"payment": 101.2,
+"taxAmount": 0,
+"buyerAccount": "风清扬"
+},
+{
+"id": 1107,
+"orderNo": "EO147080016512911",
+"busOrderNo": "cca2011111710721",
+"customerName": "测试-002",
+"mftNo": null,
+"dealDate": 1466045978000,
+"payment": 101.1,
+"taxAmount": 0,
+"buyerAccount": "风清扬"
+},
+{
+"id": 1110,
+"orderNo": "EO147080115756914",
+"busOrderNo": "zr0801002",
+"customerName": "测试-002",
+"mftNo": "31052016I010000201",
+"dealDate": 1466045978000,
+"payment": 1003,
+"taxAmount": 1,
+"buyerAccount": "风清扬"
+},
+{
+"id": 1132,
+"orderNo": "EO147088592548811",
+"busOrderNo": "zr0811002",
+"customerName": "测试-002",
+"mftNo": "31052016I010000252",
+"dealDate": 1466045978000,
+"payment": 1012,
+"taxAmount": 10,
+"buyerAccount": "风清扬"
+}
+]
+}

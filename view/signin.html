@@ -1,0 +1,79 @@
+<style type="text/css">
+        body{
+            background: url("../img/bg.jpg") no-repeat;
+            background-size: 100% 100%;
+            background-position: center;
+        }
+        .nr-login {
+            width: 360px;
+            height: 360px;
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            margin-top: -180px;
+            margin-left: -180px;
+        }
+        .login-box-body {
+            box-shadow: 0 0 2px 5px rgb(157, 181, 197);
+            border-radius: 5px;
+        }
+        input[type=checkbox]:checked + i.fa:before {
+            content: "\f046";
+            color: #138ed4;
+        }
+        input[type=checkbox] + i.fa:before {
+            content: "\f096";
+            font-size: 15px;
+        }
+        input[type=checkbox] + i {
+            width: 18px;
+        }
+        label {
+            font-size: 14px;
+            color: #666;
+            font-weight: normal;
+            padding: 5px 0;
+        }
+    </style>
+    <!-- <img src="login.png" height="600px;"> -->
+        <stats></stats>
+    <div class="login-box nr-login">
+        <div class="login-box-body">
+            <div class="text-center">能容OMS管理系统</div>
+            <div class="login-box-msg">Oms User Center</div>
+
+            <form>
+                <div class="form-group has-feedback">
+                    <div class="input-group">
+                        <div class="input-group-addon">
+                            <i class="fa fa-user"></i>
+                        </div>
+                        <input type="text" class="form-control" ng-model="data.account" placeholder="用户名" required>
+                    </div>
+                </div>
+                <div class="form-group has-feedback">
+                    <div class="input-group">
+                        <div class="input-group-addon">
+                            <i class="fa fa-lock"></i>
+                        </div>
+                        <input type="password" class="form-control" ng-model="data.password" placeholder="请输入密码" required>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-8">
+                        <label>
+                            <input type="checkbox" class="minimal-green hide"> 
+                            <i class="fa"></i> 
+                            <span>记住密码</span>
+                        </label>
+                    </div>
+                    <!-- /.col -->
+                    <div class="col-xs-12">
+                        <button  ng-click="login()" ng-disabled="loginin" class="btn btn-primary btn-block" >登录</button>
+                    </div>
+                    <!-- /.col -->
+                </div>
+            </form>
+        </div>
+    </div>
+    <!-- /.login-box -->

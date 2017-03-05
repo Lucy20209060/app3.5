@@ -1,0 +1,131 @@
+<style type="text/css">
+    .detail-div {
+        padding: 12px 0;
+        font-size: 14px;
+        font-family: 'microsoft yahei';
+    }
+    .flight-detail {
+        padding: 20px 30px!important;
+        border: 1px solid #b5b5b5;
+        border-style: dashed;
+    }
+    .flight-detail .input-group-addon {
+        min-width: 100px;
+    }
+</style>
+<section class="box box-default" ng-class="{'loading': isLoading}">
+    <div class="box-header">
+        <h3 class="box-title">航班设置</h3>
+        <nr-breadcrumb></nr-breadcrumb>
+    </div>
+
+    <div class="box-body">
+        <div class="box-filter margin-bottom">
+            <div class="row">
+                <div class="col-sm-4" ng-show="data.busOrderNo">
+                    <div class="input-group">
+                        <span class="input-group-addon">商家订单号</span>
+                        <div class="detail-div">{{data.busOrderNo}}</div>
+                    </div>
+                </div>
+                <div class="col-sm-4" ng-show="data.numberNo">
+                    <div class="input-group">
+                        <span class="input-group-addon">OMS订单号</span>
+                        <div class="detail-div">{{data.numberNo}}</div>
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <div class="input-group">
+                        <span class="input-group-addon">快递交接单号</span>
+                        <div class="detail-div">{{data.handoverNo}}</div>
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <div class="input-group">
+                        <span class="input-group-addon">仓 库</span>
+                        <div class="detail-div">{{data.warehouseName}}</div>
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <div class="input-group">
+                        <span class="input-group-addon">快递公司</span>
+                        <div class="detail-div">{{data.logisticsName}}</div>
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <div class="input-group">
+                        <span class="input-group-addon">创建时间</span>
+                        <div class="detail-div">{{data.createTime}}</div>
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <div class="input-group">
+                        <span class="input-group-addon">状 态</span>
+                        <div class="detail-div">{{data.state}}</div>
+                    </div>
+                </div>
+            </div>
+            <div class="flight-detail">
+                <div class="row margin-bottom">
+                    <div class="col-sm-4">
+                        <div class="input-group">
+                            <span class="input-group-addon">运输方式</span>
+                            <div class="detail-div">{{data.carrierWay}}</div>
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="input-group">
+                            <span class="input-group-addon">航班号/车牌号</span>
+                            <div class="detail-div">{{data.flightNumber}}</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row margin-bottom">
+                    <div class="col-sm-4">
+                        <div class="input-group">
+                            <span class="input-group-addon">主运单号</span>
+                            <div class="detail-div">{{data.mainNumber}}</div>
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="input-group">
+                            <span class="input-group-addon">目的港</span>
+                            <div class="detail-div">{{data.destinationPort}}</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row margin-bottom">
+                    <div class="col-sm-4">
+                        <div class="input-group">
+                            <span class="input-group-addon">航班号起飞时间/</br>汽车出发时间</span>
+                            <div class="detail-div">{{data.flightTime}}</div>
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="input-group">
+                            <span class="input-group-addon">航班号落地时间/</br>汽车到达时间</span>
+                            <div class="detail-div">{{data.landingTime}}</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row margin-bottom">
+                    <div class="col-sm-4">
+                        <div class="input-group">
+                            <span class="input-group-addon">托盘编码</span>
+                            <div class="detail-div">{{data.saucerCode}}</div>
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="input-group">
+                            <span class="input-group-addon">托盘重量(KG)</span>
+                            <div class="detail-div">{{data.saucerWeight}}</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="box-footer">
+                <a class="btn btn-op" ng-back>返回</a>
+            </div>
+        </div>
+    </div>
+</section>

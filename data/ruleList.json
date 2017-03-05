@@ -1,0 +1,61 @@
+{
+"returnCode": 0,
+"returnMsg": "success.",
+"pageSize": 10,
+"pageNum": 1,
+"total": 4,
+"pages": 1,
+"startRow": 1,
+"endRow": 10,
+"list": [
+	{
+	"id": 0,
+	"ruleName": "指定快递公司-陶文",
+	"ruleSence": "接口退单",
+	"ruleDesc": "这是说明说明，这是说明"
+	},
+	{
+	"id": 1,
+	"ruleName": "通用规则",
+	"ruleSence": "导单",
+	"ruleDesc": "这是说明说明，这是说明"
+	},
+	{
+	"id": 2,
+	"ruleName": "身份验证",
+	"ruleSence": "全部",
+	"ruleDesc": "这是说明说明，这是说明"
+	},
+	{
+	"id": 3,
+	"ruleName": "指定快递公司-沙田",
+	"ruleSence": "物流节点通知",
+	"ruleDesc": "这是说明说明，这是说明"
+	}],
+	
+	"list": [
+	{
+	"id": 0,
+	"ruleName": "指定快递公司-陶文",
+	"ruleSence": "接口退单",
+	"ruleDesc": "这是说明说明，这是说明"
+	},
+	{
+	"id": 1,
+	"ruleName": "通用规则",
+	"ruleSence": "导单",
+	"ruleDesc": "这是说明说明，这是说明"
+	},
+	{
+	"id": 2,
+	"ruleName": "身份验证",
+	"ruleSence": "全部",
+	"ruleDesc": "这是说明说明，这是说明"
+	},
+	{
+	"id": 3,
+	"ruleName": "指定快递公司-沙田",
+	"ruleSence": "物流节点通知",
+	"ruleDesc": "这是说明说明，这是说明"
+	}]
+}

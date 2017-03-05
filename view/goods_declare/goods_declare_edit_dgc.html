@@ -1,0 +1,336 @@
+<style type="text/css">
+    .page-detail .box-data .input-group-addon {
+        min-width: 90px;
+        text-align: right;
+    }
+    .add-span i {
+        padding: 6px 6px 5px 6px;
+        border: 1px sodivd #fff;
+        background: #419acd;
+        color: #fff;
+        cursor: pointer;
+        border-radius: 50%;
+    }
+</style>
+<section class="content">
+    <div class="box box-default page-detail" ng-class="{'loading': isLoading}" st-table="data" st-pipe="list">
+        <div class="box-header">
+            <h3 class="box-title">订单修改</h3>
+            <span class="margin">{{config.customs[data.orderInfo.customCode]}}</span>
+            <ol class="breadcrumb">
+                <li>首页</li>
+                <li>
+                    <span>跨境业务</span>
+                </li>
+                <li>
+                    <a href="/cross_border/exception_order_list">异常订单管理</a>
+                </li>
+            </ol>
+        </div>
+        <!-- /.box-header -->
+        <form name="form">
+        <div class="box-body">
+            <!-- 详情字段start-->
+            <div class="box-data">
+                <div class="row">
+                    <div class="col-sm-3 margin-bottom">
+                        <div class="input-group">
+                            <span class="input-group-addon">申报状态</span>
+                            <span class="input-group-span"> {{data.orderInfo.statusDesc}}</span>
+                        </div>
+                    </div>
+                    <div class="col-sm-3 margin-bottom">
+                        <div class="input-group">
+                            <span class="input-group-addon">订单号</span>
+                            <span class="input-group-span"> {{data.orderInfo.busOrderNo}}</span>
+                        </div>
+                    </div>
+                    <div class="col-sm-3 margin-bottom">
+                        <div class="input-group">
+                            <span class="input-group-addon">平台单号</span>
+                            <span class="input-group-span"> {{data.orderInfo.platformNo}}</span>
+                        </div>
+                    </div>
+                    <div class="col-sm-3 margin-bottom">
+                        <div class="input-group">
+                            <span class="input-group-addon">发货单号</span>
+                            <span class="input-group-span"> {{data.orderInfo.deliverGoodsNo}}</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-sm-4 margin-bottom">
+                        <div class="input-group">
+                            <span class="input-group-addon">清关口岸</span>
+                            <select class="form-control col-xs-9" ng-model="data.orderInfo.clearPort" ng-options="v.key as v.value for v in config.clearPorts"></select>
+                        </div>
+                    </div>
+                    <div class="col-sm-4 margin-bottom">
+                        <div class="input-group">
+                            <span class="input-group-addon">清关方式</span>
+                            <select class="form-control col-xs-9" ng-model="data.orderInfo.clearType" ng-options="v.key as v.value for v in config.clearTypes"></select>
+                        </div>
+                    </div>
+                    <div class="col-sm-4 margin-bottom">
+                        <div class="input-group">
+                            <span class="input-group-addon">商家名称</span>
+                            <span class="input-group-span"> {{data.orderInfo.bcode}}</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-sm-3 margin-bottom">
+                        <div class="input-group">
+                            <span class="input-group-addon">运费</span>
+                            <input type="text" class="form-control col-xs-9" ng-model="data.orderInfo.postFee">
+                        </div>
+                    </div>
+                    <div class="col-sm-3 margin-bottom">
+                        <div class="input-group">
+                            <span class="input-group-addon">实付金额</span>
+                            <input type="text" class="form-control col-xs-9" ng-model="data.orderInfo.amount">
+                        </div>
+                    </div>
+                    <div class="col-sm-3 margin-bottom">
+                        <div class="input-group">
+                            <span class="input-group-addon">税额</span>
+                            <input type="text" class="form-control col-xs-9" ng-model="data.orderInfo.taxAmount">
+                        </div>
+                    </div>
+                    <div class="col-sm-3 margin-bottom">
+                        <div class="input-group">
+                            <span class="input-group-addon">支付时间</span>
+                            <input type="text" class="form-control col-xs-9" ng-model="data.orderPayInfoVo.payTime">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="box-data">
+                <div class="box-data-title">
+                    <span>收件人信息</span>
+                </div>
+                <div class="row">
+                    <div class="col-sm-4 margin-bottom">
+                        <div class="input-group">
+                            <span class="input-group-addon">快递公司</span>
+                            <select class="form-control" ng-model="data.orderLogisticsVo.logisticsCode" ng-options="v.code as v.name for v in config.express"></select>
+                        </div>
+                    </div>
+                    <div class="col-sm-4 margin-bottom">
+                        <div class="input-group">
+                            <span class="input-group-addon">快递单号</span>
+                            <span class="input-group-span"> {{data.orderLogisticsVo.waybillNo}}</span>
+                        </div>
+                    </div>
+                    <div class="col-sm-4 margin-bottom">
+                        <div class="input-group">
+                            <span class="input-group-addon">邮编</span>
+                            <input type="text" class="form-control col-xs-9" ng-model="data.orderLogisticsVo.mailNo">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-sm-4 margin-bottom">
+                        <div class="input-group">
+                            <span class="input-group-addon">收货人</span>
+                            <input type="text" class="form-control col-xs-9" ng-model="data.orderLogisticsVo.consignee">
+                        </div>
+                    </div>
+                    <div class="col-sm-4 margin-bottom">
+                        <div class="input-group">
+                            <span class="input-group-addon">收货人电话</span>
+                            <input type="text" class="form-control col-xs-9" ng-model="data.orderLogisticsVo.consigneeTel">
+                        </div>
+                    </div>
+                    <div class="col-sm-4 margin-bottom">
+                        <div class="input-group">
+                            <span class="input-group-addon">收货人身份证</span>
+                            <input type="text" class="form-control col-xs-9" ng-model="data.orderLogisticsVo.recieverIdnum">
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-3 margin-bottom">
+                        <div class="input-group">
+                            <span class="input-group-addon">国家</span>
+                            <!-- <input type="text" class="form-control col-xs-9" ng-model="data.orderLogisticsVo.country"> -->
+                            <span class="input-group-span"> {{data.orderLogisticsVo.country}} </span>
+                        </div>
+                    </div>
+                    <div class="col-sm-3 margin-bottom">
+                        <div class="input-group">
+                            <span class="input-group-addon">省</span>
+                            <select class="form-control" ng-model="data.orderLogisticsVo.province" ng-options="v.areaname as v.areaname for v in config.province" ng-change="getCities('0')"></select>
+                        </div>
+                    </div>
+                    <div class="col-sm-3 margin-bottom">
+                        <div class="input-group">
+                            <span class="input-group-addon">市</span>
+                            <select class="form-control" ng-model="data.orderLogisticsVo.city" ng-options="v.areaname as v.areaname for v in config.city" ng-change="getCities('1')"></select>
+                        </div>
+                    </div>
+                    <div class="col-sm-3 margin-bottom">
+                        <div class="input-group">
+                            <span class="input-group-addon">区</span>
+                            <select class="form-control" ng-model="data.orderLogisticsVo.district" ng-options="v.areaname as v.areaname for v in config.dist"></select>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-4 margin-bottom">
+                        <div class="input-group">
+                            <span class="input-group-addon">收货地址</span>
+                            <input type="text" class="form-control col-xs-9" ng-model="data.orderLogisticsVo.consigneeAddr">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="box-data">
+                <div class="box-data-title">
+                    <span>发件人信息</span>
+                </div>
+                <div class="row">
+                    <div class="col-sm-4 margin-bottom">
+                        <div class="input-group">
+                            <span class="input-group-addon">发件人</span>
+                            <input type="text" class="form-control col-xs-9" ng-model="data.orderSenderInfoVo.name">
+                        </div>
+                    </div>
+                    <div class="col-sm-4 margin-bottom">
+                        <div class="input-group">
+                            <span class="input-group-addon">发件人电话</span>
+                            <input type="text" class="form-control col-xs-9" ng-model="data.orderSenderInfoVo.tel">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-sm-4 margin-bottom">
+                        <div class="input-group">
+                            <span class="input-group-addon">发件国家</span>
+                            <input type="text" class="form-control col-xs-9" ng-model="data.orderSenderInfoVo.country">
+                        </div>
+                    </div>
+                    <div class="col-sm-4 margin-bottom">
+                        <div class="input-group">
+                            <span class="input-group-addon">发件地址</span>
+                            <input type="text" class="form-control col-xs-9" ng-model="data.orderSenderInfoVo.address">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-sm-4 margin-bottom">
+                        <div class="input-group">
+                            <span class="input-group-addon">异常类型</span>
+                            <span class="input-group-span"> {{data.exceptionType}} </span>
+                        </div>
+                    </div>
+                    <div class="col-sm-4 margin-bottom">
+                        <div class="input-group">
+                            <span class="input-group-addon">异常描述</span>
+                            <span class="input-group-span"> {{data.exceptionDesc}}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- table start-->
+            <div class="box-data">
+                <table class="table table-bordered table-striped">
+                    <thead>
+                        <tr>
+                            <th>序号</th>
+                            <th>商品名</th>
+                            <th>货号</th>
+                            <th>数量</th>
+                            <th>申报单价</th>
+                            <th>申报总价</th>
+                            <th>币种</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="g in data.orderGoodsList">
+                            <!-- <td><span class="add-span" ng-click="removeItem(g, $event, $index, 1)"><i class="fa fa-close"></i></span></td> -->
+                            <td ng-bind="$index+1"></td>
+                            <td ng-bind="g.goodsName"></td>
+                            <td ng-bind="g.productId"></td>
+                            <td>
+                                <input type="text" name="qty" class="form-control col-xs-4" ng-model="g.qty" ng-pattern="/^[1-9][0-9]{0,9}$/">
+                                <span style="color:red"  ng-show="form.qty.$dirty && form.qty.$invalid ">
+                                    <span ng-show="form.qty.$error">最大只能输入10位数字</span>
+                                </span>
+                            </td>
+                            <td>
+                                <input type="text" name="price" class="form-control col-xs-4" ng-model="g.price" ng-maxlength="10" ng-pattern="/^(\d|([1-9]\d+))(\.\d{1,2})?$/">
+                                <span style="color:red"  ng-show="form.price.$dirty && form.price.$invalid ">
+                                    <span ng-show="form.price.$error">不超过10位数字，最多2位小数</span>
+                                </span>
+                            </td>
+                            <td>
+                                <input type="text" name="amount" class="form-control col-xs-4" ng-model="g.amount" ng-maxlength="10" ng-pattern="/^(\d|([1-9]\d+))(\.\d{1,2})?$/">
+                                <span style="color:red"  ng-show="form.amount.$dirty && form.amount.$invalid ">
+                                    <span ng-show="form.amount.$error">不超过10位数字，最多2位小数</span>
+                                </span>
+                            </td>
+                            <td ng-bind="g.currCode"></td>
+                        </tr>
+
+                        <tr ng-repeat="row in config.goods">
+                            <!-- <td><span class="add-span" ng-click="removeItem(row, $event, $index, 0)"><i class="fa fa-close"></i></span></td> -->
+                            <td>
+                                <input type="text" class="form-control col-xs-4" ng-model="row.goodsName">
+                            </td>
+                            <td>
+                                <input type="text" class="form-control col-xs-4" ng-model="row.productId">
+                            </td>
+                            <td>
+                                <input type="text" class="form-control col-xs-4" ng-model="row.qty">
+                            </td>
+                            <td>
+                                <input type="text" class="form-control col-xs-4" ng-model="row.price">
+                            </td>
+                            <td>
+                                <input type="text" class="form-control col-xs-4" ng-model="row.amount">
+                            </td>
+                            <td>
+                                <input type="text" class="form-control col-xs-4" ng-model="row.currCode">
+                            </td>
+                        </tr>
+                        <!-- <tr>
+                            <td>
+                                <span class="add-span" ng-click="addItem($event)"><i class="fa fa-plus"></i></span>
+                            </td>
+                        </tr> -->
+
+                        <tr ng-repeat="p in data.orderPromotionList">
+                            <td>优惠券</td>
+                            <td colspan="4" ng-bind="p.proRemark"></td>
+                            <td>-<i class="fa fa-fw fa-rmb"></i><span ng-bind="p.proAmount">10</span></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>合计</td>
+                            <td colspan="4"></td>
+                            <td><i class="fa fa-fw fa-rmb"></i><span ng-bind="data.omsImportOrderDetailResult.amount"></span></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>备注</td>
+                            <td colspan="6">备注内容</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <!-- table end-->
+            <div class="box-footer">
+                <button class="btn btn-normal" ng-click="update()"><i class="fa fa-send-o" ng-disabled="form.$invalid"></i>保存并推送</button>
+                <a class="btn btn-op" ng-back>取消</a>
+            </div>
+        </div>
+        </form>
+    </div>
+</section>

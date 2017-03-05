@@ -1,0 +1,515 @@
+<style type="text/css">
+    .text-right {
+        text-align: right!important;
+    }
+    .no-padding-tops{
+        padding-top: 0!important;
+        padding-bottom: 0!important;
+    }
+    .add-span {
+        display: inline-block;
+        width: 21px;
+        height: 21px;
+        border: 1px solid #fff;
+        background: #419acd;
+        color: #fff;
+        cursor: pointer;
+        border-radius: 50%;
+    }
+    .add-span i {
+        margin-left: 5px;
+        margin-top: 4px;
+    }
+    .batch-add {
+        margin-left: 10px;
+        color: #419acd;
+        cursor: pointer;
+    }
+    .suggest-box .input-group-addon {
+        min-width: 10px!important;
+    }
+    .input-group[class*=col-] {
+        float: left;
+        padding-right: 0;
+        padding-left: 0;
+    }
+    .font-div {
+        font-family: 'microsoft yahei';
+        color: red;
+        font-size: 14px;
+    }
+    .check-label {
+        padding: 6px 12px;
+    }
+    .check-label i {
+        vertical-align: bottom;
+    }
+    .input-group-online {
+        width: 120px;
+        display: inline-block;
+    }
+    .special-addon {
+        min-width: 10px!important;
+    }
+    .addon-line-height .input-group-addon {
+        line-height: 1.4;
+    }
+    .tip-span {
+        font-size: 18px;
+        display: inline-block;
+        vertical-align: middle;
+        color: #8e8e8e;
+        height: 30px;
+        width: 30px;
+        line-height: 26px;
+        text-align: center;
+    }
+</style>
+<section class="content">
+    <div class="box box-default" ng-class="{'loading': isLoading}" st-table="data" st-pipe="list">
+        <div class="box-header">
+            <h3 class="box-title" ng-bind="page.title"></h3>
+            <nr-breadcrumb></nr-breadcrumb>
+        </div>
+        <!-- /.box-header -->
+        <div class="box-body">
+            <form name="form" class="form">
+                <div class="box-data addon-right">
+                    <div class="row margin-bottom">
+                        <div class="col-sm-4 no-padding-left">
+                            <div class="input-group require">
+                                <span class="input-group-addon">规则名称</span>
+                                <div class="select-box">
+                                    <input type="text" class="form-control col-xs-9" ng-model="data.name" required placeholder="请输入规则名称">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row margin-bottom">
+                        <div class="col-sm-4 no-padding-left">
+                            <div class="input-group require">
+                                <span class="input-group-addon">适用场景</span>
+                                <label ng-repeat="v in config.ruleSences" class="check-label">
+                                    <input type="checkbox" ng-model="v.check">
+                                    <i></i>
+                                    <span ng-bind="v.value"></span>
+                                </label>
+                            </div>
+                        </div>
+                        <div class="col-sm-4 no-padding-left">
+                            <div class="input-group require radio-combo">
+                                <span class="input-group-addon">是否有效</span>
+                                <label>
+                                    <input type="radio" name="isValid" class="nr-radio" ng-model="data.isValid" value="1" required>是
+                                </label>
+                                <label class="radio-combo">
+                                    <input type="radio" name="isValid" class="nr-radio" ng-model="data.isValid" value="0" required>否
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row margin-bottom">
+                        <div class="col-sm-4 no-padding-left">
+                            <div class="input-group require radio-combo">
+                                <span class="input-group-addon">适用范围类型</span>
+                                <!-- <label>
+                                    <input type="radio" name="typeRange" class="nr-radio" ng-model="data.verifyRangeType" value="0" required ng-change="changeTree()">全部
+                                </label>
+                                <label class="radio-combo">
+                                    <input type="radio" name="typeRange" class="nr-radio" ng-model="data.verifyRangeType" value="1" required ng-change="changeTree()">仓库
+                                </label>
+                                <label>
+                                    <input type="radio" name="typeRange" class="nr-radio" ng-model="data.verifyRangeType" value="2" required ng-change="changeTree()">商家
+                                </label>
+                                <label class="radio-combo">
+                                    <input type="radio" name="typeRange" class="nr-radio" ng-model="data.verifyRangeType" value="3" required ng-change="changeTree()">店铺
+                                </label> -->
+                                <select class="form-control" ng-model="data.verifyRangeType" ng-options="v.key as v.value for v in config.rangeTypes" ng-change="changeTree()"></select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row margin-bottom" ng-if="data.shopCompanyWarehouseInfo.length">
+                        <div class="col-sm-12 no-padding-left">
+                            <div class="input-group tree-box">
+                                <span class="input-group-addon">适用范围</span>
+                                <div class="col-md-6 left tree">
+                                    <nr-tree tree-model="data.shopCompanyWarehouseInfo" node-id='code' node-label="name" />
+                                </div>
+
+                                <div class="col-md-6 right">
+                                    <ul>
+                                        <li ng-repeat="row in data.shopCompanyWarehouseInfo | flat | filter:{checked:true}">
+                                        <span>{{ row.tail.join(' > ') }}</span><a ng-click="row.checked=!row.checked;"><i class="fa fa-fw fa-close"></i></a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row margin-bottom">
+                        <div class="col-sm-12 no-padding-left">
+                            <div class="input-group">
+                                <span class="input-group-addon">规则描述</span>
+                                <textarea class="form-control col-xs-9" ng-model="data.remark" placeholder="请输入规则描述"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="box-data addon-line-height">
+                    <div class="box-data-title">
+                        <span>规则内容</span>
+                    </div>
+                    <div class="row box-data no-margin no-padding-top">
+                        <div class="col-sm-6 no-padding">
+                            <div class="input-group">
+                                <span class="input-group-addon" style="width: 170px;">
+                                    <label>
+                                        <input type="checkbox" ng-model="ruleInfo.checks.orderAmount">
+                                        <i></i>
+                                        <span>订单总金额小于等于</span>
+                                    </label>
+                                </span>
+                                <div class="suggest-box">
+                                    <input type="text" class="form-control col-xs-9" ng-model="ruleInfo.orderAmount">
+                                </div>
+                                <span class="input-group-addon">元</span>
+                            </div>
+                        </div>
+                        <div class="col-sm-6 no-padding">
+                            <div class="input-group">
+                                <span class="input-group-addon">
+                                    <label>
+                                        <input type="checkbox" ng-model="ruleInfo.checks.orderNum">
+                                        <i></i>
+                                        <span>订单商品总数量小于等于</span>
+                                    </label>
+                                </span>
+                                <div class="suggest-box">
+                                    <input type="text" class="form-control col-xs-9" ng-model="ruleInfo.orderNum">
+                                </div>
+                                <span class="input-group-addon">件</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row box-data no-margin no-padding-top">
+                        <div class="col-sm-6 no-padding">
+                            <div class="input-group">
+                                <span class="input-group-addon">
+                                    <label>
+                                        <input type="checkbox" ng-model="ruleInfo.checks.otherMount">
+                                        <i></i>
+                                        <span>保税和BC模式税额限制</span>
+                                    </label>
+                                </span>
+                                <span class="input-group-addon text-right">误差</span>
+                                <div class="suggest-box">
+                                    <input type="text" class="form-control col-xs-9" ng-model="ruleInfo.otherMount">
+                                </div>
+                                <span class="input-group-addon">元</span>
+                            </div>
+                        </div>
+                        <div class="col-sm-6 no-padding">
+                            <div class="input-group">
+                                <span class="input-group-addon">
+                                    <label>
+                                        <input type="checkbox" ng-model="ruleInfo.checks.profile">
+                                        <i></i>
+                                        <span>身份证黑白名单验证（仅限宁波海关）</span>
+                                    </label>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row box-data no-margin no-padding-top">
+                        <div class="col-sm-4 no-padding">
+                            <div class="input-group">
+                                <span class="input-group-addon" style="width: 170px;">
+                                    <label>
+                                        <input type="checkbox" ng-model="ruleInfo.checks.goodsAmount">
+                                        <i></i>
+                                        <span>商品最低售价百分比</span>
+                                    </label>
+                                </span>
+                                <div class="suggest-box">
+                                    <input type="text" class="form-control col-xs-9" ng-model="ruleInfo.goodsAmount">
+                                </div>
+                                <span class="input-group-addon">%</span>
+                            </div>
+                        </div>
+                        <div class="col-sm-4 no-padding">
+                            <div class="input-group">
+                                <span class="input-group-addon">活动时间
+                                    <span class="fa fa-info-circle tip-span" uib-tooltip="活动时间范围内，本规则适用范围内的商品金额不受限制，超过活动时间后继续生效"></span>
+                                </span>
+                                <div class="select-box">
+                                    <input type="text" class="form-control col-xs-9" datetime-picker="yyyy-MM-dd HH:mm:ss" ng-model="ruleInfo.startTime" is-open="isOpen" ng-focus="openCalendar($event, 0)">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-4 no-padding">
+                            <div class="input-group">
+                                <span class="input-group-addon" style="text-align: center;">——</span>
+                                <div class="select-box">
+                                    <input type="text" class="form-control col-xs-9" datetime-picker="yyyy-MM-dd HH:mm:ss" ng-model="ruleInfo.endTime" is-open="isEnd" ng-focus="openCalendar($event, 1)">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row box-data no-margin no-padding-top">
+                        <div class="col-sm-12 no-padding">
+                            <div class="input-group">
+                                <span class="input-group-addon" style="width: 154px;">
+                                    <label>
+                                        <input type="checkbox" ng-model="ruleInfo.checks.realAmount">
+                                        <i></i>
+                                        <span>实付金额校验</span>
+                                    </label>
+                                </span>
+                                <span class="input-group-addon text-center special-addon">
+                                    <label>
+                                        <input type="checkbox" ng-model="ruleInfo.checks.payment">
+                                        <i></i>
+                                        <span>商品金额</span>
+                                    </label>
+                                </span>
+                                <span class="input-group-addon text-center special-addon">
+                                    <label>
+                                        <input type="checkbox" ng-model="ruleInfo.checks.taxAmount">
+                                        <i></i>
+                                        <span>税额</span>
+                                    </label>
+                                </span>
+                                <span class="input-group-addon special-addon">
+                                    <label>
+                                        <input type="checkbox" ng-model="ruleInfo.checks.postFee">
+                                        <i></i>
+                                        <span>运费</span>
+                                    </label>
+                                </span>
+                                <span class="input-group-addon text-center special-addon">
+                                    <label>
+                                        <input type="checkbox" ng-model="ruleInfo.checks.insuranceFee">
+                                        <i></i>
+                                        <span>保费</span>
+                                    </label>
+                                </span>
+                                <span class="input-group-addon special-addon">
+                                    <label>
+                                        <input type="checkbox" ng-model="ruleInfo.checks.disAmount">
+                                        <i></i>
+                                        <span>优惠金额（-）</span>
+                                    </label>
+                                </span>
+                                <span class="input-group-addon text-right special-addon">误差</span>
+                                <div class="suggest-box">
+                                    <input type="text" class="form-control col-xs-9" ng-model="ruleInfo.realAmount">
+                                </div>
+                                <span class="input-group-addon special-addon">元</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row box-data no-margin no-padding-tops">
+                        <div class="col-sm-12 no-padding">
+                            <div class="input-group">
+                                <span class="input-group-addon">
+                                    <label>
+                                        <input type="checkbox" ng-model="ruleInfo.checks.logistic">
+                                        <i></i>
+                                        <span>指定快递</span>
+                                    </label>
+                                </span>
+                                <div class="row box-data no-padding-top" ng-repeat="item in ruleInfo.specialLogistic">
+                                    <div class="col-sm-3 no-padding">
+                                        <div class="input-group">
+                                            <span class="input-group-addon text-right special-addon">快递公司</span>
+                                            <div class="select-box">
+                                                <select class="form-control" ng-model="item.logisticName" ng-options="v.code as v.name for v in config.logisticList"></select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-3 no-padding">
+                                        <div class="input-group">
+                                            <span class="input-group-addon text-right special-addon">省</span>
+                                            <div class="select-box">
+                                                <!-- <input type="text" class="form-control col-xs-9" ng-model="item.province" disabled> -->
+                                                <select class="form-control" ng-model="item.province" ng-options="v.areaname as v.areaname for v in config.area_info" ng-change="getCities('0', item)"></select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-3 no-padding">
+                                        <div class="input-group">
+                                            <span class="input-group-addon text-right special-addon">市</span>
+                                            <div class="select-box">
+                                                <!-- <input type="text" class="form-control col-xs-9" ng-model="item.city" disabled> -->
+                                                <select class="form-control" ng-model="item.city" ng-options="v.areaname as v.areaname for v in item.citys" ng-change="getCities('1', item)"></select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-3 no-padding">
+                                        <div class="input-group">
+                                            <span class="input-group-addon text-right special-addon">区</span>
+                                            <div class="select-box">
+                                                <!-- <input type="text" class="form-control col-xs-9" ng-model="item.dist" disabled> -->
+                                                <select class="form-control" ng-model="item.dist" ng-options="v.areaname as v.areaname for v in item.dists"></select>
+                                            </div>
+                                            <span class="input-group-addon" ng-click="removeItem($event, $index, 1)" style="min-width: 10px;">
+                                                <span class="add-span"><i class="fa fa-close"></i></span>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row box-data no-padding-top">
+                                    <div class="col-sm-3 no-padding">
+                                        <div class="input-group">
+                                            <span class="input-group-addon text-right special-addon">快递公司</span>
+                                            <div class="select-box">
+                                                <select class="form-control" ng-model="parms.logisticName" ng-options="v.code as v.name for v in config.logisticList"></select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-3 no-padding">
+                                        <div class="input-group">
+                                            <span class="input-group-addon text-right special-addon">省</span>
+                                            <div class="select-box">
+                                                <select class="form-control" ng-model="parms.province" ng-options="v.areaname as v.areaname for v in config.area_info" ng-change="getCities('0')"></select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-3 no-padding">
+                                        <div class="input-group">
+                                            <span class="input-group-addon text-right special-addon">市</span>
+                                            <div class="select-box">
+                                                <select class="form-control" ng-model="parms.city" ng-options="v.areaname as v.areaname for v in config.city" ng-change="getCities('1')"></select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-3 no-padding">
+                                        <div class="input-group">
+                                            <span class="input-group-addon text-right special-addon">区</span>
+                                            <div class="select-box">
+                                                <select class="form-control" ng-model="parms.dist" ng-options="v.areaname as v.areaname for v in config.dist"></select>
+                                            </div>
+                                            <span class="input-group-addon" style="min-width: 10px;">
+                                                <span class="add-span" ng-click="addItem($event,1)"><i class="fa fa-plus"></i></span>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row box-data no-margin no-padding-top">
+                        <div class="col-sm-12 no-padding">
+                            <div class="input-group">
+                                <span class="input-group-addon">
+                                    <label>
+                                        <input type="checkbox" ng-model="ruleInfo.checks.someGoods">
+                                        <i></i>
+                                        <span>商品限制</span>
+                                    </label>
+                                </span>
+                                <div class="input-group suggest-box col-sm-2 margin-bottom" ng-repeat="item in ruleInfo.someGoods" >
+                                    <input type="text" class="form-control col-xs-9" ng-model="item.goodsName">
+                                    <span class="input-group-addon" ng-click="removeItem($event, $index, 3)">
+                                        <span class="add-span"><i class="fa fa-close"></i></span>
+                                    </span>
+                                </div>
+                                <div class="input-group suggest-box col-sm-3">
+                                    <input type="text" class="form-control col-xs-9" ng-model="parms.somegoods">
+                                    <span class="input-group-addon">
+                                        <span class="add-span" ng-click="addItem($event,3)"><i class="fa fa-plus"></i></span>
+                                        <span class="batch-add" ng-click="addGoods(0)">批量添加</span>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row box-data no-margin no-padding-top">
+                        <div class="col-sm-12 no-padding">
+                            <div class="input-group">
+                                <span class="input-group-addon">
+                                    <label>
+                                        <input type="checkbox" ng-model="ruleInfo.checks.someHSCodes">
+                                        <i></i>
+                                        <span>HS编码限制</span>
+                                    </label>
+                                </span>
+                                <div class="input-group suggest-box col-sm-2 margin-bottom" ng-repeat="item in ruleInfo.someHSCodes">
+                                    <input type="text" class="form-control col-xs-9" ng-model="item.hsCodes">
+                                    <span class="input-group-addon" ng-click="removeItem($event, $index, 4)">
+                                        <span class="add-span"><i class="fa fa-close"></i></span>
+                                    </span>
+                                </div>
+                                <div class="input-group suggest-box col-sm-3">
+                                    <input type="text" class="form-control col-xs-9" ng-model="parms.somehscoods">
+                                    <span class="input-group-addon">
+                                        <span class="add-span" ng-click="addItem($event,4)"><i class="fa fa-plus"></i></span>
+                                        <span class="batch-add" ng-click="addGoods(1)">批量添加</span>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row box-data no-margin no-padding-top">
+                        <div class="col-sm-12 no-padding">
+                            <div class="input-group">
+                                <span class="input-group-addon">
+                                    <label>
+                                        <input type="checkbox" ng-model="ruleInfo.checks.someCities">
+                                        <i></i>
+                                        <span>敏感地址排除</span>
+                                    </label>
+                                </span>
+                                <div class="input-group suggest-box col-sm-2 margin-bottom" ng-repeat="item in ruleInfo.someCities">
+                                    <input type="text" class="form-control col-xs-9" ng-model="item.cityName">
+                                    <span class="input-group-addon" ng-click="removeItem($event, $index, 2)">
+                                        <span class="add-span"><i class="fa fa-close"></i></span>
+                                    </span>
+                                </div>
+                                <div class="input-group suggest-box col-sm-3">
+                                    <input type="text" class="form-control col-xs-9" ng-model="parms.somecities">
+                                    <span class="input-group-addon" ng-click="addItem($event,2)">
+                                        <span class="add-span"><i class="fa fa-plus"></i></span>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="box-footer">
+                    <button class="btn btn-normal" ng-click="saveAbroad()" ng-disabled="form.$invalid">保存</button>
+                    <a class="btn btn-op" ng-back>取消</a>
+                </div>
+            </form>
+        </div>
+        <!-- /.box-body -->
+    </div>
+</section>
+<script type="text/ng-template" id="example.html">
+    <div class="modal fade in" style="display:block;">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" ng-click="close(false)"><span aria-hidden="true">×</span></button>
+                    <h4 class="modal-title" ng-bind="data.title">批量添加商品</h4>
+                </div>
+                <form name="form">
+                    <div class="modal-body box-default select-box">
+                        <div class="font-div">使用<span ng-bind="data.tip">HS编码</span>录入，用,分隔</div>
+                        <div class="row box-data no-margin">
+                            <div class="col-sm-12">
+                                <div class="input-group require col-sm-12 no-padding">
+                                    <textarea class="form-control col-xs-9" ng-model="data.code" placeholder="录入用“,”分隔例如：289182918291,929019281028,298103245723"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer text-center">
+                    <!-- ng-disabled="form.$invalid" -->
+                        <button class="btn btn-primary pull-center" ng-click="close(true)">确定</button>
+                        <button class="btn btn-default pull-center" ng-click="close(false)">取消</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</script>

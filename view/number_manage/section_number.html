@@ -1,0 +1,186 @@
+<style type="text/css">
+    .border-dot-botttom {
+        padding: 20px 0;
+        border-bottom: 1px dashed #ddd;
+    }
+    .border-dot-botttom:last-child {
+        border-bottom: none;
+    }
+    .border-dot-botttom .get-number .post-name {
+        color: #419acd;
+        padding: 6px 5px;
+        display: inline-block;
+    }
+    .border-dot-botttom .get-number input {
+        margin-left: 5px;
+        padding: 6px 5px;
+        width: 100px;
+        border: 1px solid #d2d6de;
+    }
+    .border-dot-botttom .get-number input[disabled] {
+        background-color: #eee;
+    }
+    .section-warehouse, .section-warehouse .input-group .input-group-addon {
+        font-size: 16px;
+    }
+    .section-warehouse .input-group .input-group-addon {
+        padding-right: 55px;
+    }
+    .box-data .box-data-title span{
+        margin-left: 15px;
+        color: #138ed4;
+        cursor: pointer;
+        margin-right: 20px;
+    }
+    .box-add-danger {
+        border-top: 1px dashed #999;
+        border-bottom: 1px dashed #999;
+        padding: 20px 10px;
+        margin-bottom: 20px;
+    }
+    .box-add-danger .input-group-addon {
+        min-width: 58px!important;
+    }
+    .label-left {
+        padding-left: 12px;
+    }
+    .add-span {
+        display: inline-block;
+        width: 21px;
+        height: 21px;
+        border: 1px solid #fff;
+        background: #419acd;
+        color: #fff;
+        cursor: pointer;
+        border-radius: 50%;
+    }
+    .add-span i {
+        margin-left: 5px;
+        margin-top: 4px;
+    }
+</style>
+
+<section class="content">
+    <div class="box box-default" ng-class="{'loading': page.isLoading}">
+        <div class="box-header">
+            <h3 class="box-title">号段获取</h3>
+            <nr-breadcrumb></nr-breadcrumb>
+        </div>
+        <!-- /.box-header -->
+        <div class="box-body">
+            <div class="box-filter margin-bottom">
+                <div class="row" ng-if="data.warehouses.length">
+                    <div class="col-sm-12 section-warehouse">
+                        <div class="input-group">
+                            <span class="input-group-addon">当前仓库</span>
+                            <div class="box-select">
+                                <label ng-repeat="v in data.warehouses">
+                                    <input type="radio" value={{v.code}} ng-model="data.warehouse" name="data" ng-change="getSurplus()"/>
+                                    <span>{{v.name}}</span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="box-body box-add-danger" ng-if="data.surpluses.length">
+            <div class="box-data" ng-if="data.surpluses.length">
+                <div class="box-data-title">
+                    <span>预警设置</span>
+                    <button class="btn btn-normal" ng-click='addContact($event)'><i class="fa fa-plus"></i>添加预警人</button>
+                </div>
+                <div class="row margin-bottom">
+                    <div class="col-sm-4 col-sm-offset-4">
+                        <div class="col-sm-4">
+                            <div class="input-group">
+                                <label class="label-left">
+                                    <input type="checkbox" name="" ng-model="data.dangerInfo.rule.warnPage"> 
+                                    <i></i> 
+                                    <span>发布页面预警</span>
+                                </label> 
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="input-group">
+                                <label class="label-left">
+                                    <input type="checkbox" name="" ng-model="data.dangerInfo.rule.warnMessage"> 
+                                    <i></i> 
+                                    <span>预警信息接收人</span>
+                                </label> 
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row margin-bottom" ng-repeat="row in data.dangerInfo.contacts">
+                    <div class="col-sm-4">
+                        <div class="input-group">
+                            <span class="input-group-addon">姓名</span>
+                            <input type="text" class="form-control col-xs-9" ng-model="row.contactMan" placeholder="请输入姓名">
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="input-group">
+                            <span class="input-group-addon">手机号</span>
+                            <input type="tel" class="form-control col-xs-9" ng-model="row.contactPhone" placeholder="请输入手机号" maxlength="11">
+                            <span class="input-group-addon" ng-click="removeItem($index)">
+                                <span class="add-span"><i class="fa fa-close"></i></span>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="row margin-bottom">
+                    <div class="col-sm-4">
+                        <div class="input-group">
+                            <span class="input-group-addon">姓名</span>
+                            <input type="text" class="form-control col-xs-9" ng-model="parms.name" placeholder="请输入姓名">
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="input-group">
+                            <span class="input-group-addon">手机号</span>
+                            <input type="tel" class="form-control col-xs-9" ng-model="parms.tel" placeholder="请输入手机号" maxlength="11">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="box-body" ng-if="data.surpluses.length">
+            <div class="box-data">
+                <div class="box-data-title">
+                    <span>号段获取</span>
+                </div>
+                <div class="row border-dot-botttom" ng-repeat="row in data.surpluses">
+                    <div class="col-sm-12">
+                        <div class="input-group">
+                            <span class="input-group-addon" ng-bind="config.log_hash[row.logisticsName]"></span>
+                            <div class="box-select get-number col-sm-3">
+                                <span>当前剩余</span>
+                                <input type="number" disabled value="{{row.curNum}}">
+                            </div>
+                            <div class="box-select get-number col-sm-4">
+                                <span>预警值</span>
+                                <input type="number" ng-model="row.dangerNum">
+                                <span ng-show="data.dangerInfo.rule.warnPage && row.dangerNum>row.curNum" style="color: red;">号段池单号不足！</span>
+                            </div>
+                            <div class="box-select get-number col-sm-3">
+                                <span>获取数量</span>
+                                <input type="number" ng-model="row.getNum">
+                            </div>
+                            <div class="box-select get-number col-sm-2">
+                                <button class="btn btn-op" ng-click="getNumber(row)" ng-disabled="!row.getNum || row.getNum<0">获取号段</button>
+                                <!-- <button class="btn btn-op" ng-click="getNumber(row)">获取号段</button> -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="box-footer">
+                <button class="btn btn-normal" ng-click="saveDanger()">保存</button>
+                <a class="btn btn-op" ng-back>取消</a>
+            </div>
+        </div>
+    </div>
+</section>

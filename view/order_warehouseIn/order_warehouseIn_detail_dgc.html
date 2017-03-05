@@ -1,0 +1,67 @@
+<section class="box box-default">
+    <div class="box-header">
+        <h3 class="box-title">入库单详情</h3>
+        <span class="margin">沙田海关</span>
+        <nr-breadcrumb></nr-breadcrumb>  
+    </div>
+    <div class="container-fluid page-detail">
+        <!--页面头部--结束-->
+        <section class="content">
+            <!-- 详情字段--start-->
+            <div class="wrapOne boder-solid">
+                <ul class="row">
+                    <li class="col-md-3">
+                        <div class="title">入库状态</div><span class="value">{{data.orderWarehouseEntryVo.statusDesc}}</span></li>
+                    <!--<div class="title ">入库状态</div><span class="value"> {{status[data.orderWarehouseEntryVo.status]== undefined ? "未知":status[data.orderWarehouseEntryVo.status]}}</span></li>-->
+                    <li class="col-md-3">
+                        <div class="title">入库单号</div><span class="value">{{data.orderWarehouseEntryVo.asnsono}} </span></li>
+                    <li class="col-md-3">
+                        <div class="title">创建时间</div><span class="value">{{data.orderWarehouseEntryVo.createTime}} </span></li>
+                    <li class="col-md-3">
+                        <div class="title">预计到货</div><span class="value">{{data.orderWarehouseEntryVo.preArrivalDate}} </span></li>
+                    <li class="col-md-3">
+                        <div class="title">报检单号</div><span class="value">{{data.orderWarehouseEntryVo.inspectionNo}} </span></li>
+                    <li class="col-md-3">
+                        <div class="title">商家名称</div><span class="value">{{data.customerName}} </span></li>
+                    <li class="col-md-3">
+                        <div class="title">订单数量</div><span class="value">{{data.orderWarehouseEntryVo.amount}} </span></li>
+                </ul>
+            </div>
+            <!-- 详情字段--end-->
+            <!-- table--start-->
+            <div class="col-md-12 wrapMargin box ">
+                <table class="table table-bordered table-striped">
+                    <thead>
+                        <tr>
+                            <th class="col-md-1">序号</th>
+                            <th class="col-md-2">商品名</th>
+                            <th class="col-md-2">货号</th>
+                            <th class="col-md-1">数量</th>
+                            <th class="col-md-1">申报单价</th>
+                            <th class="col-md-1">申报总价</th>
+                            <th class="col-md-2">生产日期</th>
+                            <th class="col-md-2">失效日期</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="g in data.orderGoodsList">
+                            <td ng-bind="$index+1"></td>
+                            <td ng-bind="g.goodsName"></td>
+                            <td ng-bind="g.productId"></td>
+                            <td ng-bind="g.qty"></td>
+                            <td ng-bind="g.price"></td>
+                            <td ng-bind="g.amount"></td>
+                            <td ng-bind="g.productDate"></td>
+                            <td ng-bind="g.expireDate"></td>
+                        </tr>
+                    </tbody>
+                </table>
+                <!-- 详情表内容--end-->
+            </div>
+            <!-- table--end-->
+            <div class="conWidth">
+                <a class="btn btn-block btn-primary" href="/cross_border/orderWarehouseIn">返回</a>
+            </div>
+        </section>
+    </div>
+</section>

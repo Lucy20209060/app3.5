@@ -1,0 +1,84 @@
+
+.custom-area ul.remove {
+  height: 236px;
+  border: 1px solid #d2d6de;
+  overflow-y: auto;
+}
+.custom-area ul.remove li {
+  padding-left: 12px;
+  height: 36px;
+  line-height: 36px;
+  position: relative;
+  border: 1px solid #fff;
+  outline: none;
+}
+.custom-area ul.remove li .menu {
+  float: right;
+  display: block;
+}
+.custom-area ul.remove li a {
+  height: 34px;
+  width: 34px;
+  line-height: 34px;
+  text-align: center;
+  /*                right: 0;
+                top: 0;*/
+  cursor: pointer;
+  display: none;
+  float: left;
+}
+.custom-area ul.remove li:hover {
+  border-color: #138ed4;
+  color: #138ed4;
+}
+.custom-area ul.remove li:hover a {
+  color: #bbb;
+  display: block;
+}
+.custom-area ul.remove li.select a {
+  display: block;
+  color: #138ed4;
+}
+.custom-area ul.remove.remove li a:hover {
+  background-color: #138ed4;
+  color: #fff;
+}
+.custom-area input {
+  height: 36px;
+  line-height: 36px;
+  padding: 0 8px;
+  width: 100%;
+  outline: none;
+}
+.custom-area input + ul.remove {
+  height: 200px;
+  border-top: none;
+}
+
+
+.custom-area .area-select{
+  position: relative;
+}
+
+.custom-area .ui-dropdown
+{
+  width: 33.33333333%;
+  position: static;
+}
+
+.custom-area .ui-dropdown .dd-toggle{
+  width:100%;
+}
+.custom-area .ui-dropdown .dd-menu{
+  width:100%;
+}
+
+.custom-area .ui-dropdown .dd-menu li{
+  float:left;min-width:90px;
+      text-align: center;
+}
+
+.custom-area .ui-dropdown:nth-child(n+2) .dd-toggle
+{
+  border-left:none;
+}

@@ -1,0 +1,348 @@
+<style type="text/css">
+    .box-head-operation button {
+        margin-left: 15px;
+    }
+</style>
+<section class="content">
+    <div class="box box-default page-detail" ng-class="{'loading': isLoading}" st-table="data" st-pipe="list">
+        <div class="box-header">
+            <h3 class="box-title">{{ titles }}</h3>
+            <span class="margin">{{customs[data.orderInfo.customCode]}}</span>
+            <div ng-if="!type">
+                <nr-breadcrumb></nr-breadcrumb>
+            </div>
+            <ol class="breadcrumb" ng-if="type">
+                <li>首页</li>
+                <li>
+                    <span>跨境业务</span>
+                </li>
+                <li>
+                    <a href="/cross_border/exception_order_list">异常订单管理</a>
+                </li>
+            </ol>
+        </div>
+        <!-- /.box-header -->
+        <!-- /.box-header -->
+        <div class="box-body" style="padding-right: 50px">
+            <div class="box-head-operation">         
+                <button class="btn btn-primary pull-right" ng-click="removeOrder()">取消订单</button>
+                <a class="btn btn-primary pull-right" href="/cross_border/goods_declare_edit/{{data.orderInfo.customCode | lowercase}}/{{id}}" ng-if="type">修改订单</a>
+            </div>
+        </div>
+        <div class="box-body">
+            <!-- 详情字段start-->
+            <div class="box-data">
+                <div class="row">
+                    <div class="col-sm-3 margin-bottom">
+                        <div class="input-group">
+                            <span class="input-group-addon txtR">申报状态</span>
+                            <span class="input-group-span"> {{data.orderInfo.statusDesc}}</span>
+                        </div>
+                    </div>
+                    <div class="col-sm-3 margin-bottom">
+                        <div class="input-group">
+                            <span class="input-group-addon txtR">订单号</span>
+                            <span class="input-group-span"> {{data.orderInfo.busOrderNo}}</span>
+                        </div>
+                    </div>
+                    <div class="col-sm-3 margin-bottom">
+                        <div class="input-group">
+                            <span class="input-group-addon txtR">下单时间</span>
+                            <span class="input-group-span"> {{data.orderInfo.dealDate}}</span>
+                        </div>
+                    </div>
+                    <div class="col-sm-3 margin-bottom">
+                        <div class="input-group">
+                            <span class="input-group-addon txtR">创建时间</span>
+                            <span class="input-group-span"> {{data.orderInfo.createTime}}</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-sm-3 margin-bottom">
+                        <div class="input-group">
+                            <span class="input-group-addon txtR">业务类型</span>
+                            <span class="input-group-span"> {{bizType[data.orderInfo.bizTypeCode]}}</span>
+                        </div>
+                    </div>
+                    <div class="col-sm-3 margin-bottom">
+                        <div class="input-group">
+                            <span class="input-group-addon txtR">起运国</span>
+                            <span class="input-group-span"> {{data.orderInfo.despArriCountryCode}}</span>
+                        </div>
+                    </div>
+                    <div class="col-sm-3 margin-bottom">
+                        <div class="input-group">
+                            <span class="input-group-addon txtR">运输方式</span>
+                            <span class="input-group-span"> {{data.orderInfo.shipToolCode}}</span>
+                        </div>
+                    </div>
+                    <div class="col-sm-3 margin-bottom">
+                        <div class="input-group">
+                            <span class="input-group-addon txtR">客户名称</span>
+                            <span class="input-group-span"> {{data.orderInfo.bcode}}</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-sm-3 margin-bottom">
+                        <div class="input-group">
+                            <span class="input-group-addon txtR">关税额</span>
+                            <span class="input-group-span"> {{data.orderInfo.tariffAmount}}</span>
+                        </div>
+                    </div>
+                    <div class="col-sm-3 margin-bottom">
+                        <div class="input-group">
+                            <span class="input-group-addon txtR">增值税额</span>
+                            <span class="input-group-span"> {{data.orderInfo.addedValueTaxAmount}}</span>
+                        </div>
+                    </div>
+                    <div class="col-sm-3 margin-bottom">
+                        <div class="input-group">
+                            <span class="input-group-addon txtR">消费税额</span>
+                            <span class="input-group-span"> {{data.orderInfo.consumptionDutyAmount}}</span>
+                        </div>
+                    </div>
+                    <div class="col-sm-3 margin-bottom">
+                        <div class="input-group">
+                            <span class="input-group-addon txtR">保价费</span>
+                            <span class="input-group-span"> {{data.orderInfo.insuranceFee}}</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-sm-3 margin-bottom">
+                        <div class="input-group">
+                            <span class="input-group-addon txtR">运费</span>
+                            <span class="input-group-span"> {{data.orderInfo.postFee}}</span>
+                        </div>
+                    </div>
+                    <div class="col-sm-3 margin-bottom">
+                        <div class="input-group">
+                            <span class="input-group-addon txtR">税额</span>
+                            <span class="input-group-span"> {{data.orderInfo.taxAmount}}</span>
+                        </div>
+                    </div>
+                    <div class="col-sm-3 margin-bottom">
+                        <div class="input-group">
+                            <span class="input-group-addon txtR">贷款总额</span>
+                            <span class="input-group-span"> {{data.orderInfo.goodsFee}}</span>
+                        </div>
+                    </div>
+                    <div class="col-sm-3 margin-bottom">
+                        <div class="input-group">
+                            <span class="input-group-addon txtR">实付金额</span>
+                            <span class="input-group-span"> {{data.orderInfo.amount}}</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-sm-3 margin-bottom">
+                        <div class="input-group">
+                            <span class="input-group-addon txtR">优惠金额</span>
+                            <span class="input-group-span"> {{data.orderInfo.disAmount}}</span>
+                        </div>
+                    </div>
+                    <div class="col-sm-3 margin-bottom">
+                        <div class="input-group">
+                            <span class="input-group-addon txtR">审核时间</span>
+                            <span class="input-group-span"> {{data.toCustomTime}}</span>
+                        </div>
+                    </div>
+                    <div class="col-sm-3 margin-bottom">
+                        <div class="input-group">
+                            <span class="input-group-addon txtR">推送WMS时间</span>
+                            <span class="input-group-span"> {{data.toWmsTime}}</span>
+                        </div>
+                    </div>
+                    <div class="col-sm-3 margin-bottom">
+                        <div class="input-group">
+                            <span class="input-group-addon txtR">分配时间</span>
+                            <span class="input-group-span"> {{data.distributeTime}}</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-sm-3 margin-bottom">
+                        <div class="input-group">
+                            <span class="input-group-addon txtR">装箱时间</span>
+                            <span class="input-group-span"> {{data.packingTime}}</span>
+                        </div>
+                    </div>
+                    <div class="col-sm-3 margin-bottom">
+                        <div class="input-group">
+                            <span class="input-group-addon txtR">完成时间</span>
+                            <span class="input-group-span"> {{data.completeTime}}</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-sm-3 margin-bottom">
+                        <div class="input-group">
+                            <span class="input-group-addon txtR">验证类型</span>
+                            <span class="input-group-span"> {{data.orderInfo.checkType}}</span>
+                        </div>
+                    </div>
+                    <div class="col-sm-3 margin-bottom">
+                        <div class="input-group">
+                            <span class="input-group-addon txtR">订购人账号</span>
+                            <span class="input-group-span"> {{data.orderInfo.buyerAccount}}</span>
+                        </div>
+                    </div>
+                    <div class="col-sm-3 margin-bottom">
+                        <div class="input-group">
+                            <span class="input-group-addon txtR">订购人姓名</span>
+                            <span class="input-group-span"> {{data.orderBuyerInfoVo.name}}</span>
+                        </div>
+                    </div>
+                    <div class="col-sm-3 margin-bottom">
+                        <div class="input-group">
+                            <span class="input-group-addon txtR">订购人证件类型</span>
+                            <span class="input-group-span"> {{config.idType[data.orderBuyerInfoVo.idType]}}</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-sm-3 margin-bottom">
+                        <div class="input-group">
+                            <span class="input-group-addon txtR">订购人证件号码</span>
+                            <span class="input-group-span"> {{data.orderBuyerInfoVo.idNum}}</span>
+                        </div>
+                    </div>
+                    <div class="col-sm-3 margin-bottom">
+                        <div class="input-group">
+                            <span class="input-group-addon txtR">电商平台</span>
+                            <span class="input-group-span"> {{data.orderInfo.orderFrom}}</span>
+                        </div>
+                    </div>
+                    <div class="col-sm-3 margin-bottom">
+                        <div class="input-group">
+                            <span class="input-group-addon txtR">快递公司</span>
+                            <span class="input-group-span"> {{data.orderLogisticsVo.logisticsName}}</span>
+                        </div>
+                    </div>
+                    <div class="col-sm-3 margin-bottom">
+                        <div class="input-group">
+                            <span class="input-group-addon txtR">快递单号</span>
+                            <span class="input-group-span"> {{data.orderLogisticsVo.waybillNo}}</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-sm-3 margin-bottom">
+                        <div class="input-group">
+                            <span class="input-group-addon txtR">收货人</span>
+                            <span class="input-group-span"> {{data.orderLogisticsVo.consignee}}</span>
+                        </div>
+                    </div>
+                    <div class="col-sm-3 margin-bottom">
+                        <div class="input-group">
+                            <span class="input-group-addon txtR">收货人电话</span>
+                            <span class="input-group-span"> {{data.orderLogisticsVo.consigneeTel}}</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-sm-3 margin-bottom">
+                        <div class="input-group">
+                            <span class="input-group-addon txtR">省</span>
+                            <div class="select-box">
+                                <span class="input-group-span"> {{data.orderLogisticsVo.province}}</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-3 margin-bottom">
+                        <div class="input-group">
+                            <span class="input-group-addon txtR">市</span>
+                            <div class="select-box">
+                                <span class="input-group-span"> {{data.orderLogisticsVo.city}}</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-3 margin-bottom">
+                        <div class="input-group">
+                            <span class="input-group-addon txtR">区</span>
+                            <div class="select-box">
+                                <span class="input-group-span"> {{data.orderLogisticsVo.district}}</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-3 margin-bottom">
+                        <div class="input-group">
+                            <span class="input-group-addon txtR">收货地址</span>
+                            <span class="input-group-span"> {{data.orderLogisticsVo.consigneeAddr}}</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-sm-3 margin-bottom" ng-if="type">
+                        <div class="input-group">
+                            <span class="input-group-addon txtR">异常类型</span>
+                            <span class="input-group-span"> {{data.exceptionType}} </span>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 margin-bottom" ng-if="type">
+                        <div class="input-group">
+                            <span class="input-group-addon txtR">异常描述</span>
+                            <span class="input-group-span"> {{data.exceptionDesc}}</span>
+                        </div>
+                    </div>
+                    <div class="col-sm-3 margin-bottom" ng-if="!type">
+                        <div class="input-group">
+                            <span class="input-group-addon txtR">最新失败描述</span>
+                            <span class="input-group-span"> {{data.orderInfo.remark}}</span>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 margin-bottom" ng-if="!type">
+                        <div class="input-group">
+                            <span class="input-group-addon txtR">错误描述</span>
+                            <span class="input-group-span"> {{data.exceptionDesc}}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- table start-->
+            <div class="box-data" style="padding-left: 50px;padding-right: 50px">
+                <table class="table table-bordered table-striped">
+                    <thead>
+                        <tr>
+                            <th>序号</th>
+                            <th>商品名</th>
+                            <th>货号</th>
+                            <th>数量</th>
+                            <th>申报单价</th>
+                            <th>申报总价</th>
+                            <th>币种</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="g in data.orderGoodsList">
+                            <td ng-bind="$index+1"></td>
+                            <td>{{g.goodsName}}</td>
+                            <td>{{g.productId}}</td>
+                            <td>{{g.qty}}</td>
+                            <td>{{g.price}}</td>
+                            <td>{{g.amount}}</td>
+                            <td>{{g.currCode}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <!-- table end-->
+            <div class="box-footer">
+                <a class="btn btn-primary" ng-if="!type" href="/cross_border/goods_declare">返回</a>
+                <a class="btn btn-primary" ng-if="type" href="/cross_border/exception_order_list">返回</a>
+            </div>
+        </div>
+    </div>
+</section>

@@ -1,0 +1,162 @@
+<style type="text/css">
+    .detail-div {
+        padding: 12px 0;
+        font-size: 14px;
+        font-family: 'microsoft yahei';
+    }
+    .add-span {
+        display: inline-block;
+        width: 21px;
+        height: 21px;
+        border: 1px solid #fff;
+        background: #419acd;
+        color: #fff;
+        cursor: pointer;
+        border-radius: 50%;
+    }
+    .add-span i {
+        margin-left: 5px;
+        margin-top: 4px;
+    }
+</style>
+<section class="box box-default" ng-class="{'loading': isLoading}">
+    <div class="box-header">
+        <h3 class="box-title">航班设置详情</h3>
+        <nr-breadcrumb></nr-breadcrumb>
+    </div>
+
+    <div class="box-body">
+        <div class="box-filter margin-bottom">
+            <div class="row">
+                <div class="col-sm-4" ng-show="data.busOrderNo">
+                    <div class="input-group">
+                        <span class="input-group-addon">商家订单号</span>
+                        <div class="detail-div">{{data.busOrderNo}}</div>
+                    </div>
+                </div>
+                <div class="col-sm-4" ng-show="data.numberNo">
+                    <div class="input-group">
+                        <span class="input-group-addon">OMS订单号</span>
+                        <div class="detail-div">{{data.numberNo}}</div>
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <div class="input-group">
+                        <span class="input-group-addon">快递交接单号</span>
+                        <div class="detail-div">{{data.handoverNo}}</div>
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <div class="input-group">
+                        <span class="input-group-addon">仓 库</span>
+                        <div class="detail-div">{{data.warehouseName}}</div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-4">
+                    <div class="input-group">
+                        <span class="input-group-addon">快递公司</span>
+                        <div class="detail-div">{{data.logisticsName}}</div>
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <div class="input-group">
+                        <span class="input-group-addon">创建时间</span>
+                        <div class="detail-div">{{data.createTime}}</div>
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <div class="input-group">
+                        <span class="input-group-addon">状 态</span>
+                        <div class="detail-div">{{data.state}}</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <form name="form">
+            <div class="box-data">
+                <div class="row margin-bottom">
+                    <div class="col-sm-4">
+                        <div class="input-group require">
+                            <span class="input-group-addon">运输方式</span>
+                            <div class="select-box">
+                                <select class="form-control" ng-model="param.search.carrierWay" required ng-options="v.key as v.value for v in config.carryWay"></select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="input-group require">
+                            <span class="input-group-addon">航班号/车牌号</span>
+                            <div class="select-box">
+                                <input type="text" class="form-control col-xs-9" ng-model="param.search.flightNumber" required placeholder="请输入航班号/车牌号" ng-maxlength="50">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row margin-bottom">
+                    <div class="col-sm-4">
+                        <div class="input-group require">
+                            <span class="input-group-addon">主运单号</span>
+                            <div class="suggest-box">
+                                <input type="text" class="form-control col-xs-9" ng-model="param.search.mainNumber" required placeholder="请输入主运单号">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="input-group require">
+                            <span class="input-group-addon">目的港</span>
+                            <div class="suggest-box">
+                                <select class="form-control" ng-model="param.search.destinationPort" required ng-options="v.key as v.value for v in config.destinatyPort"></select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row margin-bottom">
+                    <div class="col-sm-4">
+                        <div class="input-group require">
+                            <span class="input-group-addon">航班号起飞时间/</br>汽车出发时间</span>
+                            <div class="select-box">
+                                <input type="text" class="form-control col-xs-9" datetime-picker="yyyy-MM-dd HH:mm:ss" ng-model="param.flightTime" is-open="isOpen" ng-focus="openCalendar($event, 0)" required">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="input-group require">
+                            <span class="input-group-addon">航班号落地时间/</br>汽车到达时间</span>
+                            <div class="select-box">
+                                <input type="text" class="form-control col-xs-9" datetime-picker="yyyy-MM-dd HH:mm:ss" ng-model="param.landingTime" is-open="isEnd" ng-focus="openCalendar($event, 1)" required">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row margin-bottom">
+                    <div class="col-sm-4">
+                        <div class="input-group require">
+                            <span class="input-group-addon">托盘编码</span>
+                            <input type="text" class="form-control col-xs-9" ng-model="param.search.saucerCode" required placeholder="请输入托盘编码" ng-maxlength="50">
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="input-group require">
+                            <span class="input-group-addon">托盘重量(KG)</span>
+                            <input type="text" class="form-control col-xs-9" name="saucerWeight" require ng-model="param.search.saucerWeight" required placeholder="请输入托盘重量（KG）" ng-maxlength="18" ng-pattern="/^\d+(?:.\d{1,3})?$/">
+                            <span style="color:red" ng-show="form.saucerWeight.$dirty && form.saucerWeight.$invalid ">
+                                <span ng-show="form.saucerWeight.$error">不超过18位数字，最多3位小数</span>
+                            </span>
+                        </div>
+                    </div>
+                    <!-- <div class="col-sm-4">
+                        <div class="input-group text-left">
+                            <span class="input-group-addon" ng-click="addSaucer()"><span class="add-span"><i class="fa fa-plus"></i></span></span>
+                        </div>
+                    </div> -->
+                </div>
+            </div>
+            <div class="box-footer">
+                <button class="btn btn-normal" ng-click="addSet()" ng-disabled="form.$invalid">航班设置</button>
+                <a class="btn btn-op" ng-back>返回</a>
+            </div>
+        </form> 
+    </div>
+</section>

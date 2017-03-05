@@ -1,0 +1,537 @@
+<style>
+    input.ng-valid {
+        color: black;
+    }
+    input.ng-invalid {
+        color: red;
+    }
+    textarea.ng-invalid{
+        color: red;
+    }
+    .box .minWidth {
+        min-width: 66px;
+    }
+    .disabledA { pointer-events: none; }
+</style>
+
+<section class="content">
+    <div class="box box-default" ng-class="{'loading': isLoading}" st-table="data" st-pipe="list">
+        <div class="box-header">
+            <h3 class="box-title" ng-bind="page.title"></h3>
+            <span ng-bind="page.customs" class="margin"></span>
+            <nr-breadcrumb></nr-breadcrumb>  
+        </div>
+        <!-- /.box-header -->
+        <div class="box-body">
+            <div>
+                <button ng-if="!isCreate"  class="btn btn-primary pull-right" ng-click="toCQCustom()"><i class="fa fa-send-o"></i>推送海关</button>
+                <!--<button ng-if="!isCreate" ng-disabled="data.statusDesc == '审核中' " class="btn btn-primary pull-right" ng-click="toCQCustom()"><i class="fa fa-send-o"></i>推送海关</button>-->
+            </div>
+            <form name="form">
+            <div class="box-data margin-bottom addon-right padding">
+                <div class="row">
+                    <div class="col-sm-4" ng-if="!isCreate">
+                        <div class="input-group require">
+                            <span class="input-group-addon">商品货号</span>
+                            <input type="text" class="form-control col-xs-9" ng-model="data.productId" disabled placeholder="请输入商品货号">
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="input-group require">
+                            <span class="input-group-addon">商品名称</span>
+                            <input type="text" name="name" class="form-control col-xs-9" ng-model="data.name" ng-maxlength="100" required placeholder="请输入商品名称">
+                            <span style="color:red"  ng-show="form.name.$dirty && form.name.$invalid ">
+                                    <span ng-show="form.name.$error">不超过100位</span>
+                                </span>
+                        </div>
+
+                    </div>
+                </div>
+                <div class=" row">
+                    <div class="col-sm-4">
+                        <div class="input-group require">
+                            <span class="input-group-addon">HS编码</span>
+                            <div class="suggest-box" auto-complete='ac_options'>
+                                <input type="text" name="hsCode" class="form-control col-xs-9" ng-model="data.hsCode" required placeholder="请输入HS编码"/>
+                            </div>
+                            <!-- errorMsg-->
+                                <span style="color:red"  ng-show="form.hsCode.$dirty && form.hsCode.$invalid || !page.verify.hsCode">
+                                    <span ng-show="form.hsCode.$error"># 请按照提示输入/选择正确的HS编码</span>
+                                </span>
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="input-group ">
+                            <span class="input-group-addon">备用条码</span>
+                            <input type="text" name="bakSkuCode" class="form-control col-xs-9"  ng-maxlength="100" ng-pattern="/^[A-Z0-9]+$/"  ng-model="data.bakSkuCode" >
+                            <span style="color:red" ng-show="form.bakSkuCode.$dirty && form.bakSkuCode.$invalid">
+                                    <span ng-show="form.bakSkuCode.$error">请输入数字和大写字符的组合，不超过100位</span>
+                                </span>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="row">
+                    <div class="col-sm-4">
+                        <div class="input-group require">
+                            <span class="input-group-addon">申报计量单位</span>
+                            <div class="suggest-box" auto-complete='ac_optionsDeclareUnit' >
+                                <!--<div class="suggest-box" auto-complete='{"suggest":suggestUnit , "select":"value" , "verify":page.verify.declareUnit}'>-->
+                                <input type="text" name="declareUnit" class="form-control col-xs-9" ng-model="data.declareUnit" required placeholder="请输入申报计量单位">
+                            </div>
+                                <span style="color:red" ng-show="form.declareUnit.$dirty && form.declareUnit.$invalid || !page.verify.declareUnit">
+                                    <span ng-show="form.declareUnit.$error"># 请按照提示输入/选择正确的值</span>
+                                </span>
+                        </div>
+                    </div>
+                    <div class="col-sm-2 input-padding-ig">
+                        <div class="input-group">
+                            <span class="input-group-addon">关税率</span>
+                            <input type="text" class="form-control col-xs-3  minWidth" ng-model="data.tariff" placeholder="" disabled>
+                        </div>
+                    </div>
+                    <div class="col-sm-2 input-padding-ig">
+                        <div class="input-group">
+                            <span class="input-group-addon">增值税率</span>
+                            <input type="text" class="form-control col-xs-3 minWidth" ng-model="data.addedValueTax" placeholder="" disabled>
+                        </div>
+                    </div>
+                    <div class="col-sm-2 input-padding-ig">
+                        <div class="input-group">
+                            <span class="input-group-addon">消费税率</span>
+                            <input type="text" class="form-control col-xs-3 minWidth" ng-model="data.consumptionDuty" placeholder="" disabled>
+                        </div>
+                    </div>
+                </div>
+                <!--<div class=" row">
+                    &lt;!&ndash;<div class="col-sm-4">
+                        <div class="input-group require">
+                            <span class="input-group-addon">规格型号</span>
+                            <input type="text" name="property" class="form-control col-xs-9" ng-model="data.property" ng-maxlength="600" required placeholder="请输入规格型号">
+                             <span style="color:red" ng-show="form.property.$dirty && form.property.$invalid">
+                                    <span ng-show="form.property.$error">不超过600位</span>
+                                </span>
+                        </div>
+                    </div>&ndash;&gt;
+
+                </div>-->
+                <div class=" row">
+                    <div class="col-sm-4">
+                        <div class="input-group require">
+                            <span class="input-group-addon">法定计量单位</span>
+                            <div class="suggest-box" auto-complete='ac_optionsUnit'>
+                                <input type="text" name="unit" class="form-control col-xs-9" ng-model="data.unit" required >
+                            </div>
+                            <span style="color:red" ng-show="form.unit.$dirty && form.unit.$invalid || !page.verify.unit">
+                                <span ng-show="form.unit.$error"># 请按照提示输入/选择正确的值</span>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="input-group require">
+                            <span class="input-group-addon">法定计量折算数量</span>
+                            <input type="text" name="legalQty" class="form-control col-xs-9" ng-model="data.legalQty" ng-maxlength="18" ng-pattern="/^\d+(?:.\d{1,2})?$/"  required >
+                            <span style="color:red" ng-show="form.legalQty.$dirty && form.legalQty.$invalid ">
+                                <span ng-show="form.legalQty.$error">不超过18位数字，最多2位小数</span>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-4">
+                        <div class="input-group require">
+                            <span class="input-group-addon">入区计量单位</span>
+                            <div class="suggest-box" auto-complete='ac_optionsInAreaUnit'>
+                            <input type="text" name="inAreaUnit" class="form-control col-xs-9" ng-model="data.inAreaUnit" required>
+                                 <span style="color:red" ng-show="form.inAreaUnit.$dirty && form.inAreaUnit.$invalid || !page.verify.inAreaUnit">
+                                    <span ng-show="form.inAreaUnit.$error"># 请按照提示输入/选择正确的值</span>
+                                </span>
+                        </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="input-group require">
+                            <span class="input-group-addon">入区计量折算数量</span>
+                            <input type="text" name="convInAreaUnitNum" class="form-control col-xs-9" ng-model="data.convInAreaUnitNum" ng-maxlength="18" ng-pattern="/^\d+(?:.\d{1,2})?$/" required>
+                             <span style="color:red" ng-show="form.convInAreaUnitNum.$dirty && form.convInAreaUnitNum.$invalid">
+                                    <span ng-show="form.convInAreaUnitNum.$error">不超过18位数字，最多2位小数</span>
+                                </span>
+                        </div>
+                    </div>
+                </div>
+                <div class=" row">
+                    <div class="col-sm-4">
+                        <div class="input-group require">
+                            <!-- TODO -->
+                            <span class="input-group-addon">商品条码</span>
+                            <input type="text" name="dsSkuCode" class="form-control col-xs-9" ng-model="data.dsSkuCode" ng-maxlength="100" ng-pattern="/^[A-Z0-9]+$/" required placeholder="请输入商品条码" ng-blur="Querybarcodes()">
+                            <span style="color:red" ng-show="form.dsSkuCode.$dirty && form.dsSkuCode.$invalid">
+                                <span ng-show="form.dsSkuCode.$error">请输入数字和大写字符的组合，不超过100位</span>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="input-group require">
+                            <span class="input-group-addon">是否试点商品</span>
+                            <div class="radio-combo col-xs-9">
+                                <label>
+                                    <input type="radio" name="r3" class="nr-radio" ng-model="data.isExperimentGoods" value="1" required>是</label>
+                                <label>
+                                    <input type="radio" name="r3" class="nr-radio" ng-model="data.isExperimentGoods" value="0" required>否</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class=" row">
+                    <div class="col-sm-4">
+                        <div class="input-group require">
+                            <span class="input-group-addon">原产地</span>
+                            <div class="suggest-box" auto-complete='ac_optionsCountry'>
+                                    <input type="text" class="form-control col-xs-9" ng-model="data.gproduction" required placeholder="请输入原产地">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                    <div class="input-group require">
+                        <span class="input-group-addon">有效期标识</span>
+                        <div class="radio-combo col-xs-9">
+                            <label>
+                                <input type="radio" name="dv" class="nr-radio" ng-model="data.shelfLifeFlag" value=1 required>是</label>
+                            <label>
+                                <input type="radio" name="dv" class="nr-radio" ng-model="data.shelfLifeFlag" value=0 required>否</label>
+                        </div>
+                    </div>
+                        </div>
+                </div>
+                <div class=" row">
+                    <div class="col-sm-4">
+                        <div class="input-group require">
+                            <span class="input-group-addon">施检机构代码</span>
+                            <!--<input type="text" class="form-control col-xs-9" ng-model="data.checkOrgCode">-->
+                            <select class="form-control" ng-model="data.checkOrgCode" ng-options="v.value as v.name for v in page.checkOrgCodes" required></select>
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="input-group">
+                            <span class="input-group-addon">品牌</span>
+                            <input type="text" class="form-control col-xs-9" ng-maxlength="100" ng-model="data.brand" placeholder="">
+                        </div>
+                    </div>
+                </div>
+                <div class=" row">
+                    <div class="col-sm-4">
+                        <div class="input-group">
+                            <span class="input-group-addon">英文原名</span>
+                            <input name="nameEn" type="text" class="form-control col-xs-9" ng-maxlength="100" ng-model="data.nameEn" placeholder="请输入英文原名">
+                            <span style="color:red" ng-show="form.nameEn.$dirty && form.nameEn.$invalid">
+                                <span ng-show="form.nameEn.$error">不超过100位</span>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="input-group">
+                            <span class="input-group-addon">中文翻译名</span>
+                            <input type="text" name="goodsNameChinese" class="form-control col-xs-9" ng-model="data.goodsNameChinese" ng-maxlength="100">
+                             <span style="color:red" ng-show="form.goodsNameChinese.$dirty && form.goodsNameChinese.$invalid">
+                                    <span ng-show="form.goodsNameChinese.$error">不超过100位</span>
+                                </span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class=" row">
+                    <div class="col-sm-4">
+                        <div class="input-group">
+                            <span class="input-group-addon">商品分类</span>
+                            <div class="suggest-box" auto-complete='ac_optionsGoodsType'>
+                                <input type="text" class="form-control col-xs-9" ng-model="data.goodsTypeCode" placeholder="请输入商品分类">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="input-group">
+                            <span class="input-group-addon">供应商名称</span>
+                            <input type="text" class="form-control col-xs-9" ng-maxlength="100" ng-model="data.supplier" placeholder="供应商名称">
+                        </div>
+                    </div>
+                </div>
+                <div class="split row">
+                    <div class="col-sm-4">
+                        <div class="input-group">
+                            <span class="input-group-addon">生产企业名称</span>
+                            <input type="text" class="form-control col-xs-9" ng-maxlength="100" ng-model="data.producerName" placeholder="请输入生产企业名称">
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="input-group">
+                            <span class="input-group-addon">生产企业国内备案</span>
+                            <div class="radio-combo">
+                                <label>
+                                    <input type="radio" name="r31" class="nr-radio" ng-model="data.isCncaPor" value="1">是</label>
+                                <label>
+                                    <input type="radio" name="r31" class="nr-radio" ng-model="data.isCncaPor" value="0">否</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class=" row">
+                    <div class="col-sm-4">
+                        <div class="input-group ">
+                            <span class="input-group-addon">有效期管理类型</span>
+                            <select class="form-control" ng-model="data.shelfLifeType" ng-options="v.value as v.name for v in page.shelfLifeTypes" ></select>
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="input-group">
+                            <span class="input-group-addon">有效期</span>
+                            <input type="text" name="shelfLife" class="form-control col-xs-9" ng-maxlength="10" ng-pattern="" ng-model="data.shelfLife" placeholder="">
+                             <span style="color:red" ng-show="form.shelfLife.$dirty && form.shelfLife.$invalid">
+                                    <span ng-show="form.shelfLife.$error">不超过10位的数字</span>
+                                </span>
+                        </div>
+                    </div>
+                </div>
+                <div class=" row">
+                <div class="col-sm-4">
+                    <div class="input-group">
+                        <span class="input-group-addon">失效期预警</span>
+                        <input type="text" name="shelfLifeAlertDays" class="form-control col-xs-9" ng-maxlength="10" ng-pattern="" ng-model="data.shelfLifeAlertDays" placeholder="">
+                                <span style="color:red" ng-show="form.shelfLifeAlertDays.$dirty && form.shelfLifeAlertDays.$invalid">
+                                    <span ng-show="form.shelfLifeAlertDays.$error">不超过10位的数字</span>
+                                </span>
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <div class="input-group">
+                        <span class="input-group-addon">入库效期</span>
+                        <input type="text" name="inBoundLifeDays" class="form-control col-xs-9"  ng-maxlength="10" ng-model="data.inBoundLifeDays" placeholder="">
+                               <span style="color:red" ng-show="form.inBoundLifeDays.$dirty && form.inBoundLifeDays.$invalid">
+                                    <span ng-show="form.inBoundLifeDays.$error">不超过10位的数字</span>
+                                </span>
+                    </div>
+                </div>
+                </div>
+                <div class=" row">
+                    <div class="col-sm-4">
+                        <div class="input-group">
+                            <span class="input-group-addon">出库效期</span>
+                            <input type="text" name="outBoundLifeDays" class="form-control col-xs-9" ng-maxlength="10" ng-pattern="" ng-model="data.outBoundLifeDays" placeholder="">
+                            <span style="color:red" ng-show="form.outBoundLifeDays.$dirty && form.outBoundLifeDays.$invalid">
+                                    <span ng-show="form.outBoundLifeDays.$error">不超过10位的数字</span>
+                                </span>
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="input-group">
+                            <span class="input-group-addon">价格</span>
+                            <input type="text" name="price" class="form-control col-xs-9" ng-maxlength="10" ng-pattern="/^(\d|([1-9]\d+))(\.\d{1,2})?$/" ng-model="data.price" placeholder="">
+                                <span style="color:red" ng-show="form.price.$dirty && form.price.$invalid">
+                                    <span ng-show="form.price.$error">不超过10位的数字，最多保留2位小数</span>
+                                </span>
+                        </div>
+                    </div>
+                </div>
+                <div class=" row">
+                    <div class="col-sm-4">
+                        <div class="input-group">
+                            <span class="input-group-addon">体积(m³)</span>
+                            <input type="text" name="skuCube" class="form-control col-xs-9" ng-maxlength="10" ng-pattern="/^(\d|([1-9]\d+))(\.\d{1,6})?$/" ng-model="data.skuCube" placeholder="">
+                                <span style="color:red" ng-show="form.skuCube.$dirty && form.skuCube.$invalid">
+                                    <span ng-show="form.skuCube.$error">不超过10位，最多6位小数</span>
+                                </span>
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="input-group require">
+                            <span class="input-group-addon">储存条件</span>
+                            <select class="form-control" ng-model="data.cycleClass" ng-options="v.value as v.name for v in page.cycleClasses" required></select>
+                        </div>
+                    </div>
+
+                </div>
+                <div class=" row">
+                    <div class="col-sm-4">
+                        <div class="input-group">
+                            <span class="input-group-addon">毛重(kg)</span>
+                            <input type="text" name="grossWeight" class="form-control col-xs-9" ng-maxlength="10" ng-pattern="/^(\d|([1-9]\d+))(\.\d{1,4})?$/" ng-model="data.grossWeight" placeholder="">
+                                <span style="color:red" ng-show="form.grossWeight.$dirty && form.grossWeight.$invalid">
+                                    <span ng-show="form.grossWeight.$error">不超过10位的数字，最多保留4位小数</span>
+                                </span>
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="input-group">
+                            <span class="input-group-addon">净重(kg)</span>
+                            <input type="text" name="weight" class="form-control col-xs-9" ng-maxlength="10" ng-pattern="/^(\d|([1-9]\d+))(\.\d{1,4})?$/" ng-model="data.weight" placeholder="">
+                            <span style="color:red" ng-show="form.weight.$dirty && form.weight.$invalid">
+                               <span ng-show="form.weight.$error">不超过10位的数字，最多保留4位小数</span>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div class=" row">
+                    <div class="col-sm-4">
+                        <div class="input-group">
+                            <span class="input-group-addon">皮重(kg)</span>
+                            <input type="text" name="tare" class="form-control col-xs-9" ng-maxlength="10" ng-pattern=" /^(\d|([1-9]\d+))(\.\d{1,4})?$/" ng-model="data.tare" placeholder="">
+                            <span style="color:red" ng-show="form.tare.$dirty && form.tare.$invalid">
+                                    <span ng-show="form.tare.$error">不超过10位的数字，最多保留4位小数</span>
+                                </span>
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="input-group">
+                            <span class="input-group-addon">泡重(m³)</span>
+                            <input type="text" name="foamWeight" class="form-control col-xs-9" ng-maxlength="10" ng-pattern="/^(\d|([1-9]\d+))(\.\d{1,6})?$/" ng-model="data.foamWeight" placeholder="">
+                             <span style="color:red" ng-show="form.foamWeight.$dirty && form.foamWeight.$invalid">
+                                    <span ng-show="form.foamWeight.$error">不超过10位的数字，最多保留6位小数</span>
+                                </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="split row">
+                    <div class="col-sm-2 input-padding-ig">
+                        <div class="input-group">
+                            <span class="input-group-addon">长(m)</span>
+                            <input type="text" name="skuLength" class="form-control col-xs-9 minWidth" ng-maxlength="10" ng-pattern="/^(\d|([1-9]\d+))(\.\d{1,3})?$/" ng-model="data.skuLength" placeholder="">
+                                <span style="color:red" ng-show="form.skuLength.$dirty && form.skuLength.$invalid">
+                                    <span ng-show="form.skuLength.$error">不超过10位，最多3位小数</span>
+                                </span>
+                        </div>
+                    </div>
+                    <div class="col-sm-2 input-padding-ig">
+                        <div class="input-group">
+                            <span class="input-group-addon">宽(m)</span>
+                            <input type="text" name="skuWidth" class="form-control col-xs-9 minWidth" ng-maxlength="10" ng-pattern="/^(\d|([1-9]\d+))(\.\d{1,3})?$/" ng-model="data.skuWidth" placeholder="">
+                            <span style="color:red" ng-show="form.skuWidth.$dirty && form.skuWidth.$invalid">
+                                    <span ng-show="form.skuWidth.$error">不超过10位，最多3位小数</span>
+                                </span>
+                        </div>
+                    </div>
+                    <div class="col-sm-2 input-padding-ig">
+                        <div class="input-group">
+                            <span class="input-group-addon">高(m)</span>
+                            <input type="text" name="skuHeight" class="form-control col-xs-9 minWidth" ng-maxlength="10" ng-pattern="/^(\d|([1-9]\d+))(\.\d{1,3})?$/" ng-model="data.skuHeight" placeholder="">
+                            <span style="color:red" ng-show="form.skuHeight.$dirty && form.skuHeight.$invalid">
+                                    <span ng-show="form.skuHeight.$error">不超过10位，最多3位小数</span>
+                                </span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class=" row">
+                    <div class="col-sm-8">
+                        <div class="input-group">
+                            <span class="input-group-addon">商品备注</span>
+                            <textarea name="comments" class="form-control col-xs-9" placeholder="请输入商品备注" ng-model="data.comments" ng-maxlength="500"></textarea>
+                                <span style="color:red" ng-show="form.comments.$dirty && form.comments.$invalid">
+                                    <span ng-show="form.comments.$error">不超过500位</span>
+                                </span>
+                        </div>
+                    </div>
+                </div>
+                <div class=" row">
+                    <div class="col-sm-8">
+                        <div class="input-group require">
+                            <span class="input-group-addon">规格型号</span>
+                            <textarea type="text" name="property" class="form-control col-xs-9" ng-model="data.property" ng-maxlength="250" required placeholder="请输入规格型号"></textarea>
+                               <span style="color:red" ng-show="form.property.$dirty && form.property.$invalid">
+                                        <span ng-show="form.property.$error">不超过250位</span>
+                                    </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="row split">
+                    <div class="col-sm-8">
+                        <div class="input-group">
+                            <span class="input-group-addon">商品描述</span>
+                            <textarea name="detail" class="form-control col-xs-9" placeholder="请输入商品描述" ng-model="data.detail" ng-maxlength="1000"></textarea>
+                             <span style="color:red" ng-show="form.detail.$dirty && form.detail.$invalid">
+                                    <span ng-show="form.detail.$error">不超过1000位</span>
+                                </span>
+                        </div>
+                    </div>
+                </div>
+            <!--</div>-->
+            <div class="box-data padding">
+                <div class=" row">
+                    <div class="col-sm-8">
+                        <div class="input-group">
+                            <span class="input-group-addon w-m text-left">食药监局、国家认监委备案附件：</span>
+                            <div nr-upload-file="upfiles.attachFile1" accept="image/*" name="attachFile1" nr-file="data_file.attachFile1Name"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class=" row">
+                    <div class="col-sm-8">
+                        <div class="input-group">
+                            <span class="input-group-addon w-m text-left">原产地证书：</span>
+                            <div nr-upload-file="upfiles.attachFile2" accept="image/*" name="attachFile2" nr-file="data_file.attachFile2Name"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class=" row">
+                    <div class="col-sm-8">
+                        <div class="input-group">
+                            <span class="input-group-addon w-m text-left">境外官方及第三方机构的检测报告：</span>
+                            <div nr-upload-file="upfiles.attachFile3" accept="image/*" name="attachFile3" nr-file="data_file.attachFile3Name"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-8">
+                        <div class="input-group">
+                            <span class="input-group-addon w-m text-left">合法采购证明（国外进货发票或小票）：</span>
+                            <div nr-upload-file="upfiles.attachFile4" accept="image/*" name="attachFile4" nr-file="data_file.attachFile4Name"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row split">
+                    <div class="col-sm-8">
+                        <div class="input-group">
+                            <span class="input-group-addon w-m text-left">外文标签的中文翻译件：</span>
+                            <div nr-upload-file="upfiles.attachFile5" accept="image/*" name="attachFile5" nr-file="data_file.attachFile5Name"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row  padding box-comment">
+                <div class="col-sm-4">
+                    <span>创建时间 : </span><label>{{data.createTime}}</label>
+                </div>
+                <div class="col-sm-4">
+                    <span>最新推送海关时间 : </span><label>{{data.toCustomTime}}</label>
+                </div>
+                <div class="col-sm-4">
+                    <span>最新推送WMS时间 : </span><label>{{data.toWmsTime}}</label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-4">
+                    <span>商品状态 : </span><label>{{data.statusDesc}}</label>
+                </div>
+                <div class="col-sm-4">
+                    <span>海关状态 : </span><label>{{data.customStatusDesc}}</label>
+                </div>
+                <div class="col-sm-4">
+                    <span>国检状态 : </span><label>{{data.gjStatusDesc}}</label>
+                </div>
+            </div>
+            <div class="row ">
+                <div class="col-sm-12">
+                    <span>最新失败描述 :</span><label>{{data.remark}}</label>
+                    </div>
+                </div>
+                <div class="box-footer">
+                    <a class="btn btn-normal"   ng-click="update()" ng-disabled=" form.$invalid || !(page.verify.declareUnit && page.verify.unit && page.verify.inAreaUnit && page.verify.hsCode)">保存</a>
+                    <a class="btn btn-op" ng-click="reset()">取消</a>
+                </div>
+            </div>
+            </form>
+        </div>
+        <!-- /.box-body -->
+    </div>
+</section>

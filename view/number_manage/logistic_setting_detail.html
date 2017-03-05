@@ -1,0 +1,85 @@
+<section class="content">
+    <div class="box box-default" ng-class="{'loading': isLoading}" st-table="data" st-pipe="list">
+        <div class="box-header">
+            <h3 class="box-title" ng-bind="page.title"></h3>
+            <nr-breadcrumb></nr-breadcrumb>
+        </div>
+        <!-- /.box-header -->
+        <div class="box-body">
+            <form name="form" class="form">
+                <div class="box-data addon-right">
+                    <div class="row margin-bottom">
+                        <div class="col-sm-4 no-padding-left">
+                            <div class="input-group require">
+                                <span class="input-group-addon">快递公司</span>
+                                <div class="select-box">
+                                    <input type="text" class="form-control col-xs-9" ng-model="data.logs.logisticsName" required placeholder="请输入快递公司">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-4 no-padding-left">
+                            <div class="input-group require">
+                                <span class="input-group-addon">快递代码</span>
+                                <div class="select-box">
+                                    <input type="text" class="form-control col-xs-9" ng-model="data.logs.logisticsCode" required placeholder="请输入快递代码">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row margin-bottom">
+                        <div class="col-sm-4 no-padding-left">
+                            <div class="input-group require">
+                                <span class="input-group-addon">单号获取</span>
+                                <div class="select-box">
+                                    <select class="form-control" ng-model="data.logs.mailFetchType" required ng-options="v.key as v.value for v in config.type"></select>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- <div class="col-sm-4 no-padding-left" ng-if="!isCreate">
+                            <div class="input-group require radio-combo">
+                                <span class="input-group-addon">是否有效</span>
+                                <label>
+                                    <input type="radio" name="r3" class="nr-radio" ng-model="data.logs.isValid" value="true" required>是
+                                </label>
+                                <label class="radio-combo">
+                                    <input type="radio" name="r3" class="nr-radio" ng-model="data.logs.isValid" value="flase" required>否
+                                </label>
+                            </div>
+                        </div> -->
+                    </div>
+                    <div class="row margin-bottom">
+                        <div class="col-sm-12 no-padding-left">
+                            <div class="input-group ">
+                                <span class="input-group-addon">盲区设置</span>
+                                <div sl-area="config.area" sl-area-select="config.area_select">
+                                    
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row margin-bottom">
+                        <div class="col-sm-12 no-padding-left">
+                            <div class="input-group tree-box">
+                                <span class="input-group-addon">接口配置</span>
+                                <div class="col-md-6 left tree">
+                                    <nr-tree tree-model="config.interface" node-id='id' node-label="businessType" />
+                                </div>
+                                <div class="col-md-6 right">
+                                    <ul>
+                                        <li ng-repeat="row in config.interface | flat | filter:{checked:true}">
+                                            <span>{{row.businessType}}</span><a ng-click="row.checked=!row.checked;"><i class="fa fa-fw fa-close"></i></a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="box-footer">
+                    <button class="btn btn-normal" ng-click="save()" ng-disabled="form.$invalid">保存</button>
+                    <a class="btn btn-op" ng-back>取消</a>
+                </div>
+            </form>
+        </div>
+        <!-- /.box-body -->
+    </div>
+</section>
